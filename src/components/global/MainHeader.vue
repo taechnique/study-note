@@ -34,7 +34,7 @@
       <font-awesome-icon icon="bars" v-on:click="this.headers.mobile.is_navi_active = true" />
       <img :src="this.headers.mobile.vue_image" />
     </div>
-    <div class="mobile-navigator-wrapper active" :class="{ active : this.headers.mobile.is_navi_active }" v-on:click="this.headers.mobile.is_navi_active = false">
+    <div class="mobile-navigator-wrapper" :class="{ active : this.headers.mobile.is_navi_active }">
       <div class="nav-panel-box">
         <div class="nav-items">
           <ul>
@@ -48,6 +48,7 @@
         </div>
       </div>
     </div>
+    <div class="background" :class="{ active : this.headers.mobile.is_navi_active }" v-on:click="this.headers.mobile.is_navi_active = false"></div>
   </div>
 </template>
 
@@ -254,6 +255,21 @@ export default {
 
     }
 
+    & .background {
+      position: fixed;
+      top:0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -999;
+
+      &.active {
+        z-index: 1;
+        background-color: rgba(0, 0, 0, 0.85);
+      }
+
+    }
+
     & .mobile-navigator-wrapper {
       position: fixed;
       top: 0;
@@ -261,30 +277,50 @@ export default {
       height: 100%;
 
       &.active {
-        width: 100%;
         height: 100%;
         left: 0;
-        background-color: rgba(0, 0, 0, 0.85);
+        z-index: 2;
       }
 
       & .nav-panel-box {
+        display: flex;
         background-color: $main-light-color;
-        width: 80%;
+        width: 100%;
         height: 100%;
+        padding: 20px 10px;
+        flex-direction: column;
+
+        & .nav-items {
+          padding: 20px 40px;
+
+          ul {
+            list-style: none;
+
+            li {
+              height: 40px;
+            }
+          }
+        }
 
         & .search-items {
 
+          width: 100%;
+
           & .search-box {
-            margin: 4px 20px 4px auto;
-            width: 150px;
-            padding: 10px 10px;
+            margin: 4px auto;
+            height: 40px;
+            padding: 3px 5px;
             border-radius: 15px;
-            border: 2px lightgray solid;
+            border: 3.34px lightgray solid;
             overflow: hidden;
 
             & input {
+              line-height: 32px;
               border: 0px;
+              width: 100%;
+              height: 100%;
               padding: 3px 5px;
+              margin: 3px 0;
               background-color: $main-light-color;
               font-size: .92rem;
 

@@ -15,8 +15,10 @@ $main-font-color: #2c3e50;
   font-style: normal;
 }
 
+
 #app {
   font-family: 'AppleSDGothicNeoB', serif;
+  color: $main-font-color;
 }
 
 * {
@@ -58,4 +60,6 @@ a {
   }
 
 }
+
+
 

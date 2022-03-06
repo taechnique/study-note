@@ -1,5 +1,6 @@
 <template>
   <MainHeader />
+  <div style="width: 100%; height: 2000px; background-color: #2c3e50"></div>
 </template>
 
 <script>

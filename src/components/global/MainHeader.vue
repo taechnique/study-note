@@ -6,22 +6,47 @@
       <li class="window window-maximize"></li>
     </ul>
     <div class="header-item-layer">
-      <div class="profile-image">
-        <img :src="me.profile_image" />
+      <div class="author-profile">
+        <div class="profile-image">
+          <img :src="me.profile_image" />
+        </div>
+        <div class="author-info">
+          <span class="author">Dev-Phantom</span>
+          <span class="author-says">세상에 기여하고 싶어요.</span>
+        </div>
       </div>
-      <div class="author-info">
-        <span class="author">Dev-Phantom</span>
-        <span class="author-says">세상에 기여하고 싶어요.</span>
+      <div class="menu-info">
+        <div class="menu-item">
+          <ul class="spread-items">
+            <li v-for="menu in this.headers.menus" v-bind:key="menu.key">{{ menu.item_name }}</li>
+          </ul>
+        </div>
+        <div class="search-layer">
+          <div class="search-box" :class="{ focus : this.headers.search_box.is_focus }">
+            <input type="search" placeholder="검색어 입력" size="18" @focus="this.headers.search_box.is_focus = true" @blur="this.headers.search_box.is_focus = false"/>
+          </div>
+        </div>
       </div>
-      <div class="menu-item">
-        <ul class="spread-items">
-          <li><span>Home</span></li>
-          <li>Categories</li>
-          <li>Tags</li>
-          <li>About</li>
-        </ul>
+    </div>
+  </div>
+  <div class="mobile-header">
+    <div class="burger" >
+      <font-awesome-icon icon="bars" v-on:click="this.headers.mobile.is_navi_active = true" />
+      <img :src="this.headers.mobile.vue_image" />
+    </div>
+    <div class="mobile-navigator-wrapper active" :class="{ active : this.headers.mobile.is_navi_active }" v-on:click="this.headers.mobile.is_navi_active = false">
+      <div class="nav-panel-box">
+        <div class="nav-items">
+          <ul>
+            <li v-for="menu in this.headers.menus" v-bind:key="menu.key">{{ menu.item_name }}</li>
+          </ul>
+        </div>
+        <div class="search-items">
+          <div class="search-box" :class="{ focus : this.headers.search_box.is_focus }">
+            <input type="search" placeholder="검색어 입력" size="18" @focus="this.headers.search_box.is_focus = true" @blur="this.headers.search_box.is_focus = false"/>
+          </div>
+        </div>
       </div>
-      <div class="search-layer"></div>
     </div>
   </div>
 </template>
@@ -29,12 +54,28 @@
 <script>
 export default {
   data() {
-    console.log(process.env)
     return {
       me: {
-        profile_image: 'https://github.com/Dev-Phantom/study-node/blob/main/src/assets/profile.png?raw=true'
+        profile_image: 'https://github.com/Dev-Phantom/study-node/blob/main/src/assets/images/profile.png?raw=true'
+      },
+      headers: {
+        search_box: {
+          is_focus: false
+        },
+        mobile: {
+          vue_image: 'https://github.com/Dev-Phantom/study-node/blob/main/src/assets/logo.png?raw=true',
+          is_navi_active: false
+        },
+        menus: [
+          {key: '0', item_name: 'Home', link_to: ''},
+          {key: '1', item_name: 'Categories', link_to: ''},
+          {key: '3', item_name: 'Tags', link_to: ''},
+          {key: '4', item_name: 'About', link_to: ''},
+        ]
       }
     }
+  },
+  methods: {
   }
 }
 </script>
@@ -42,8 +83,12 @@ export default {
 <style lang="scss">
 @import "@/styles/index.scss";
 
+.mobile-header {
+  display: none;
+}
+
 .main-header {
-  width: 70%;
+  max-width: 1080px;
   height: 200px;
   margin: 40px auto 20px auto;
   background-color: $main-light-color;
@@ -53,93 +98,120 @@ export default {
   & .header-item-layer {
     display: flex;
 
-    & .profile-image {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      border: #f9c6c6 4.45px solid;
-      overflow: hidden;
-      display: inline-block;
-      margin: 20px 20px;
-
-      & img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      &:hover {
-        border-color: #f35d5d;
+    & .author-profile {
+      display: flex;
+      & .profile-image {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: #f9c6c6 4.45px solid;
+        overflow: hidden;
+        display: inline-block;
+        margin: 20px 20px;
 
         & img {
-          -webkit-transform:scale(1.1);
-          -moz-transform:scale(1.1);
-          -o-transform:scale(1.1);
-          transform:scale(1.1);
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        &:hover {
+          border-color: #f35d5d;
+
+          & img {
+            -webkit-transform:scale(1.1);
+            -moz-transform:scale(1.1);
+            -o-transform:scale(1.1);
+            transform:scale(1.1);
+          }
+        }
+
+      }
+
+      & .author-info {
+        display: inline-block;
+        padding: 20px 40px;
+        height: inherit;
+        vertical-align: middle;
+
+        & .author {
+          font-size: 1.72rem;
+          font-weight: bold;
+        }
+
+        & .author-says {
+          font-style: italic !important;
+        }
+
+        & span {
+          display: block;
+          margin: 20px 0;
         }
       }
-
     }
+    & .menu-info {
+      display: flex;
+      flex-direction: column;
 
-    & .author-info {
-      display: inline-block;
-      padding: 20px 40px;
-      height: inherit;
-      vertical-align: middle;
+      & .menu-item {
+        padding: 5px 20px;
+        width: 100%;
 
-      & .author {
-        font-size: 1.72rem;
-        font-weight: bold;
+        & .spread-items {
+          list-style: none;
+          display: flex;
+          justify-content: space-between;
+
+          & li {
+            display: inline-block;
+            color: #717171;
+            font-size: 1.787rem;
+            cursor: pointer;
+            margin: 4px 10px;
+            padding: 7px 21px;
+            text-align: center;
+            border-radius: 30px;
+
+
+            &:hover {
+              box-shadow: 0px 1px 15px 0 rgb(32 33 36 / 34%);
+
+            }
+          }
+        }
+
       }
 
-      & .author-says {
-        font-style: italic !important;
-      }
+      & .search-layer {
+        display: inline-block;
+        flex: 1;
 
-      & span {
-        display: block;
-        margin: 20px 0;
-      }
-    }
+        & .search-box {
+          margin: 4px 20px 4px auto;
+          width: 150px;
+          padding: 10px 10px;
+          border-radius: 15px;
+          border: 2px lightgray solid;
+          overflow: hidden;
 
-    & .menu-item {
-      display: inline-block;
-      padding: 20px 60px;
-      width: 40%;
+          & input {
+            border: 0px;
+            padding: 3px 5px;
+            background-color: $main-light-color;
+            font-size: .92rem;
 
-      & .spread-items {
-        list-style: none;
-        display: flex;
-        height: 100%;
-        justify-content: space-between;
+            &:focus {
+              outline: none;
+            }
+          }
 
-        & li {
-          display: inline-block;
-          color: #717171;
-          font-size: 1.787rem;
-          cursor: pointer;
-          margin: 10px 10px;
-          padding: 0px 7px;
-
-          & span {
-            margin: auto 0px;
+          &.focus {
+            border-color: #2c3e50;
           }
         }
       }
-
-    }
-
-    & .search-layer {
-      display: inline-block;
-      background-color: #2c3e50;
-      flex: 1;
     }
   }
-}
-
-.main-header:hover {
-  margin-top: 20px;
-  box-shadow: 0px 10px 30px 0 rgb(32 33 36 / 34%);
 }
 
 
@@ -152,19 +224,202 @@ export default {
 @mixin tablet {
   @media (min-width: 768px) and (max-width: 1023px) {
     @content;
+
   }
 }
 
+
 @include mobile {
+  .mobile-header {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: $main-light-color;
+    border-bottom: $point-light-color 1px solid;
+    width: 100%;
+    height: 50px;
+    font-size: 1.7rem;
+
+    & .burger {
+      padding: 2px 20px;
+      margin: 2px auto;
+
+      & img {
+        width: 40px;
+        position: absolute;
+        top: 5px;
+        left: 45%;
+      }
+
+    }
+
+    & .mobile-navigator-wrapper {
+      position: fixed;
+      top: 0;
+      left: -500px;
+      height: 100%;
+
+      &.active {
+        width: 100%;
+        height: 100%;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.85);
+      }
+
+      & .nav-panel-box {
+        background-color: $main-light-color;
+        width: 80%;
+        height: 100%;
+
+        & .search-items {
+
+          & .search-box {
+            margin: 4px 20px 4px auto;
+            width: 150px;
+            padding: 10px 10px;
+            border-radius: 15px;
+            border: 2px lightgray solid;
+            overflow: hidden;
+
+            & input {
+              border: 0px;
+              padding: 3px 5px;
+              background-color: $main-light-color;
+              font-size: .92rem;
+
+              &:focus {
+                outline: none;
+              }
+            }
+
+            &.focus {
+              border-color: #2c3e50;
+            }
+          }
+
+        }
+      }
+    }
+  }
   .main-header {
-    width: 95%;
+    width: 90%;
+    height: 400px;
+    margin-top: 80px;
+
+
+    & .header-item-layer {
+
+      & .author-profile {
+        flex-direction: column;
+        width: 100%;
+
+        & .profile-image {
+          width: 150px;
+          height: 150px;
+          margin: 20px auto;
+        }
+
+        & .author-info {
+          padding: 6px 20px;
+
+          & .author {
+            margin: 3px auto;
+          }
+
+          & .author-says {
+            margin: 6px 0;
+          }
+
+          &:before {
+            content: "";
+            display: block;
+            width: 100%;
+            border-top: 1px solid #bcbcbc;
+            margin: 20px 0px;
+          }
+        }
+      }
+
+
+      & .menu-info {
+        display: none;
+      }
+    }
   }
 }
 
 @include tablet {
-  .main-header {
-    width: 95%;
-  }
 
+  .main-header {
+    max-width: 80%;
+    height: 380px;
+    margin: 40px auto 20px auto;
+    background-color: $main-light-color;
+    border-radius: 15px;
+    box-shadow: 0px 1px 30px 0 rgb(32 33 36 / 34%);
+
+
+    & .header-item-layer {
+      display: grid;
+      grid-template-columns: 50% 50%;
+      grid-template-rows: 100%;
+
+      & .author-profile {
+        display: grid;
+
+        & .profile-image {
+          width: 150px;
+          height: 150px;
+          margin: 7px auto;
+        }
+
+        & .author-info {
+          display: inline-block;
+          padding: 7px 20%;
+          text-align: center;
+
+          & .author {
+            margin: 3px auto;
+            font-size: 1.45rem;
+          }
+
+          & .author-says {
+            font-size: 0.92rem;
+          }
+        }
+      }
+
+      & .menu-info {
+        display: grid;
+
+        & .menu-item {
+          padding: 4px 10px;
+          margin: 20px auto;
+
+          & .spread-items {
+            display: grid;
+            grid-template-columns: 80%;
+            grid-template-rows: 25% 25% 25% 25%;
+            height: 200px;
+
+            & li {
+              height: 40px;
+              margin: 0px;
+              padding: 0px;
+            }
+          }
+        }
+
+        & .search-layer {
+
+          & .search-box {
+            margin: 10px auto;
+          }
+        }
+
+      }
+    }
+  }
 }
 </style>

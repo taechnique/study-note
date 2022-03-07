@@ -1,15 +1,20 @@
 <template>
   <MainHeader />
-  <div style="width: 100%; height: 2000px; background-color: #2c3e50"></div>
+  <MainBody />
+  <MainFooter />
 </template>
 
 <script>
 import MainHeader from "@/components/global/MainHeader";
+import MainBody from "@/components/global/MainBody";
+import MainFooter from "@/components/global/MainFooter";
 
 export default {
   name: 'App',
   components: {
-    MainHeader
+    MainHeader,
+    MainBody,
+    MainFooter
   }
 }
 </script>

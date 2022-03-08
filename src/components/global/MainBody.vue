@@ -3,15 +3,19 @@
     <div class="main-container">
       <div class="post-card-wrapper">
         <div class="post-preview-header">
-          <div class="profile_image"></div>
-          <div class="author_info">
+          <div class="profile-image">
+            <img :src="this.post[0].profile.image" />
+          </div>
+          <div class="author-info">
             <span class="author-name">Dev-Phantom</span>
             <span class="author-work-at">Server developer, Herit Corperation</span>
             <span class="posting-date">1시간</span>
           </div>
         </div>
         <div class="post-preview-body">
-          <div class="post-contents"></div>
+          <div class="post-contents">
+
+          </div>
         </div>
       </div>
     </div>
@@ -22,7 +26,13 @@
 export default {
   data() {
     return {
-
+      post: [
+        {
+          profile: {
+            image: 'https://github.com/Dev-Phantom/study-node/blob/main/src/assets/images/profile.png?raw=true'
+          }
+        }
+      ]
     }
   }
 
@@ -50,7 +60,27 @@ export default {
       border-radius: 15px;
 
       & .post-preview-header {
+        padding: 20px 30px;
+        display: flex;
 
+        & .profile-image {
+          width: 55px;
+          height: 55px;
+          border-radius: 50%;
+          margin: 5px 5px;
+
+          & img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+
+        & .author-info {
+
+          & .span {
+            display: block;
+          }
+        }
       }
     }
   }

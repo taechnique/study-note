@@ -245,12 +245,18 @@ export default {
     & .burger {
       padding: 2px 20px;
       margin: 2px auto;
+      background-color: $main-light-color;
 
       & img {
         width: 40px;
         position: absolute;
         top: 5px;
         left: 45%;
+      }
+
+      & svg {
+        -webkit-tap-highlight-color:transparent;
+
       }
 
     }
@@ -260,12 +266,12 @@ export default {
       top:0;
       left: 0;
       width: 100%;
-      height: 100%;
-      z-index: -999;
+      transition: height 0s, background-color .6s;
 
       &.active {
         z-index: 1;
-        background-color: rgba(0, 0, 0, 0.85);
+        background-color: rgba(0, 0, 0, 0.71);
+        height: 100%;
       }
 
     }

@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     getPostData: () => {
-      const url = 'https://github.com/Dev-Phantom/study-note/tree/main/src/docs'
+      const url = 'https://github.com/Dev-Phantom/study-note'
       axios.get(url).then(res => {
         console.log(res)
         this.post_content = res.data

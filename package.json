@@ -1,7 +1,7 @@
 {
   "name": "study-note",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "author": "Dev-Phantom",
   "scripts": {
     "serve": "vue-cli-service serve",

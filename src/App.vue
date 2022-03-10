@@ -1,24 +1,19 @@
 <template>
   <MainHeader />
-  <MainBody />
+  <router-view/>
   <MainFooter />
 </template>
 
+<style lang="scss">
+@import "@/styles/index.scss";
+</style>
 <script>
-import MainHeader from "@/components/global/MainHeader"
-import MainBody from "@/components/global/MainBody"
-import MainFooter from "@/components/global/MainFooter"
-
+import MainFooter from "@/components/global/MainFooter";
+import MainHeader from "@/components/global/MainHeader";
 export default {
-  name: 'App',
   components: {
-    MainHeader,
-    MainBody,
-    MainFooter
+    MainFooter,
+    MainHeader
   }
 }
 </script>
-
-<style lang="scss">
-@import "./styles/index.scss";
-</style>

@@ -18,7 +18,9 @@
       <div class="menu-info">
         <div class="menu-item">
           <ul class="spread-items">
-            <li v-for="menu in this.headers.menus" v-bind:key="menu.key">{{ menu.item_name }}</li>
+            <li v-for="menu in this.headers.menus" v-bind:key="menu.key">
+              <router-link v-bind:to="menu.link_to">{{ menu.item_name }}</router-link>
+            </li>
           </ul>
         </div>
         <div class="search-layer">
@@ -38,7 +40,9 @@
       <div class="nav-panel-box">
         <div class="nav-items">
           <ul>
-            <li v-for="menu in this.headers.menus" v-bind:key="menu.key">{{ menu.item_name }}</li>
+            <li v-for="menu in this.headers.menus" v-bind:key="menu.key">
+              <router-link v-bind:to="menu.link_to" v-on:click="this.headers.mobile.is_navi_active = false">{{ menu.item_name }}</router-link>
+            </li>
           </ul>
         </div>
         <div class="search-items">
@@ -68,10 +72,10 @@ export default {
           is_navi_active: false
         },
         menus: [
-          {key: '0', item_name: 'Home', link_to: ''},
-          {key: '1', item_name: 'Categories', link_to: ''},
-          {key: '3', item_name: 'Tags', link_to: ''},
-          {key: '4', item_name: 'About', link_to: ''},
+          {key: '0', item_name: 'Home', link_to: '/'},
+          {key: '1', item_name: 'Categories', link_to: '/categories'},
+          {key: '3', item_name: 'Tags', link_to: 'tags'},
+          {key: '4', item_name: 'About', link_to: 'about'},
         ]
       }
     }

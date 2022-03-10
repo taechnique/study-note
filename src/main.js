@@ -5,30 +5,12 @@ import App from './App.vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSecret, faBars, faHeart, faMessage } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
-import PostView from "@/components/PostView"
+import router from './router'
 
 /* import specific icons */
-
-
-const MainBody = { template: MainBody }
-const PostView = { template: PostView }
-
-const routes = [
-    { path: '/', component: MainBody },
-    { path: '/post', component: PostView }
-]
-
-
-const router = VueRouter.createRouter({
-    history: VueRouter.createWebHashHistory(),
-    routes,
-})
-
-
 library.add(faUserSecret, faBars, faHeart, faMessage)
-const app = createApp(App)
+const app = createApp(App).use(router)
 
-app.use(router)
 app.component("font-awesome-icon", FontAwesomeIcon)
 app.mount('#app')
 

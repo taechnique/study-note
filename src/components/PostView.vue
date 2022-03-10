@@ -1,6 +1,6 @@
 <template>
-  <div class="markdown-text">
-    {{ this.result }}
+  <div class="post-container">
+    {{ post_content }}
   </div>
 </template>
 
@@ -9,18 +9,18 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      result: ''
+      post_content: ''
     }
   },
   mounted() {
-    this.getResultData()
+    this.getPostData()
   },
   methods: {
-    getResultData: () => {
-      const targetURL = 'https://github.com/Dev-Phantom/study-note/tree/main/src/docs'
-      axios.get(targetURL).then(res => {
+    getPostData: () => {
+      const url = 'https://github.com/Dev-Phantom/study-note/tree/main/src/docs'
+      axios.get(url).then(res => {
         console.log(res)
-        this.result = res.data
+        this.post_content = res.data
       })
     }
   }

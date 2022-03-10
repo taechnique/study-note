@@ -1,6 +1,6 @@
 <template>
   <div class="markdown-text">
-
+    {{ this.result }}
   </div>
 </template>
 
@@ -17,7 +17,11 @@ export default {
   },
   methods: {
     getResultData: () => {
-      const targetURL = 'https://'
+      const targetURL = 'https://github.com/Dev-Phantom/study-note/tree/main/src/docs'
+      axios.get(targetURL).then(res => {
+        console.log(res)
+        this.result = res.data
+      })
     }
   }
 }

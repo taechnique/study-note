@@ -281,9 +281,9 @@ export default {
       top: 0;
       left: -500px;
       height: 100%;
+      width: 77%;
 
       &.active {
-        height: 100%;
         left: 0;
         z-index: 2;
       }

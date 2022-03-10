@@ -1,5 +1,8 @@
 <template>
   <div class="main-footer">
+    <div class="footer-text">
+      <span>© 2022 <a href="#">Dev-Phantom.</a> All rights reserved.</span>
+    </div>
   </div>
 </template>
 
@@ -19,8 +22,24 @@ export default {
 
 .main-footer {
   width: 100%;
-  height: 300px;
+  height: 40px;
   background-color: #2c3e50;
+  padding-top: 20px;
+
+  & .footer-text {
+    margin: 0 auto;
+    width: 80%;
+    text-align: center;
+
+    & span {
+      color: #cecdcb;
+
+      & a {
+        text-decoration: underline;
+        color: #cecdcb;
+      }
+    }
+  }
 }
 
 

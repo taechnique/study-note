@@ -4,7 +4,7 @@ import App from './App.vue'
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSecret, faBars, faHeart, faMessage } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 
 /* import specific icons */
 

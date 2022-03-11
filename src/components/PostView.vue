@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   data() {
     return {
@@ -17,11 +16,7 @@ export default {
   },
   methods: {
     getPostData: () => {
-      const url = 'https://github.com/Dev-Phantom/study-note'
-      axios.get(url).then(res => {
-        console.log(res)
-        this.post_content = res.data
-      })
+
     }
   }
 }

@@ -24,3 +24,20 @@ export const getUserInfo = async () => {
         return undefined;
     }
 }
+
+export const getAllPosts = async () => {
+    try {
+
+        const allDocsFiles = octokit.request('GET /repos/{owner}/{repo}/contents/src/docs')
+
+        allDocsFiles.filter(file => file.type === 'dir').map(el => {
+
+        })
+
+
+    } catch (err) {
+        console.error(err.message)
+        return undefined
+    }
+
+}

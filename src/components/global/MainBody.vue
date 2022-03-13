@@ -46,7 +46,6 @@
 </template>
 
 <script>
-import { getUserInfo, getAllPosts } from '@/api/github-api'
 export default {
   data() {
 
@@ -80,16 +79,6 @@ export default {
     }
   },
   mounted() {
-    getUserInfo().then(res => {
-      const info = res.data
-
-      this.profile.image = info.avatar_url
-      this.profile.name = info.login
-      this.profile.work_at = info.company
-      this.profile.career = info.bio
-    })
-
-    getAllPosts()
 
 
   },

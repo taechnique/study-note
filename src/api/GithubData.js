@@ -5,3 +5,4 @@ export class GithubData {
         this.repo = repo
     }
 }
+

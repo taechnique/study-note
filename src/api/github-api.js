@@ -2,7 +2,7 @@ import { Octokit } from 'octokit';
 import { GithubData } from "@/api/GithubData";
 
 const octokit = new Octokit({
-    auth: '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',
+    auth: process.env.GITHUB_API_KEY,
 
     baseUrl: 'https://api.github.com',
 
@@ -54,5 +54,16 @@ export const getAllPosts = async () => {
         console.error(err.message)
         return undefined
     }
+
+}
+
+export const getAllDirectories = async () => {
+
+    const githubData = new GithubData('Dev-Phantom', 'study-note')
+
+    return octokit.request('GET /repos/{owner}/{repo}/contents/src/docs', {
+        owner: githubData.owner,
+        repo: githubData.repo
+    })
 
 }

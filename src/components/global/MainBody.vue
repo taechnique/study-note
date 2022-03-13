@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { getUserInfo } from '@/api/github-api/utils'
+import { getUserInfo, getAllPosts } from '@/api/github-api'
 export default {
   data() {
 
@@ -88,6 +88,8 @@ export default {
       this.profile.work_at = info.company
       this.profile.career = info.bio
     })
+
+    getAllPosts()
 
 
   },

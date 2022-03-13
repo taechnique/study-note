@@ -6,22 +6,17 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSecret, faBars, faHeart, faMessage } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 import router from './router'
-import { getAllDirectories } from "@/api/github-api";
+import { getAPI } from "@/api/github-api";
 
 
 /* import specific icons */
 library.add(faUserSecret, faBars, faHeart, faMessage)
 const app = createApp(App).use(router)
-
-console.log('Hi')
+const owner = 'Dev-Phantom'
+const repo = 'study-note'
 
 //== Initialize for Directories ==//
-getAllDirectories().then(res => {
-    const dirs = res.data.filter(e => e.type === 'dir')
-    console.log('dirs: ',dirs)
-})
-
-
+getAPI('/repos/'+owner+'/'+repo+'/contents/src/docs')
 
 
 

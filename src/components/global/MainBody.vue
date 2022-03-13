@@ -86,10 +86,8 @@ export default {
     convertPost: (content) => {
       const pattern = new RegExp('(?:(.[^\\\\]+)(\\\\n)?)','g')
       const contentRegex = /(?:(.[^\\\\]+)(\\\\n)?)/g;
-      const replaced = pattern.exec('스프링 프레임워크의 장점중하나인 AOP는 Proxy 패턴을 통해 확장하거나 DI 할수 있는 좋은 기능입니다.\n 하지만 스프링 AOP는 JDK Dynamic Proxy또는 CGLIB을 이용해 AOP를 사용합니다.\n하지만 이 기능을 Spring Boot에서는 CGLIB만을 이용해 사용하는데요, 간단하게 Proxy Pattern이 어떤것인지 알아보고 왜 Spring Boot에서는 CGLIB으로만 AOP를 사용하는지 알아봅니다.')
-      const matched = content.match(contentRegex)
-      console.log(replaced[1])
-      console.log(matched)
+      pattern.exec('스프링 프레임워크의 장점중하나인 AOP는 Proxy 패턴을 통해 확장하거나 DI 할수 있는 좋은 기능입니다.\n 하지만 스프링 AOP는 JDK Dynamic Proxy또는 CGLIB을 이용해 AOP를 사용합니다.\n하지만 이 기능을 Spring Boot에서는 CGLIB만을 이용해 사용하는데요, 간단하게 Proxy Pattern이 어떤것인지 알아보고 왜 Spring Boot에서는 CGLIB으로만 AOP를 사용하는지 알아봅니다.')
+      content.match(contentRegex)
 
       return content
     }

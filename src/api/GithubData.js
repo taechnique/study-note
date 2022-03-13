@@ -6,3 +6,13 @@ export class GithubData {
     }
 }
 
+export class GithubDirectory {
+
+    constructor(name, sha, url) {
+        this.name = name
+        this.sha = sha
+        this.url = url
+        this.files = []
+    }
+}
+

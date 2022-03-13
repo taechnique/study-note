@@ -4,11 +4,11 @@
       <div class="post-card-wrapper" v-for="post in this.posts" v-bind:key="post.id">
         <div class="post-preview-header">
           <div class="profile-image">
-            <img :src="post.profile.image" />
+            <img :src="this.profile.image" />
           </div>
           <div class="author-info">
-            <span class="author-name">{{ post.profile.name }}</span>
-            <span class="author-work-at">{{ post.profile.career }}, {{ post.profile.work_at }}</span>
+            <span class="author-name">{{ this.profile.name }}</span>
+            <span class="author-work-at">{{ this.profile.career }}, {{ this.profile.work_at }}</span>
             <span class="posting-date">{{ post.contents.posting_date }}</span>
           </div>
         </div>
@@ -46,18 +46,20 @@
 </template>
 
 <script>
+import { getUserInfo } from '@/api/github-api/utils'
 export default {
   data() {
+
     return {
+      profile: {
+        name: 'Dev-Phantom',
+        work_at: 'Herit Corperation',
+        career: 'Server Developer',
+        image: 'https://github.com/Dev-Phantom/study-node/blob/main/src/assets/images/profile.png?raw=true'
+      },
       posts: [
         {
           id:1,
-          profile: {
-            name: 'Dev-Phantom',
-            work_at: 'Herit Corperation',
-            career: 'Server Developer',
-            image: 'https://github.com/Dev-Phantom/study-node/blob/main/src/assets/images/profile.png?raw=true'
-          },
           contents: {
             post_title: 'Spring Boot의 AOP는 CGLIB으로만 생성된다 ?!',
             post_path: 'phantom-dev.io',
@@ -76,6 +78,18 @@ export default {
         }
       ]
     }
+  },
+  mounted() {
+    getUserInfo().then(res => {
+      const info = res.data
+
+      this.profile.image = info.avatar_url
+      this.profile.name = info.login
+      this.profile.work_at = info.company
+      this.profile.career = info.bio
+    })
+
+
   },
   methods: {
     convertPost: (content) => {

@@ -1,10 +1,26 @@
-import { Octokit, App } from "octokit"
+import { Octokit } from 'octokit';
 
-const octokit = new Octokit({ auth: `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`})
+const octokit = new Octokit({
+    auth: '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',
 
-const {
-    data: { login },
-} = await octokit.rest.users.getAuthenticated()
+    baseUrl: 'https://api.github.com',
 
-console.log("Successfully Logged in with [ %s ]", login)
+    log: {
+        debug: () => {},
+        info: () => {},
+        warn: console.warn,
+        error: console.error
+    }
+});
 
+
+//== User data ==//
+export const getUserInfo = async () => {
+    try {
+
+        return octokit.request('GET /user')
+    }catch(err) {
+        console.error(err.message)
+        return undefined;
+    }
+}

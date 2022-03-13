@@ -7,6 +7,7 @@ import { faUserSecret, faBars, faHeart, faMessage } from '@fortawesome/free-soli
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 import router from './router'
 
+
 /* import specific icons */
 library.add(faUserSecret, faBars, faHeart, faMessage)
 const app = createApp(App).use(router)

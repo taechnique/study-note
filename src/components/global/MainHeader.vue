@@ -7,13 +7,8 @@
     </ul>
     <div class="header-item-layer">
       <div class="author-profile">
-        <div class="profile-image">
-          <img :src="me.profile_image" />
-        </div>
-        <div class="author-info">
-          <span class="author">Dev-Phantom</span>
-          <span class="author-says">세상에 기여하고 싶어요.</span>
-        </div>
+        <ProfileImage />
+        <AuthorInfo />
       </div>
       <div class="menu-info">
         <div class="menu-item">
@@ -30,6 +25,7 @@
         </div>
       </div>
     </div>
+    <FileNavigator />
   </div>
   <div class="mobile-header">
     <div class="burger" >
@@ -57,12 +53,18 @@
 </template>
 
 <script>
+import { userInfoStore } from "@/store";
+import AuthorInfo from "@/components/header/AuthorInfo";
+import ProfileImage from "@/components/header/ProfileImage";
+import FileNavigator from "@/components/header/FileNavigator";
+
 export default {
   data() {
     return {
       me: {
         profile_image: 'https://github.com/Dev-Phantom/study-node/blob/main/src/assets/images/profile.png?raw=true'
       },
+      userInfoStore,
       headers: {
         search_box: {
           is_focus: false
@@ -81,6 +83,11 @@ export default {
     }
   },
   methods: {
+  },
+  components: {
+    AuthorInfo,
+    ProfileImage,
+    FileNavigator
   }
 }
 </script>

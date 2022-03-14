@@ -3,14 +3,14 @@ import App from './App.vue'
 
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUserSecret, faBars, faHeart, faMessage } from '@fortawesome/free-solid-svg-icons'
+import { faUserSecret, faBars, faHeart, faMessage, faFolder, faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 import router from './router'
 import { getAPI } from "@/api/github-api";
 
 
 /* import specific icons */
-library.add(faUserSecret, faBars, faHeart, faMessage)
+library.add(faUserSecret, faBars, faHeart, faMessage, faFolder, faFolderOpen)
 const app = createApp(App).use(router)
 const owner = 'Dev-Phantom'
 const repo = 'study-note'

@@ -16,3 +16,14 @@ export class GithubDirectory {
     }
 }
 
+export class UserData {
+
+    constructor(login, avatar_url, bio, blog, company) {
+        this.name = login
+        this.profile_image = avatar_url
+        this.position = bio
+        this.blog = blog
+        this.company = company
+    }
+
+}

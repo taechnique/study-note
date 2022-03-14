@@ -40,30 +40,32 @@ a {
 
 .window-controller {
   display: block;
-  padding: 5px;
+  padding: 10px;
   background-color: $point-light-color;
   border-radius: 15px 15px 0px 0px;
 
   & .window {
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    border: 1.46px solid lightgrey;
     display: inline-block;
-    margin: 5px 2px;
+    margin: 5px 4px;
 
   }
 
   & .window-close {
-    background-color: #d55934;
+    background-color: #FF605C;
+    border: 1.12px solid #f35854;
   }
 
   & .window-minimize {
-    background-color: #f1c54a;
+    background-color: #FFBD44;
+    border: 1.12px solid #f6b73b;
   }
 
   & .window-maximize {
-    background-color: #22b12d;
+    background-color: #00CA4E;
+    border: 1.12px solid #02be4a;
   }
 
 }

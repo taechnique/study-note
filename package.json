@@ -5,6 +5,7 @@
   "author": "Dev-Phantom",
   "scripts": {
     "serve": "vue-cli-service serve",
+    "local": "vue-cli-service serve --mode local",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -15,6 +16,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
     "axios": "^0.26.1",
     "core-js": "^3.8.3",
+    "dotenv": "^16.0.0",
     "js-base64": "^3.7.2",
     "marked": "^4.0.12",
     "octokit": "^1.7.1",

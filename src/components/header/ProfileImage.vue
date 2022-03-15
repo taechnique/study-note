@@ -1,6 +1,6 @@
 <template>
   <div class="profile-image">
-    <img :src="userInfoStore.userData.profile_image" />
+    <img :src="userInfoStore.profile_image" />
   </div>
 </template>
 

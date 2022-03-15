@@ -2,16 +2,16 @@
   <div class="header-file-navigator">
     <div class="nav-wrapper">
       <ul>
-        <li v-bind:key="dir.sha" v-for="dir in this.directoryStore.directories">
+        <li v-bind:key="dir.sha" v-for="dir in this.directoryMapStore.map.docs">
           <div class="directory" v-on:click="activeFolder(dir.sha)">
             <div class="folder-icon">
               <font-awesome-icon :icon="dir.icon"/>
             </div>
-            <span class="directory-title">{{dir.name }} ({{ dir.files.length }})</span>
+            <span class="directory-title">{{dir.directory_name }} ({{ dir.files.length }})</span>
           </div>
           <div class="files" :class="{ opened : dir.is_opened }" v-bind:id="dir.sha">
             <ul>
-              <li v-for="file in dir.files" v-bind:key="file.id">{{ file.title }}</li>
+              <li v-for="(file, index) in dir.files" v-bind:key="index">{{ file.file_title }}</li>
             </ul>
             <div class ="more-post">
               <span>더보기</span>
@@ -27,7 +27,7 @@
 
 import { reactive } from "vue";
 import { userInfoStore } from "@/store";
-import { directoryStore } from "@/store";
+import { directoryMapStore } from "@/store";
 
 export default {
   setup() {
@@ -107,25 +107,26 @@ export default {
 
 
 
-    const activeFolder = (key) => {
-      dirState.directories.forEach(e => {
-        if(e.id != key) {
-          e.icon = 'folder'
-          e.is_opened = false
-        } else {
-          if(e.is_opened == false) {
-            e.is_opened = true
-            e.icon = 'folder-open'
-          } else {
-            e.is_opened = false
-            e.icon = 'folder'
-          }
-        }
-      })
+    const activeFolder = () => {
+      // dirState.directories.forEach(e => {
+      //   if(e.id != key) {
+      //     e.icon = 'folder'
+      //     e.is_opened = false
+      //   } else {
+      //     if(e.is_opened == false) {
+      //       e.is_opened = true
+      //       e.icon = 'folder-open'
+      //     } else {
+      //       e.is_opened = false
+      //       e.icon = 'folder'
+      //     }
+      //   }
+      // })
     }
     return {
-      directoryStore,
+      dirState,
       userInfoStore,
+      directoryMapStore,
       activeFolder
     }
   }

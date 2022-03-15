@@ -6,20 +6,12 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSecret, faBars, faHeart, faMessage, faFolder, faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 import router from './router'
-import { getAPI } from "@/api/github-api";
-
 
 /* import specific icons */
 library.add(faUserSecret, faBars, faHeart, faMessage, faFolder, faFolderOpen)
 const app = createApp(App).use(router)
-const owner = 'Dev-Phantom'
-const repo = 'study-note'
 
 //== Initialize for Directories ==//
-getAPI('/repos/'+owner+'/'+repo+'/contents/src/docs')
-
-
-
 
 
 app.component("font-awesome-icon", FontAwesomeIcon)

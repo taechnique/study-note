@@ -2,17 +2,20 @@
   <div class="header-file-navigator">
     <div class="nav-wrapper">
       <ul>
-        <li v-bind:key="dir.id" v-for="dir in dirState.directories">
-          <div class="directory" v-on:click="activeFolder(dir.id)">
-            <span>
+        <li v-bind:key="dir.sha" v-for="dir in this.directoryStore.directories">
+          <div class="directory" v-on:click="activeFolder(dir.sha)">
+            <div class="folder-icon">
               <font-awesome-icon :icon="dir.icon"/>
-            </span>
-            <span class="directory-title">{{dir.dir_name }} ({{ dir.files.length }})</span>
+            </div>
+            <span class="directory-title">{{dir.name }} ({{ dir.files.length }})</span>
           </div>
-          <div class="files" :class="{ closed : dir.is_closed }" v-bind:id="dir.sha">
+          <div class="files" :class="{ opened : dir.is_opened }" v-bind:id="dir.sha">
             <ul>
               <li v-for="file in dir.files" v-bind:key="file.id">{{ file.title }}</li>
             </ul>
+            <div class ="more-post">
+              <span>더보기</span>
+            </div>
           </div>
         </li>
       </ul>
@@ -23,6 +26,8 @@
 <script>
 
 import { reactive } from "vue";
+import { userInfoStore } from "@/store";
+import { directoryStore } from "@/store";
 
 export default {
   setup() {
@@ -33,7 +38,7 @@ export default {
           sha: 'lfe221ksdSs1gbc',
           icon: 'folder',
           dir_name: 'Spring',
-          is_closed: true,
+          is_opened: false,
           files: [
             {
               id: 1,
@@ -57,7 +62,7 @@ export default {
           sha: 'dk29ms21D7sl1klas123',
           icon: 'folder',
           dir_name: 'Java',
-          is_closed: true,
+          is_opened: false,
           files: [
             {
               id: 4,
@@ -81,7 +86,7 @@ export default {
           sha: '1ak1LS0vdsa132',
           icon: 'folder',
           dir_name: 'Database',
-          is_closed: true,
+          is_opened: false,
           files: [
             {
               id: 7,
@@ -95,22 +100,32 @@ export default {
             }
           ]
         },
-      ]
+      ],
+      userInfoStore
     })
+
+
+
 
     const activeFolder = (key) => {
       dirState.directories.forEach(e => {
-        e.icon = 'folder'
-        e.is_closed = true
-
-        if(e.id === key) {
-          e.icon = 'folder-open'
-          e.is_closed = false
+        if(e.id != key) {
+          e.icon = 'folder'
+          e.is_opened = false
+        } else {
+          if(e.is_opened == false) {
+            e.is_opened = true
+            e.icon = 'folder-open'
+          } else {
+            e.is_opened = false
+            e.icon = 'folder'
+          }
         }
       })
     }
     return {
-      dirState,
+      directoryStore,
+      userInfoStore,
       activeFolder
     }
   }
@@ -144,13 +159,17 @@ export default {
       & .directory {
         padding: 7px;
         cursor: pointer;
+        display: flex;
 
-        & span {
+        & .folder-icon {
           margin: 0 5px;
+          width: 20px;
+          display: inline;
+          text-align: center;
         }
 
         & .directory-title {
-
+          flex: 1;
         }
       }
 
@@ -158,9 +177,25 @@ export default {
         padding: 0 15px;
         font-size: .83rem;
         overflow: hidden;
+        max-height: 0;
+        transition: max-height 1s;
 
-        &.closed {
-          height: 0px;
+        &.opened {
+          max-height: 480px;
+          overflow-y: auto;
+          padding-bottom: 26px;
+          transition: max-height 1s;
+
+          & .more-post {
+            position: absolute;
+            bottom: 0;
+
+            &:hover {
+              background-color: $point-light-color;
+              cursor: pointer;
+              transition: .1s;
+            }
+          }
         }
 
         & li {
@@ -176,7 +211,18 @@ export default {
             text-decoration: underline;
             cursor: pointer;
             color: #2c3e50;
+            border-radius: 10px;
+            background-color: $point-light-color;
           }
+        }
+
+        & .more-post {
+          height: 20px;
+          padding: 3px 5px;
+          background-color: $main-light-color;
+          width: 160px;
+          text-align: center;
+
         }
       }
     }

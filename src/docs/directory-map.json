@@ -1,0 +1,39 @@
+{
+  "docs": [
+    {
+      "directory_name": "Spring",
+      "files": [
+        {
+          "file_path": "/src/docs/spring/Spring_Autowired.md",
+          "file_title": "-Spring- @Autowired javaDoc 번역 (@Autowired)"
+        },
+        {
+          "file_path": "/src/docs/spring/Spring_run.md",
+          "file_title": "-Spring- run (Execute Spring Boot App Method)"
+        }
+      ]
+    },
+    {
+      "directory_name": "Java",
+      "files": [
+        {
+          "file_path": "/src/docs/java/Java_JVM01.md",
+          "file_title": "-Java- JVM 01 (Runtime Data Area)"
+        },
+        {
+          "file_path": "/src/docs/java/Java_JVM02.md",
+          "file_title": "-Java- JVM 02 (Heap area)"
+        }
+      ]
+    },
+    {
+      "directory_name": "Tools",
+      "files": [
+        {
+          "file_path": "/src/docs/tools/Intellij_config.md",
+          "file_title": "-Spring- @Autowired javaDoc 번역 (@Autowired)"
+        }
+      ]
+    }
+  ]
+}

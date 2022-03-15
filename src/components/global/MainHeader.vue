@@ -208,9 +208,12 @@ export default {
 
           & input {
             border: 0px;
+            width: 100%;
+            height: 100%;
             padding: 3px 5px;
-            background-color: $main-light-color;
-            font-size: .92rem;
+            margin: 3px 0;
+            background-color: #fcfcfc;
+            font-size: 0.92em;
 
             &:focus {
               outline: none;

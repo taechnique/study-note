@@ -2,16 +2,16 @@
   <div class="header-file-navigator">
     <div class="nav-wrapper">
       <ul>
-        <li v-bind:key="dir.sha" v-for="dir in this.directoryMapStore.map.docs">
-          <div class="directory" v-on:click="activeFolder(dir.sha)">
+        <li v-bind:key="idx" v-for="(dir, idx) in this.dirMapStore.directories">
+          <div class="directory" v-on:click="activeFolder(idx)">
             <div class="folder-icon">
               <font-awesome-icon :icon="dir.icon"/>
             </div>
-            <span class="directory-title">{{dir.directory_name }} ({{ dir.files.length }})</span>
+            <span class="directory-title">{{ dir.directory_name }} ({{ dir.files.length }})</span>
           </div>
-          <div class="files" :class="{ opened : dir.is_opened }" v-bind:id="dir.sha">
+          <div class="files" :class="{ opened : dir.is_opened }" v-bind:id="idx">
             <ul>
-              <li v-for="(file, index) in dir.files" v-bind:key="index">{{ file.file_title }}</li>
+              <li v-for="(file, index) in dir.files" v-bind:key="index" ><router-link to="/about">{{ file.file_title }}</router-link></li>
             </ul>
             <div class ="more-post">
               <span>더보기</span>
@@ -23,111 +23,40 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 
-import { reactive } from "vue";
-import { userInfoStore } from "@/store";
-import { directoryMapStore } from "@/store";
+import { dirMapStore, userInfoStore, fileListStore } from "@/store";
 
 export default {
   setup() {
-    const dirState = reactive({
-      directories: [
-        {
-          id: 0,
-          sha: 'lfe221ksdSs1gbc',
-          icon: 'folder',
-          dir_name: 'Spring',
-          is_opened: false,
-          files: [
-            {
-              id: 1,
-              title: 'Spring Transactional With MySQL',
-              link_to: '#'
-            },
-            {
-              id: 2,
-              title: 'Spring AOP With JDK Dynamic Proxy and CGRIB',
-              link_to: '#'
-            },
-            {
-              id: 3,
-              title: 'What is MVC Pattern?',
-              link_to: '#'
-            },
-          ]
-        },
-        {
-          id: 1,
-          sha: 'dk29ms21D7sl1klas123',
-          icon: 'folder',
-          dir_name: 'Java',
-          is_opened: false,
-          files: [
-            {
-              id: 4,
-              title: 'Java Runtime data area (JVM 1)',
-              link_to: '#'
-            },
-            {
-              id: 5,
-              title: 'Java Heap (JVM 2)',
-              link_to: '#'
-            },
-            {
-              id: 6,
-              title: 'Java Collection Framework',
-              link_to: '#'
-            },
-          ]
-        },
-        {
-          id: 2,
-          sha: '1ak1LS0vdsa132',
-          icon: 'folder',
-          dir_name: 'Database',
-          is_opened: false,
-          files: [
-            {
-              id: 7,
-              title: 'Transaction versioning with log (MVCC)',
-              link_to: '#'
-            },
-            {
-              id: 8,
-              title: 'Clustered Index, None Clustered Index with BTree',
-              link_to: '#'
-            }
-          ]
-        },
-      ],
-      userInfoStore
-    })
 
+    const activeFolder = (idx: number) => {
+      dirMapStore.directories.forEach((e, i) => {
 
+          if(i === idx && ( ! e.is_opened)) {
+            e.is_opened = true
+            e.icon = 'folder-open'
+          } else if(i === idx && e.is_opened) {
+            e.is_opened = false
+            e.icon = 'folder'
+          }
 
-
-    const activeFolder = () => {
-      // dirState.directories.forEach(e => {
-      //   if(e.id != key) {
-      //     e.icon = 'folder'
-      //     e.is_opened = false
-      //   } else {
-      //     if(e.is_opened == false) {
-      //       e.is_opened = true
-      //       e.icon = 'folder-open'
-      //     } else {
-      //       e.is_opened = false
-      //       e.icon = 'folder'
-      //     }
-      //   }
-      // })
+          if(i !== idx) {
+            e.is_opened = false
+            e.icon = 'folder'
+          }
+      })
     }
+
     return {
-      dirState,
       userInfoStore,
-      directoryMapStore,
-      activeFolder
+      dirMapStore,
+      fileListStore,
+      activeFolder,
+      rendered: {
+        latest_index: 0,
+        postList: []
+      }
     }
   }
 }

@@ -8,8 +8,10 @@
 @import "@/styles/index.scss";
 </style>
 <script>
+
 import MainFooter from "@/components/global/MainFooter";
 import MainHeader from "@/components/global/MainHeader";
+
 export default {
   components: {
     MainFooter,

@@ -41,15 +41,58 @@
           </div>
         </div>
       </div>
+      <div class="post-card-wrapper content-loader" :class="{ active : content_loader.is_active }">
+        <svg viewBox="0 0 400 480" preserveAspectRatio="xMidYMid meet" style="background-color: rgb(252, 252, 252); border-radius: 15px; display: block;">
+          <rect clip-path="url(#7salfztor6n)" x="0" y="0" width="100%" height="100%" style="fill: url('#7z37ry5fwrh');"></rect>
+          <defs>
+            <clipPath id="7salfztor6n">
+              <circle cx="40" cy="40" r="20"></circle>
+              <rect x="75" y="25" rx="4" ry="4" width="200" height="13"></rect>
+              <rect x="75" y="45" rx="4" ry="4" width="145" height="8"></rect>
+              <rect x="20" y="100" rx="4" ry="4" width="360" height="13"></rect>
+              <rect x="20" y="120" rx="4" ry="4" width="360" height="13"></rect>
+              <rect x="20" y="140" rx="4" ry="4" width="300" height="13"></rect>
+              <rect x="20" y="180" rx="5" ry="5" width="360" height="260"></rect>
+            </clipPath>
+            <linearGradient id="7z37ry5fwrh">
+              <stop offset="0%" stop-color="#eaeaea" stop-opacity="1">
+                <animate attributeName="offset" values="-2; 1" dur="2s" repeatCount="indefinite"></animate>
+              </stop>
+              <stop offset="50%" stop-color="#d7d6d6" stop-opacity="1">
+                <animate attributeName="offset" values="-2; 1.5 " dur="2s" repeatCount="indefinite"></animate>
+              </stop>
+              <stop offset="100%" stop-color="#eaeaea" stop-opacity="1">
+                <animate attributeName="offset" values="-1; 2" dur="2s" repeatCount="indefinite"></animate>
+              </stop>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { callPostList } from "@/api/GithubAPI";
+
 export default {
-  data() {
+  setup() {
+
+
+    callPostList(null)
 
     return {
+      content_loader: {
+        is_active: false,
+        style: {
+          width: '60%',
+          margin: '20px auto',
+          backgroundColor: '#fcfcfc',
+          borderRadius: '15px',
+          display: 'block'
+
+        }
+      },
       profile: {
         name: 'Dev-Phantom',
         work_at: 'Herit Corperation',
@@ -91,6 +134,8 @@ export default {
 
       return content
     }
+  },
+  components: {
   }
 
 }
@@ -278,6 +323,13 @@ export default {
           &:hover {
             color: #6b6b6b;
           }
+        }
+      }
+      &.content-loader {
+          display: none;
+        &.active {
+          //== content-loader ==//
+          display: block;
         }
       }
     }

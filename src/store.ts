@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-import {DocumentData, UserData} from "@/api/GithubData";
+import {FileListData, PostData, PostListWrapper, UserData, WrapperData} from "@/api/GithubData";
 
 export const userInfoStore = reactive<UserData>({
     name: '',
@@ -9,8 +9,16 @@ export const userInfoStore = reactive<UserData>({
     profile_image: ''
 })
 
-export const directoryMapStore = reactive<DocumentData[]>([{
-    directory_name: '',
-    files: []
-}])
+export const dirMapStore = reactive<WrapperData>({
+    base_path: '',
+    directories: []
+})
 
+
+export const fileListStore = reactive<FileListData>({
+    file_list: []
+})
+
+export const postListStore = reactive<PostListWrapper>({
+    postDataList: []
+})

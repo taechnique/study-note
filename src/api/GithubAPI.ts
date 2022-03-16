@@ -1,8 +1,10 @@
 import axios from "axios"
-import {directoryMapStore, userInfoStore} from "@/store";
-import {Base64} from "js-base64";
-import {DocumentData, FileData} from "@/api/GithubData";
+import {fileListStore, postListStore, userInfoStore} from "@/store";
+import {PostData} from "@/api/GithubData";
+
+const owner: string = 'Dev-Phantom'
 const repo: string = 'study-note'
+const baseURL = 'https://api.github.com'
 
 export const setAuthAPI = () => {
     const endPoint: string = '/user'
@@ -10,7 +12,7 @@ export const setAuthAPI = () => {
     console.debug('-----------------------------------------')
     console.time('GET '+endPoint)
     axios.get(endPoint, {
-        baseURL: 'https://api.github.com',
+        baseURL: baseURL,
         headers: {
             'Authorization': process.env.VUE_APP_GITHUB_API_KEY
         }
@@ -23,43 +25,37 @@ export const setAuthAPI = () => {
         userInfoStore.blog = res.data.blog
         console.timeEnd('GET '+endPoint)
         console.debug('-----------------------------------------')
-        setDirectoryMap()
     }).catch(err => {
         console.error(err.message)
         console.debug('-----------------------------------------')
     })
+    // const endPoint: string = `/repos/${userInfoStore.name}/${repo}/contents/src/docs/directory-map.json?ref=main`
 }
 
-export const setDirectoryMap = () => {
-    const endPoint: string = `/repos/${userInfoStore.name}/${repo}/contents/src/docs/directory-map.json?ref=main`
-    console.debug('-----------------------------------------')
-    console.time('GET '+endPoint)
-    axios.get(endPoint, {
-        baseURL: 'https://api.github.com',
-        headers: {
-            'Content-Type': 'application/x-www-form-unlencoded; charset=UTF-8'
-        }
-    }).then(res => {
-        const result = JSON.parse(Base64.decode(res.data.content))
+export const callPostList = (latest_index: number | null) => {
 
-        const documentData: Array<DocumentData> = []
-        result.docs.forEach((dir: any) => {
-            const fileData: Array<FileData> = []
+    const start: number = latest_index === null ? 0 : latest_index
+    const postList: Array<PostData> = new Array<PostData>()
 
-            dir.files.forEach((file: any) => {
-                fileData.push(new FileData(file.file_path, file.file_title))
-            })
-            console.debug('fileData: ',fileData!)
-            documentData.push(new DocumentData(dir.directory_name, fileData!))
+    console.debug('---------------Get File list Start-----------------')
+    fileListStore.file_list.slice(start, start + 5).forEach((e, i,) => {
+        console.log('file_list index: %d', i)
+        const endPoint: string = `/repos/${owner}/${repo}/contents${e.file_path}?ref=main`
+        console.debug('GET ' + endPoint)
+        axios.get(endPoint, {
+            baseURL: baseURL
+        }).then(res => {
+            const result = res.data
+            console.debug('result: ', result)
+
+            postListStore.postDataList.push(new PostData(result.sha, result.content))
+            console.debug('-----------------------------------------')
+        }).catch(error => {
+            console.error(error.message)
+            console.debug('-----------------------------------------')
         })
-
-
-        console.timeEnd('GET '+endPoint)
-        console.debug('-----------------------------------------')
-
-    }).catch(err => {
-        console.error(err.message)
-        console.debug('-----------------------------------------')
     })
+
+
 }
 

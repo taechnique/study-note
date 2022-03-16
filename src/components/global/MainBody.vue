@@ -1,7 +1,7 @@
 <template>
   <div class="main-body">
     <div class="main-container">
-      <div class="post-card-wrapper" v-for="post in this.posts" v-bind:key="post.id">
+      <div class="post-card-wrapper" v-for="post in this.postListStore.postDataList" v-bind:key="post.sha">
         <div class="post-preview-header">
           <div class="profile-image">
             <img :src="this.profile.image" />
@@ -9,27 +9,27 @@
           <div class="author-info">
             <span class="author-name">{{ this.profile.name }}</span>
             <span class="author-work-at">{{ this.profile.career }}, {{ this.profile.work_at }}</span>
-            <span class="posting-date">{{ post.contents.posting_date }}</span>
+            <span class="posting-date">1시간 전</span>
           </div>
         </div>
         <div class="post-preview-body">
           <div class="post-contents">
-            <span class="content-text">{{ convertPost(post.contents.description_text) }}</span>
+            <span class="content-text">{{ convertPost(post.content) }}</span>
           </div>
           <a href="/">
             <div class="post-default-image">
-              <div class="default-image-wrapper" v-bind:style="{ backgroundImage: 'url(' + post.contents.default_image + ')' }">
+              <div class="default-image-wrapper" v-bind:style="{ backgroundImage: 'url(https://media.vlpt.us/images/kyjna0312/post/933dfcfa-a12b-403a-aa29-07530c07660c/img.jpg)' }">
               </div>
               <div class="post-title-box">
-                  <span class="post-title">{{ post.contents.post_title }}</span>
-                  <span class="post-path">{{ post.contents.post_path }}</span>
+                  <span class="post-title">스프링으로 산타기</span>
+                  <span class="post-path">dev-phantom.github.io</span>
               </div>
             </div>
           </a>
         </div>
         <div class="post-preview-footer">
           <div class="post-tag-area">
-            <span v-for="tag in post.contents.tags" v-bind:key="tag" >{{ tag }}</span>
+            <span v-for="tag in this.posts[0].contents.tags" v-bind:key="tag" >{{ tag }}</span>
           </div>
           <div class="footer-button button-recommend">
             <font-awesome-icon icon="heart" />
@@ -74,6 +74,9 @@
 
 <script>
 import { callPostList } from "@/api/GithubAPI";
+import { postListStore } from "@/store";
+
+
 
 export default {
   setup() {
@@ -82,6 +85,7 @@ export default {
     callPostList(null)
 
     return {
+      postListStore,
       content_loader: {
         is_active: false,
         style: {
@@ -127,11 +131,9 @@ export default {
   },
   methods: {
     convertPost: (content) => {
-      const pattern = new RegExp('(?:(.[^\\\\]+)(\\\\n)?)','g')
-      const contentRegex = /(?:(.[^\\\\]+)(\\\\n)?)/g;
-      pattern.exec('스프링 프레임워크의 장점중하나인 AOP는 Proxy 패턴을 통해 확장하거나 DI 할수 있는 좋은 기능입니다.\n 하지만 스프링 AOP는 JDK Dynamic Proxy또는 CGLIB을 이용해 AOP를 사용합니다.\n하지만 이 기능을 Spring Boot에서는 CGLIB만을 이용해 사용하는데요, 간단하게 Proxy Pattern이 어떤것인지 알아보고 왜 Spring Boot에서는 CGLIB으로만 AOP를 사용하는지 알아봅니다.')
-      content.match(contentRegex)
-
+      // const pattern = new RegExp('(?:(.[^\\\\]+)(\\\\n)?)','g')
+      // const contentRegex = /(?:(.[^\\\\]+)(\\\\n)?)/g;
+      console.debug(content)
       return content
     }
   },

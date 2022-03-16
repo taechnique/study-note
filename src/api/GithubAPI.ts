@@ -1,6 +1,7 @@
 import axios from "axios"
 import {fileListStore, postListStore, userInfoStore} from "@/store";
 import {PostData} from "@/api/GithubData";
+import {Base64} from "js-base64";
 
 const owner: string = 'Dev-Phantom'
 const repo: string = 'study-note'
@@ -47,8 +48,7 @@ export const callPostList = (latest_index: number | null) => {
         }).then(res => {
             const result = res.data
             console.debug('result: ', result)
-
-            postListStore.postDataList.push(new PostData(result.sha, result.content))
+            postListStore.postDataList.push(new PostData(result.sha, Base64.decode(result.content)))
             console.debug('-----------------------------------------')
         }).catch(error => {
             console.error(error.message)

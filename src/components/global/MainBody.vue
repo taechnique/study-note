@@ -9,19 +9,19 @@
           <div class="author-info">
             <span class="author-name">{{ this.profile.name }}</span>
             <span class="author-work-at">{{ this.profile.career }}, {{ this.profile.work_at }}</span>
-            <span class="posting-date">1시간 전</span>
+            <span class="posting-date">{{ post.markdownPost.date }}</span>
           </div>
         </div>
         <div class="post-preview-body">
           <div class="post-contents">
-            <span class="content-text">{{ convertPost(idx, post.content) }}</span>
+            <span class="content-text">{{ post.markdownPost.description }}</span>
           </div>
           <a href="#" v-on:click="toMarkdown(idx)">
             <div class="post-default-image">
               <div class="default-image-wrapper" v-bind:style="{ backgroundImage: 'url(https://media.vlpt.us/images/kyjna0312/post/933dfcfa-a12b-403a-aa29-07530c07660c/img.jpg)' }">
               </div>
               <div class="post-title-box">
-                  <span class="post-title">스프링으로 산타기</span>
+                  <span class="post-title">{{ post.markdownPost.title }}</span>
                   <span class="post-path">dev-phantom.github.io</span>
               </div>
             </div>
@@ -29,7 +29,7 @@
         </div>
         <div class="post-preview-footer">
           <div class="post-tag-area">
-            <span v-for="tag in this.posts[0].contents.tags" v-bind:key="tag" >{{ tag }}</span>
+            <span v-for="tag in post.markdownPost.tags" v-bind:key="tag" >{{ tag }}</span>
           </div>
           <div class="footer-button button-recommend">
             <font-awesome-icon icon="heart" />
@@ -76,6 +76,7 @@
 import { callPostList } from "@/api/GithubAPI";
 import { postListStore } from "@/store";
 import {parse} from "jekyll-markdown-parser";
+import {setPostContent} from "@/components/header/settingUtils";
 
 
 export default {
@@ -136,7 +137,8 @@ export default {
     },
     toMarkdown: (index) => {
       const content = postListStore.postDataList[index].content
-      console.debug(parse(content))
+      const md = parse(content)
+      setPostContent(md.markdown)
     }
 
   },

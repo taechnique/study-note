@@ -46,12 +46,16 @@ export const callPostList = (latest_index: number | null) => {
             console.debug('-----------------------------------------')
             const result = res.data
             console.debug(`GET ${res.status} ${res.statusText} ${endPoint}`)
+
             const decodedContent: string = Base64.decode(result.content)
+
             const md = parse(decodedContent)
             const header = md.parsedYaml
+            const contentRegex = /(?:((.|\n)*)(<!--[\s]{0,}more[\s]{0,}-->)((.|\n)*))/g
 
-            new MarkDownPost(header.categories, header.tags, header.date, header.hide, header.excerpt_separator, header.layout, '', header.title, '')
-            postListStore.postDataList.push(new PostData(result.sha, decodedContent, null))
+            const executed: string[] | null = contentRegex.exec(md.markdown)
+            postListStore.postDataList.push(new PostData(result.sha, decodedContent, new MarkDownPost(header.categories, header.tags, header.date, header.hide, header.excerpt_separator, header.layout, executed![1], header.title, executed![4])))
+
         }).catch(error => {
             console.error(error.message)
         })

@@ -20,5 +20,6 @@ export const fileListStore = reactive<FileListData>({
 })
 
 export const postListStore = reactive<PostListWrapper>({
+    latest_index: 0,
     postDataList: []
 })

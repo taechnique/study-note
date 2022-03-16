@@ -39,4 +39,7 @@ export const setFileList = () => {
     fileListStore.file_list = fileListData.file_list
 }
 
+export const setPostContent = (content: string) => {
 
+
+}

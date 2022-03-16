@@ -71,6 +71,7 @@ export class PostData {
 }
 
 export class PostListWrapper {
+    latest_index: number = 0
     postDataList: PostData [] = []
 
     constructor(postDataList: PostData[]) {

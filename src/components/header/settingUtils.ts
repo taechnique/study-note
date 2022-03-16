@@ -4,7 +4,6 @@ import { dirMapStore, fileListStore } from "@/store";
 
 
 export const setDirectories = () => {
-    console.debug("----Call Directory List (Setting)----")
     const directoryData: Array<DirectoryData> = []
 
     directoryMap.docs.forEach(dir => {
@@ -13,7 +12,7 @@ export const setDirectories = () => {
         dir.files.forEach(file => {
             fileData.push(new FileData(file.file_path, file.file_title))
         })
-        console.debug('fileData: ',fileData!)
+
         directoryData.push(new DirectoryData(dir.directory_name, fileData!))
     })
 
@@ -24,11 +23,13 @@ export const setDirectories = () => {
 }
 
 export const setFileList = () => {
-    console.debug("----Call File List (Setting)----")
+
     let index: number = 0
     const fileListData: FileListData = new FileListData()
     dirMapStore.directories.forEach((dir: DirectoryData) => {
+
         dir.files.forEach((file: FileData) => {
+
             fileListData.file_list.push(file)
             file.file_index = index
             index++
@@ -37,3 +38,5 @@ export const setFileList = () => {
 
     fileListStore.file_list = fileListData.file_list
 }
+
+

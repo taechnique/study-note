@@ -1,7 +1,7 @@
 <template>
   <div class="main-body">
     <div class="main-container">
-      <div class="post-card-wrapper" v-for="post in this.postListStore.postDataList" v-bind:key="post.sha">
+      <div class="post-card-wrapper" v-for="(post, idx) in this.postListStore.postDataList" v-bind:key="post.sha">
         <div class="post-preview-header">
           <div class="profile-image">
             <img :src="this.profile.image" />
@@ -14,9 +14,9 @@
         </div>
         <div class="post-preview-body">
           <div class="post-contents">
-            <span class="content-text">{{ convertPost(post.content) }}</span>
+            <span class="content-text">{{ convertPost(idx, post.content) }}</span>
           </div>
-          <a href="/">
+          <a href="#" v-on:click="toMarkdown(idx)">
             <div class="post-default-image">
               <div class="default-image-wrapper" v-bind:style="{ backgroundImage: 'url(https://media.vlpt.us/images/kyjna0312/post/933dfcfa-a12b-403a-aa29-07530c07660c/img.jpg)' }">
               </div>
@@ -75,7 +75,7 @@
 <script>
 import { callPostList } from "@/api/GithubAPI";
 import { postListStore } from "@/store";
-
+import {parse} from "jekyll-markdown-parser";
 
 
 export default {
@@ -127,15 +127,18 @@ export default {
   },
   mounted() {
 
-
   },
   methods: {
-    convertPost: (content) => {
+    convertPost: (index, content) => {
       // const pattern = new RegExp('(?:(.[^\\\\]+)(\\\\n)?)','g')
       // const contentRegex = /(?:(.[^\\\\]+)(\\\\n)?)/g;
-      console.debug(content)
       return content
+    },
+    toMarkdown: (index) => {
+      const content = postListStore.postDataList[index].content
+      console.debug(parse(content))
     }
+
   },
   components: {
   }

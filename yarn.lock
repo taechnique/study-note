@@ -4297,6 +4297,14 @@ javascript-stringify@^2.0.1:
   resolved "https://registry.npmjs.org/javascript-stringify/-/javascript-stringify-2.1.0.tgz"
   integrity sha512-JVAfqNPTvNq3sB/VHQJAFxN/sPgKnsKrCwyRt15zwNCdrMMJDdcEOdubuy+DuJYYdm0ox1J4uzEuYKkN+9yhVg==
 
+jekyll-markdown-parser@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/jekyll-markdown-parser/-/jekyll-markdown-parser-4.0.0.tgz#025bbf123e605f3877b4ebf434bedbec94b23658"
+  integrity sha512-OmcZPsVw3vUlyTB4ivinujdxwsW1p8t2aYCKboEr67ZuxraHr9IXMkN4K/sfze9s3E06YJ+tLpLPsEywTOOXjQ==
+  dependencies:
+    js-yaml "^3.13.1"
+    marked "^0.8.0"
+
 jest-worker@^27.0.2, jest-worker@^27.3.1, jest-worker@^27.4.5:
   version "27.5.1"
   resolved "https://registry.npmjs.org/jest-worker/-/jest-worker-27.5.1.tgz"
@@ -4643,6 +4651,11 @@ make-dir@^3.0.2, make-dir@^3.1.0:
   integrity sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==
   dependencies:
     semver "^6.0.0"
+
+marked@^0.8.0:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-0.8.2.tgz#4faad28d26ede351a7a1aaa5fec67915c869e355"
+  integrity sha512-EGwzEeCcLniFX51DhTpmTom+dSA/MG/OBUDjnWtHbEnjAH180VzUeAw+oE4+Zv+CoYBWyRlYOTR0N8SO9R1PVw==
 
 mdn-data@2.0.14:
   version "2.0.14"

@@ -61,10 +61,12 @@ export class FileListData {
 export class PostData {
     sha: string
     content: string
+    markdownPost: MarkDownPost | null
 
-    constructor(sha: string, content: string) {
+    constructor(sha: string, content: string, markdownPost: MarkDownPost | null) {
         this.sha = sha
         this.content = content
+        this.markdownPost = markdownPost
     }
 }
 
@@ -76,4 +78,29 @@ export class PostListWrapper {
     }
 }
 
+export class MarkDownPost {
+
+    categories: string []
+    tags: string []
+    date: Date
+    is_hide: boolean
+    excerpt_separator: string
+    layout: string
+    description: string
+    title: string
+    body: string
+
+    constructor(categories: string [], tags: string [], date: Date, is_hide: boolean, excerpt_separator: string, layout: string, description: string, title: string, body: string) {
+        this.categories = categories
+        this.tags = tags
+        this.date = date
+        this.is_hide = is_hide
+        this.excerpt_separator = excerpt_separator
+        this.layout = layout
+        this.description = description
+        this.title = title
+        this.body = body
+    }
+
+}
 

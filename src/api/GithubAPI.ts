@@ -1,7 +1,8 @@
 import axios from "axios"
-import {fileListStore, postListStore, userInfoStore} from "@/store";
-import {PostData} from "@/api/GithubData";
-import {Base64} from "js-base64";
+import { fileListStore, postListStore, userInfoStore } from "@/store";
+import { MarkDownPost, PostData } from "@/api/GithubData";
+import { Base64 } from "js-base64";
+import { parse } from "jekyll-markdown-parser";
 
 const owner: string = 'Dev-Phantom'
 const repo: string = 'study-note'
@@ -10,25 +11,23 @@ const baseURL = 'https://api.github.com'
 export const setAuthAPI = () => {
     const endPoint: string = '/user'
     console.debug('Github token: ', process.env.VUE_APP_GITHUB_API_KEY)
-    console.debug('-----------------------------------------')
-    console.time('GET '+endPoint)
     axios.get(endPoint, {
         baseURL: baseURL,
         headers: {
             'Authorization': process.env.VUE_APP_GITHUB_API_KEY
         }
     }).then(res => {
-        console.debug(res.data)
+        console.debug('-----------------------------------------')
+
         userInfoStore.name = res.data.login
         userInfoStore.profile_image = res.data.avatar_url
         userInfoStore.company = res.data.company
         userInfoStore.position = res.data.bio
         userInfoStore.blog = res.data.blog
-        console.timeEnd('GET '+endPoint)
-        console.debug('-----------------------------------------')
+
+        console.debug(`GET ${res.status} ${res.statusText} ${endPoint}`)
     }).catch(err => {
         console.error(err.message)
-        console.debug('-----------------------------------------')
     })
     // const endPoint: string = `/repos/${userInfoStore.name}/${repo}/contents/src/docs/directory-map.json?ref=main`
 }
@@ -38,21 +37,23 @@ export const callPostList = (latest_index: number | null) => {
     const start: number = latest_index === null ? 0 : latest_index
     const postList: Array<PostData> = new Array<PostData>()
 
-    console.debug('---------------Get File list Start-----------------')
     fileListStore.file_list.slice(start, start + 5).forEach((e, i,) => {
-        console.log('file_list index: %d', i)
+
         const endPoint: string = `/repos/${owner}/${repo}/contents${e.file_path}?ref=main`
-        console.debug('GET ' + endPoint)
         axios.get(endPoint, {
             baseURL: baseURL
         }).then(res => {
-            const result = res.data
-            console.debug('result: ', result)
-            postListStore.postDataList.push(new PostData(result.sha, Base64.decode(result.content)))
             console.debug('-----------------------------------------')
+            const result = res.data
+            console.debug(`GET ${res.status} ${res.statusText} ${endPoint}`)
+            const decodedContent: string = Base64.decode(result.content)
+            const md = parse(decodedContent)
+            const header = md.parsedYaml
+
+            new MarkDownPost(header.categories, header.tags, header.date, header.hide, header.excerpt_separator, header.layout, '', header.title, '')
+            postListStore.postDataList.push(new PostData(result.sha, decodedContent, null))
         }).catch(error => {
             console.error(error.message)
-            console.debug('-----------------------------------------')
         })
     })
 

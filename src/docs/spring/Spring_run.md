@@ -4,6 +4,9 @@ title: -Spring- run (Execute Spring Boot App Method)
 categories: [Development,Spring]
 tags: [Spring,Spring Boot]
 date: 2021-07-12 11:47:00 +0900
+profile_image: /assets/blogging/profile/profile1.JPG
+current_company: Herit Corperation
+current_position: Backend Server Developer
 thumbnail: "/assets/blogging/spring/spring_logo.png"
 excerpt_separator: <!--more-->
 hide: true

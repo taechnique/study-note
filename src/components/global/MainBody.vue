@@ -7,7 +7,7 @@
             <img :src="'https://avatars.githubusercontent.com/u/65699391?v=4'" />
           </div>
           <div class="author-info">
-            <span class="author-name">{{ this.profile.name }}</span>
+            <span class="author-name">{{ userInfoStore.name }}</span>
             <span class="author-work-at">{{ this.profile.career }}, {{ this.profile.work_at }}</span>
             <span class="posting-date">{{ post.markdownPost.date }}</span>
           </div>
@@ -75,6 +75,7 @@
 <script>
 import { callPostList } from "@/api/GithubAPI";
 import { postListStore } from "@/store";
+import { userInfoStore } from "@/store";
 import {parse} from "jekyll-markdown-parser";
 import {setPostContent} from "@/components/header/settingUtils";
 
@@ -87,6 +88,7 @@ export default {
 
     return {
       postListStore,
+      userInfoStore,
       content_loader: {
         is_active: false,
         style: {
@@ -141,8 +143,11 @@ export default {
       setPostContent(md.markdown)
     },
     changeDefaultIfNull: (path) => {
-      const defaultImages = ['default1.JPG', 'default2.jpeg', 'default3.jpeg', 'default4.jpg']
-      const returnPath = path == undefined || path == null ? 'https://media.vlpt.us/images/kyjna0312/post/933dfcfa-a12b-403a-aa29-07530c07660c/img.jpg' : 'https://raw.githubusercontent.com/Dev-Phantom/study-note/main/src'+path
+      const defaultImages = ['default1.JPG', 'default2.jpeg', 'default3.jpeg', 'default4.jpeg', 'default5.JPG']
+      const r = Math.floor(Math.random() * defaultImages.length)
+      const baseImagePath = 'https://raw.githubusercontent.com/Dev-Phantom/study-note/main/src'
+
+      const returnPath = path == undefined || path == null ? baseImagePath+'/assets/blogging/default/'+defaultImages[r] : baseImagePath + path
       console.debug('returnPath: ', returnPath)
 
       return returnPath

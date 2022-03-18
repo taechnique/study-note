@@ -4,7 +4,7 @@
       <div class="post-card-wrapper" v-for="(post, idx) in this.postListStore.postDataList" v-bind:key="post.sha">
         <div class="post-preview-header">
           <div class="profile-image">
-            <img :src="this.profile.image" />
+            <img :src="'https://avatars.githubusercontent.com/u/65699391?v=4'" />
           </div>
           <div class="author-info">
             <span class="author-name">{{ this.profile.name }}</span>
@@ -18,7 +18,7 @@
           </div>
           <a href="#" v-on:click="toMarkdown(idx)">
             <div class="post-default-image">
-              <div class="default-image-wrapper" v-bind:style="{ backgroundImage: 'url('+ require(post.markdownPost.thumbnail) +')' }">
+              <div class="default-image-wrapper" v-bind:style="{ backgroundImage: 'url('+changeDefaultIfNull(post.markdownPost.thumbnail) +')' }">
               </div>
               <div class="post-title-box">
                   <span class="post-title">{{ post.markdownPost.title }}</span>
@@ -139,6 +139,12 @@ export default {
       const content = postListStore.postDataList[index].content
       const md = parse(content)
       setPostContent(md.markdown)
+    },
+    changeDefaultIfNull: (path) => {
+      const returnPath = path == undefined || path == null ? 'https://media.vlpt.us/images/kyjna0312/post/933dfcfa-a12b-403a-aa29-07530c07660c/img.jpg' : 'https://raw.githubusercontent.com/Dev-Phantom/study-note/main/src'+path
+      console.debug('returnPath: ', returnPath)
+
+      return returnPath
     }
 
   },

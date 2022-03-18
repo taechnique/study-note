@@ -141,6 +141,7 @@ export default {
       setPostContent(md.markdown)
     },
     changeDefaultIfNull: (path) => {
+      const defaultImages = ['default1.JPG', 'default2.jpeg', 'default3.jpeg', 'default4.jpg']
       const returnPath = path == undefined || path == null ? 'https://media.vlpt.us/images/kyjna0312/post/933dfcfa-a12b-403a-aa29-07530c07660c/img.jpg' : 'https://raw.githubusercontent.com/Dev-Phantom/study-note/main/src'+path
       console.debug('returnPath: ', returnPath)
 

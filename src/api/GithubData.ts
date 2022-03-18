@@ -81,6 +81,7 @@ export class PostListWrapper {
 
 export class MarkDownPost {
 
+    thumbnail: string
     categories: string []
     tags: string []
     date: Date
@@ -91,7 +92,8 @@ export class MarkDownPost {
     title: string
     body: string
 
-    constructor(categories: string [], tags: string [], date: Date, is_hide: boolean, excerpt_separator: string, layout: string, description: string, title: string, body: string) {
+    constructor(thumbnail: string, categories: string [], tags: string [], date: Date, is_hide: boolean, excerpt_separator: string, layout: string, description: string, title: string, body: string) {
+        this.thumbnail = thumbnail
         this.categories = categories
         this.tags = tags
         this.date = date

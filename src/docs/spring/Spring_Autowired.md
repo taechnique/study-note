@@ -4,7 +4,7 @@ title: -Spring- @Autowired javaDoc 번역 (@Autowired)
 categories: [Development,Spring]
 tags: [Spring,Spring Boot]
 date: 2021-08-04 11:44:00 +0900
-thumbnail: "@/assets/spring/spring_logo.png"
+thumbnail: "@/assets/blogging/spring/spring_logo.png"
 excerpt_separator: <!--more-->
 hide: false
 ---

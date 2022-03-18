@@ -55,8 +55,9 @@ export const callPostList = (latest_index: number | null) => {
             const header = md.parsedYaml
             const contentRegex = /(?:((.|\n)*)(<!--[\s]{0,}more[\s]{0,}-->)((.|\n)*))/g
 
+            console.debug('header: ', header)
             const executed: string[] | null = contentRegex.exec(md.markdown)
-            postListStore.postDataList.push(new PostData(result.sha, decodedContent, new MarkDownPost(header.categories, header.tags, header.date, header.hide, header.excerpt_separator, header.layout, executed![1], header.title, executed![4])))
+            postListStore.postDataList.push(new PostData(result.sha, decodedContent, new MarkDownPost(header.thumbnail, header.categories, header.tags, header.date, header.hide, header.excerpt_separator, header.layout, executed![1], header.title, executed![4])))
 
         }).catch(error => {
             console.error(error.message)

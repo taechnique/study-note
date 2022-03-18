@@ -18,7 +18,7 @@
           </div>
           <a href="#" v-on:click="toMarkdown(idx)">
             <div class="post-default-image">
-              <div class="default-image-wrapper" v-bind:style="{ backgroundImage: 'url(https://media.vlpt.us/images/kyjna0312/post/933dfcfa-a12b-403a-aa29-07530c07660c/img.jpg)' }">
+              <div class="default-image-wrapper" v-bind:style="{ backgroundImage: 'url('+ require(post.markdownPost.thumbnail) +')' }">
               </div>
               <div class="post-title-box">
                   <span class="post-title">{{ post.markdownPost.title }}</span>

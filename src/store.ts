@@ -23,3 +23,7 @@ export const postListStore = reactive<PostListWrapper>({
     latest_index: 0,
     postDataList: []
 })
+
+export const scrollStore = reactive({
+    scroll: 0
+})

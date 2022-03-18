@@ -102,7 +102,7 @@ export default {
 .main-header {
   max-width: 1080px;
   height: 200px;
-  margin: 40px auto 20px auto;
+  margin: 0 auto;
   background-color: $main-light-color;
   border-radius: 15px;
   box-shadow: 0px 1px 30px 0 rgb(32 33 36 / 34%);
@@ -293,13 +293,15 @@ export default {
     & .mobile-navigator-wrapper {
       position: fixed;
       top: 0;
-      left: -500px;
+      left: -1999px;
       height: 100%;
       width: 77%;
+      transition: 2s;
 
       &.active {
         left: 0;
         z-index: 2;
+        transition: .6s;
       }
 
       & .nav-panel-box {
@@ -410,7 +412,7 @@ export default {
   .main-header {
     max-width: 80%;
     height: 380px;
-    margin: 40px auto 20px auto;
+    margin: 0 auto;
     background-color: $main-light-color;
     border-radius: 15px;
     box-shadow: 0px 1px 30px 0 rgb(32 33 36 / 34%);

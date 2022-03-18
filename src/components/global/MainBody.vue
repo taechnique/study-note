@@ -1,15 +1,15 @@
 <template>
   <div class="main-body">
     <div class="main-container">
-      <div class="post-card-wrapper" v-for="(post, idx) in this.postListStore.postDataList" v-bind:key="post.sha">
+      <div class="post-card-wrapper" v-for="(post, idx) in getSortedPostList(this.postListStore.postDataList)" v-bind:key="post.sha">
         <div class="post-preview-header">
           <div class="profile-image">
-            <img :src="'https://avatars.githubusercontent.com/u/65699391?v=4'" />
+            <img :src="getProfileOrDefault(post.markdownPost.profile_image)" />
           </div>
           <div class="author-info">
             <span class="author-name">{{ userInfoStore.name }}</span>
-            <span class="author-work-at">{{ this.profile.career }}, {{ this.profile.work_at }}</span>
-            <span class="posting-date">{{ post.markdownPost.date }}</span>
+            <span class="author-work-at">{{ post.markdownPost.current_position }}, {{ post.markdownPost.current_company }}</span>
+            <span class="posting-date">{{ calPostDate(post.markdownPost.date) }}</span>
           </div>
         </div>
         <div class="post-preview-body">
@@ -74,10 +74,10 @@
 
 <script>
 import { callPostList } from "@/api/GithubAPI";
-import { postListStore } from "@/store";
+import {postListStore, scrollStore} from "@/store";
 import { userInfoStore } from "@/store";
-import {parse} from "jekyll-markdown-parser";
-import {setPostContent} from "@/components/header/settingUtils";
+import { parse } from "jekyll-markdown-parser";
+import { setPostContent } from "@/components/header/settingUtils";
 
 
 export default {
@@ -129,6 +129,11 @@ export default {
     }
   },
   mounted() {
+    window.addEventListener('scroll', this.handleScroll)
+
+  },
+  beforeUnmount() {
+    window.removeEventListener('scroll', this.handleScroll)
 
   },
   methods: {
@@ -147,12 +152,62 @@ export default {
       const r = Math.floor(Math.random() * defaultImages.length)
       const baseImagePath = 'https://raw.githubusercontent.com/Dev-Phantom/study-note/main/src'
 
-      const returnPath = path == undefined || path == null ? baseImagePath+'/assets/blogging/default/'+defaultImages[r] : baseImagePath + path
-      console.debug('returnPath: ', returnPath)
+      const returnPath = path == undefined || path == null ? baseImagePath + '/assets/blogging/default/'+defaultImages[r] : baseImagePath + path
 
       return returnPath
-    }
+    },
+    getProfileOrDefault: (path) => {
+      const defaultPath = 'https://avatars.githubusercontent.com/u/65699391?v=4'
+      const basePath = 'https://raw.githubusercontent.com/Dev-Phantom/study-note/main/src'
 
+      const returnPath = path == undefined || path == null ? defaultPath : basePath + path
+
+      return returnPath
+    },
+    calPostDate: (date) => {
+      const timeValue = new Date(date);
+      const milliSeconds = new Date() - timeValue
+
+      const seconds = milliSeconds / 1000
+      if (seconds < 60) return `방금 전`
+
+      const minutes = seconds / 60
+      if (minutes < 60) return `${Math.floor(minutes)}분 전`
+
+      const hours = minutes / 60
+      if (hours < 24) return `${Math.floor(hours)}시간 전`
+
+      const days = hours / 24
+      if (days < 7) return `${Math.floor(days)}일 전`
+
+      const weeks = days / 7
+      if (weeks < 5) return `${Math.floor(weeks)}주 전`
+
+      const months = days / 30
+      if (months < 12) return `${Math.floor(months)}개월 전`
+
+      const years = days / 365
+      return `${Math.floor(years)}년 전`
+
+    },
+    getSortedPostList: (posts) => {
+      if(posts.length !== 0) {
+
+        posts.sort((a, b) => new Date(b.markdownPost.date) - new Date(a.markdownPost.date))
+        postListStore.latest_index = posts[posts.length - 1].index
+      }
+      return posts
+    },
+    handleScroll: () => {
+      const currentScroll = window.scrollY
+      const winHeight = window.innerHeight
+      const docHeight = document.documentElement.scrollHeight
+
+      const percent = (100.000 * currentScroll / (docHeight - winHeight)).toFixed(3)
+
+      scrollStore.scroll = parseFloat(percent)
+
+    }
   },
   components: {
   }
@@ -174,11 +229,12 @@ export default {
     width: 100%;
 
     & .post-card-wrapper {
-      width: 60%;
-      margin: 20px auto;
+      width: 70%;
+      margin: 10px auto;
       min-height: 600px;
       background-color: $main-light-color;
       border-radius: 15px;
+      border: 1.29px solid #e0dfdc;
 
       & .post-preview-header {
         padding: 20px 30px;

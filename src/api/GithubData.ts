@@ -34,10 +34,12 @@ export class FileData {
     file_index: number = 0
     file_path: string
     file_title: string
+    create_time: Date
 
-    constructor(file_path: string, file_title: string) {
+    constructor(file_path: string, file_title: string, create_time: Date) {
         this.file_path = file_path
         this.file_title = file_title
+        this.create_time = create_time
     }
 }
 
@@ -59,11 +61,13 @@ export class FileListData {
 }
 
 export class PostData {
+    index: number
     sha: string
     content: string
     markdownPost: MarkDownPost | null
 
-    constructor(sha: string, content: string, markdownPost: MarkDownPost | null) {
+    constructor(index: number, sha: string, content: string, markdownPost: MarkDownPost | null) {
+        this.index = index
         this.sha = sha
         this.content = content
         this.markdownPost = markdownPost
@@ -77,9 +81,14 @@ export class PostListWrapper {
     constructor(postDataList: PostData[]) {
         this.postDataList = postDataList
     }
+
 }
 
 export class MarkDownPost {
+
+    profile_image: string
+    current_company: string
+    current_position: string
 
     thumbnail: string
     categories: string []
@@ -92,7 +101,10 @@ export class MarkDownPost {
     title: string
     body: string
 
-    constructor(thumbnail: string, categories: string [], tags: string [], date: Date, is_hide: boolean, excerpt_separator: string, layout: string, description: string, title: string, body: string) {
+    constructor(profile_image: string, current_company: string, current_position: string, thumbnail: string, categories: string [], tags: string [], date: Date, is_hide: boolean, excerpt_separator: string, layout: string, description: string, title: string, body: string) {
+        this.profile_image = profile_image
+        this.current_company = current_company
+        this.current_position = current_position
         this.thumbnail = thumbnail
         this.categories = categories
         this.tags = tags

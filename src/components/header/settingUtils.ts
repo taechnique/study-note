@@ -1,6 +1,6 @@
 import { DirectoryData, FileData, FileListData, WrapperData } from "@/api/GithubData";
 import { directoryMap } from "@/docs/directory-map";
-import { dirMapStore, fileListStore } from "@/store";
+import {dirMapStore, fileListStore, postListStore} from "@/store";
 
 
 export const setDirectories = () => {
@@ -10,7 +10,7 @@ export const setDirectories = () => {
         const fileData: Array<FileData> = []
 
         dir.files.forEach(file => {
-            fileData.push(new FileData(file.file_path, file.file_title))
+            fileData.push(new FileData(file.file_path, file.file_title, new Date(file.create_time)))
         })
 
         directoryData.push(new DirectoryData(dir.directory_name, fileData!))
@@ -24,17 +24,22 @@ export const setDirectories = () => {
 
 export const setFileList = () => {
 
-    let index: number = 0
     const fileListData: FileListData = new FileListData()
+    //== 각 디렉토리별 파일담기 ==//
     dirMapStore.directories.forEach((dir: DirectoryData) => {
 
         dir.files.forEach((file: FileData) => {
 
             fileListData.file_list.push(file)
-            file.file_index = index
-            index++
         })
     })
+    //== 포스트 최신순 및 인덱싱 ==//
+    fileListData.file_list.sort((a: FileData, b: FileData): number => {
+        return +b.create_time - +a.create_time
+    }).forEach((f: FileData, index: number) => {
+        f.file_index = index
+    })
+
 
     fileListStore.file_list = fileListData.file_list
 }

@@ -3,7 +3,7 @@ layout: post
 title: -Intellij- General Configuration (인텔리제이 설정)
 categories: [Development,Intellij]
 tags: [Intellij]
-date: 2021-02-23 21:58:00 +0900
+date: 2021-02-23 21:58:00
 profile_image: /assets/blogging/profile/profile3.jpeg
 current_company: Cubic Inc
 current_position: Web Backend Developer

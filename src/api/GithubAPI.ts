@@ -59,7 +59,6 @@ export const callPostList = (latest_index: number | null) => {
                 const header = md.parsedYaml
                 const contentRegex = /(?:((.|\n)*)(<!--[\s]{0,}more[\s]{0,}-->)((.|\n)*))/g
                 const executed: string[] | null = contentRegex.exec(md.markdown)
-
                 postListStore.postDataList.push(
                     new PostData(e.file_index, result.sha, decodedContent,
                         new MarkDownPost(
@@ -72,14 +71,13 @@ export const callPostList = (latest_index: number | null) => {
                             header.thumbnail,
                             header.categories,
                             header.tags,
-                            header.date,
+                            new Date(header.date.getDate()),
                             header.hide,
                             header.excerpt_separator,
                             header.layout,
                             executed![1],
                             header.title, executed![4])))
                 expectedCount--
-
                 if(expectedCount == 0) {
                     postCallStore.is_calling = false
                 }

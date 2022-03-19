@@ -3,7 +3,7 @@ layout: post
 title: -Spring- @Autowired javaDoc 번역 (@Autowired)
 categories: [Development,Spring]
 tags: [Spring,Spring Boot]
-date: 2021-08-04 23:44:00
+date: 2021-08-04 23:44:00 +0900
 profile_image: /assets/blogging/profile/profile1.JPG
 current_company: Herit Corporation
 current_position: Backend Server Developer

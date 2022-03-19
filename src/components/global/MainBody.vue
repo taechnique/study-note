@@ -77,7 +77,7 @@ import { callPostList } from "@/api/GithubAPI";
 import {postListStore, postCallStore, userInfoStore, fileListStore} from "@/store";
 import { parse } from "jekyll-markdown-parser";
 import { setPostContent } from "@/components/header/settingUtils";
-
+import format from 'date-format'
 
 export default {
   data() {
@@ -154,7 +154,6 @@ export default {
       return returnPath
     },
     calPostDate: (date) => {
-      date = date.replace(/-/g, '/')
       const timeValue = Date.parse(date)
       const milliSeconds = new Date() - timeValue
 
@@ -182,9 +181,9 @@ export default {
     },
     getSortedPostList: (posts) => {
       if(posts.length !== 0) {
-        posts.sort((a, b) => b.markdownPost.date - a.markdownPost.date)
+        const soted = posts.sort((a, b) => format(format.ISO8601_WITH_TZ_OFFSET_FORMAT, b.markdownPost.date) - format(format.ISO8601_WITH_TZ_OFFSET_FORMAT, a.markdownPost.date))
         postListStore.latest_index = posts[posts.length - 1].index
-        console.debug('posts: ',posts)
+        console.debug('soted: ',soted)
       }
       return posts
     }

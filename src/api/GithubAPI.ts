@@ -45,6 +45,7 @@ export const callPostList = (latest_index: number | null) => {
 
         console.debug('%c-----------------------------------------', 'color: Green')
 
+        console.debug('start: %d, end: %d', start, end)
         fileListStore.file_list.slice(start, end).forEach(e => {
             const endPoint: string = `/repos/${owner}/${repo}/contents${e.file_path}?ref=main`
             axios.get(endPoint, {
@@ -57,8 +58,8 @@ export const callPostList = (latest_index: number | null) => {
                 const md = parse(decodedContent)
                 const header = md.parsedYaml
                 const contentRegex = /(?:((.|\n)*)(<!--[\s]{0,}more[\s]{0,}-->)((.|\n)*))/g
-
                 const executed: string[] | null = contentRegex.exec(md.markdown)
+
                 postListStore.postDataList.push(
                     new PostData(e.file_index, result.sha, decodedContent,
                         new MarkDownPost(
@@ -79,10 +80,9 @@ export const callPostList = (latest_index: number | null) => {
                             header.title, executed![4])))
                 expectedCount--
 
-                if(expectedCount === 0) {
+                if(expectedCount == 0) {
                     postCallStore.is_calling = false
                 }
-
 
             }).catch(error => {
                 console.error(error.message)

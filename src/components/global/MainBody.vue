@@ -118,7 +118,9 @@ export default {
 
       const scrollPer = parseFloat(percent)
 
-      if(( ! postCallStore.is_calling) && scrollPer > 80 && !(fileListStore.file_list.length === postListStore.postDataList.length)) {
+      if(( ! postCallStore.is_calling) && scrollPer > 80 && !(fileListStore.file_list.length == postListStore.postDataList.length)) {
+        console.debug('트루')
+        console.debug('트루에서: ',fileListStore.file_list.length, postListStore.postDataList.length)
         postCallStore.is_calling = true
         callNextPost()
       }
@@ -152,7 +154,7 @@ export default {
       return returnPath
     },
     calPostDate: (date) => {
-      const timeValue = new Date(date);
+      const timeValue = date;
       const milliSeconds = new Date() - timeValue
 
       const seconds = milliSeconds / 1000
@@ -179,8 +181,7 @@ export default {
     },
     getSortedPostList: (posts) => {
       if(posts.length !== 0) {
-
-        posts.sort((a, b) => new Date(b.markdownPost.date) - new Date(a.markdownPost.date))
+        posts.sort((a, b) => b.markdownPost.date - a.markdownPost.date)
         postListStore.latest_index = posts[posts.length - 1].index
       }
       return posts

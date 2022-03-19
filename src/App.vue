@@ -26,7 +26,6 @@ export default {
       const docHeight = document.documentElement.scrollHeight
       const percent = (100.000 * currentScroll / (docHeight - winHeight)).toFixed(4) + '%'
 
-      console.debug(percent)
       const element = document.querySelector('.app-container .progress-area .progress-bar')
       element.style.width = percent
 

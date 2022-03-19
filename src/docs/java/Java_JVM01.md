@@ -3,7 +3,7 @@ layout: post
 title: -Java- JVM 01 (Runtime Data Area)
 categories: [Development,Java]
 tags: [Java]
-date: 2021-03-02 14:58:00
+date: 2021-03-02 14:58:00 +0900
 profile_image: /assets/blogging/profile/profile2.JPG 
 current_company: Cubic Inc
 current_position: Web Backend Developer

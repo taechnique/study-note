@@ -3,7 +3,7 @@ import {fileListStore, postCallStore, postListStore, userInfoStore} from "@/stor
 import { MarkDownPost, PostData } from "@/api/GithubData";
 import { Base64 } from "js-base64";
 import { parse } from "jekyll-markdown-parser";
-
+import { format } from "date-format-parse";
 
 
 const owner: string = 'Dev-Phantom'
@@ -15,7 +15,7 @@ export const setAuthAPI = () => {
     axios.get(endPoint, {
         baseURL: baseURL,
         headers: {
-            'Authorization': process.env.VUE_APP_GITHUB_API_KEY
+            'Authorization': process.env.VUE_APP_SECRET_USER_KEY
         }
     }).then(res => {
         userInfoStore.name = res.data.login
@@ -25,7 +25,7 @@ export const setAuthAPI = () => {
         userInfoStore.blog = res.data.blog
 
     }).catch(err => {
-        console.debug('Github token: ', process.env.VUE_APP_GITHUB_API_KEY)
+        console.debug('Github token: ', process.env.VUE_APP_SECRET_USER_KEY)
         console.error('-----------------------------------------')
         console.error(err.message)
     })
@@ -45,7 +45,6 @@ export const callPostList = (latest_index: number | null) => {
 
         console.debug('%c-----------------------------------------', 'color: Green')
 
-        console.debug('start: %d, end: %d', start, end)
         fileListStore.file_list.slice(start, end).forEach(e => {
             const endPoint: string = `/repos/${owner}/${repo}/contents${e.file_path}?ref=main`
             axios.get(endPoint, {
@@ -59,6 +58,9 @@ export const callPostList = (latest_index: number | null) => {
                 const header = md.parsedYaml
                 const contentRegex = /(?:((.|\n)*)(<!--[\s]{0,}more[\s]{0,}-->)((.|\n)*))/g
                 const executed: string[] | null = contentRegex.exec(md.markdown)
+
+
+
                 postListStore.postDataList.push(
                     new PostData(e.file_index, result.sha, decodedContent,
                         new MarkDownPost(
@@ -71,7 +73,7 @@ export const callPostList = (latest_index: number | null) => {
                             header.thumbnail,
                             header.categories,
                             header.tags,
-                            new Date(header.date.getDate()),
+                            header.date,
                             header.hide,
                             header.excerpt_separator,
                             header.layout,
@@ -86,8 +88,6 @@ export const callPostList = (latest_index: number | null) => {
                 console.error(error.message)
             })
         })
-    } else {
-            console.debug('초기화용 호출이기에 더이상 호출하지 않음.')
     }
 
 

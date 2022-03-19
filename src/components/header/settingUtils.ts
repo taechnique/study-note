@@ -1,6 +1,7 @@
 import { DirectoryData, FileData, FileListData, WrapperData } from "@/api/GithubData";
 import { directoryMap } from "@/docs/directory-map";
 import {dirMapStore, fileListStore, postListStore} from "@/store";
+import {parse} from "date-format-parse";
 
 
 export const setDirectories = () => {
@@ -10,7 +11,7 @@ export const setDirectories = () => {
         const fileData: Array<FileData> = []
 
         dir.files.forEach(file => {
-            fileData.push(new FileData(file.file_path, file.file_title, new Date(file.create_time)))
+            fileData.push(new FileData(file.file_path, file.file_title, parse(file.create_time, 'YYYY-MM-DD HH:mm:ss ZZ')))
         })
 
         directoryData.push(new DirectoryData(dir.directory_name, fileData!))

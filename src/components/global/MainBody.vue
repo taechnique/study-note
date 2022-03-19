@@ -77,7 +77,6 @@ import { callPostList } from "@/api/GithubAPI";
 import {postListStore, postCallStore, userInfoStore, fileListStore} from "@/store";
 import { parse } from "jekyll-markdown-parser";
 import { setPostContent } from "@/components/header/settingUtils";
-import format from 'date-format'
 
 export default {
   data() {
@@ -119,8 +118,6 @@ export default {
       const scrollPer = parseFloat(percent)
 
       if(( ! postCallStore.is_calling) && scrollPer > 80 && !(fileListStore.file_list.length == postListStore.postDataList.length)) {
-        console.debug('트루')
-        console.debug('트루에서: ',fileListStore.file_list.length, postListStore.postDataList.length)
         postCallStore.is_calling = true
         callNextPost()
       }
@@ -181,9 +178,8 @@ export default {
     },
     getSortedPostList: (posts) => {
       if(posts.length !== 0) {
-        const soted = posts.sort((a, b) => format(format.ISO8601_WITH_TZ_OFFSET_FORMAT, b.markdownPost.date) - format(format.ISO8601_WITH_TZ_OFFSET_FORMAT, a.markdownPost.date))
+        posts.sort((a, b) => b.markdownPost.date - a.markdownPost.date)
         postListStore.latest_index = posts[posts.length - 1].index
-        console.debug('soted: ',soted)
       }
       return posts
     }

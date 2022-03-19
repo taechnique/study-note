@@ -1,5 +1,8 @@
 <template >
   <div class="app-container">
+    <div class="progress-area">
+      <span class="progress-bar"></span>
+    </div>
     <MainHeader />
     <router-view/>
     <MainFooter />
@@ -15,8 +18,23 @@ import MainFooter from "@/components/global/MainFooter";
 import MainHeader from "@/components/global/MainHeader";
 
 export default {
-  setup() {
+  data() {
+
+    const handleForScroll = () => {
+      const currentScroll = window.scrollY
+      const winHeight = window.innerHeight
+      const docHeight = document.documentElement.scrollHeight
+      const percent = (100.000 * currentScroll / (docHeight - winHeight)).toFixed(4) + '%'
+
+      console.debug(percent)
+      const element = document.querySelector('.app-container .progress-area .progress-bar')
+      element.style.width = percent
+
+    }
+    window.addEventListener('scroll', handleForScroll)
+
     return {
+      handleForScroll
     }
   },
   components: {
@@ -39,7 +57,10 @@ export default {
 
     .progress-bar {
       display: block;
+      background-color: #0a66c2;
+      width: 0%;
       height: 100%;
+      transition: none;
     }
   }
 }

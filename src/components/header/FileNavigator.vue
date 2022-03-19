@@ -77,10 +77,11 @@ export default {
     position: fixed;
     min-height: 200px;
     width: inherit;
-    top: 30%;
+    top: 270px;
     border-radius: 15px;
     background-color: $main-light-color;
     padding: 20px 0px;
+    border: 1.29px solid #e0dfdc;
 
     & li {
       list-style: none;
@@ -178,6 +179,9 @@ export default {
 
   .header-file-navigator {
     display: none;
+  }
+  .progress-area {
+    top: 50px !important;
   }
 }
 

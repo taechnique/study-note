@@ -41,7 +41,7 @@
           </div>
         </div>
       </div>
-      <div class="post-card-wrapper content-loader" :class="{ active : content_loader.is_active }">
+      <div class="post-card-wrapper content-loader" :class="{ active : postCallStore.is_calling }">
         <svg viewBox="0 0 400 480" preserveAspectRatio="xMidYMid meet" style="background-color: rgb(252, 252, 252); border-radius: 15px; display: block;">
           <rect clip-path="url(#7salfztor6n)" x="0" y="0" width="100%" height="100%" style="fill: url('#7z37ry5fwrh');"></rect>
           <defs>
@@ -74,23 +74,25 @@
 
 <script>
 import { callPostList } from "@/api/GithubAPI";
-import {postListStore, scrollStore} from "@/store";
-import { userInfoStore } from "@/store";
+import {postListStore, postCallStore, userInfoStore, fileListStore} from "@/store";
 import { parse } from "jekyll-markdown-parser";
 import { setPostContent } from "@/components/header/settingUtils";
 
 
 export default {
-  setup() {
-
-
+  data() {
     callPostList(null)
 
     return {
       postListStore,
       userInfoStore,
+      fileListStore,
+      postCallStore,
+      scroll: {
+        current: 0
+      },
       content_loader: {
-        is_active: false,
+        is_active: postCallStore.is_calling,
         style: {
           width: '60%',
           margin: '20px auto',
@@ -99,49 +101,34 @@ export default {
           display: 'block'
 
         }
-      },
-      profile: {
-        name: 'Dev-Phantom',
-        work_at: 'Herit Corperation',
-        career: 'Server Developer',
-        image: 'https://github.com/Dev-Phantom/study-node/blob/main/src/assets/images/profile.png?raw=true'
-      },
-      posts: [
-        {
-          id:1,
-          contents: {
-            post_title: 'Spring Boot의 AOP는 CGLIB으로만 생성된다 ?!',
-            post_path: 'phantom-dev.io',
-            default_image: 'https://media.vlpt.us/images/kyjna0312/post/933dfcfa-a12b-403a-aa29-07530c07660c/img.jpg',
-            description_text: '스프링 프레임워크의 장점중하나인 AOP는 Proxy 패턴을 통해 확장하거나 DI 할수 있는 좋은 기능입니다.\n 하지만 스프링 AOP는 JDK Dynamic Proxy또는 CGLIB을 이용해 AOP를 사용합니다.\n하지만 이 기능을 Spring Boot에서는 CGLIB만을 이용해 사용하는데요, 간단하게 Proxy Pattern이 어떤것인지 알아보고 왜 Spring Boot에서는 CGLIB으로만 AOP를 사용하는지 알아봅니다.',
-            posting_date: '1시간',
-            tags: [
-              'Spring',
-              'AOP',
-              'SpringBoot',
-              '스프링부트 AOP',
-              '아 진짜 몰랐음',
-              'CGLIB'
-            ]
-          }
-        }
-      ]
+      }
     }
   },
   mounted() {
-    window.addEventListener('scroll', this.handleScroll)
+    const callNextPost = () => {
+      callPostList(postListStore.latest_index + 1)
 
-  },
-  beforeUnmount() {
-    window.removeEventListener('scroll', this.handleScroll)
+    }
+    const handleForScroll = () => {
+      const currentScroll = window.scrollY
+      const winHeight = window.innerHeight
+      const docHeight = document.documentElement.scrollHeight
+
+      const percent = (100.000 * currentScroll / (docHeight - winHeight)).toFixed(3)
+
+      const scrollPer = parseFloat(percent)
+
+      if(( ! postCallStore.is_calling) && scrollPer > 80 && !(fileListStore.file_list.length === postListStore.postDataList.length)) {
+        postCallStore.is_calling = true
+        callNextPost()
+      }
+
+    }
+
+    window.addEventListener('scroll', handleForScroll)
 
   },
   methods: {
-    convertPost: (index, content) => {
-      // const pattern = new RegExp('(?:(.[^\\\\]+)(\\\\n)?)','g')
-      // const contentRegex = /(?:(.[^\\\\]+)(\\\\n)?)/g;
-      return content
-    },
     toMarkdown: (index) => {
       const content = postListStore.postDataList[index].content
       const md = parse(content)
@@ -197,16 +184,6 @@ export default {
         postListStore.latest_index = posts[posts.length - 1].index
       }
       return posts
-    },
-    handleScroll: () => {
-      const currentScroll = window.scrollY
-      const winHeight = window.innerHeight
-      const docHeight = document.documentElement.scrollHeight
-
-      const percent = (100.000 * currentScroll / (docHeight - winHeight)).toFixed(3)
-
-      scrollStore.scroll = parseFloat(percent)
-
     }
   },
   components: {

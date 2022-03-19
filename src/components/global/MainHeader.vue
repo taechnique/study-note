@@ -60,6 +60,9 @@ import FileNavigator from "@/components/header/FileNavigator";
 
 export default {
   data() {
+
+
+
     return {
       me: {
         profile_image: 'https://github.com/Dev-Phantom/study-node/blob/main/src/assets/images/profile.png?raw=true'
@@ -217,11 +220,13 @@ export default {
 
             &:focus {
               outline: none;
+              background-color: white;
             }
           }
 
           &.focus {
             border-color: #2c3e50;
+            background-color: white;
           }
         }
       }

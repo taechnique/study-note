@@ -1,5 +1,5 @@
 import axios from "axios"
-import { fileListStore, postListStore, userInfoStore } from "@/store";
+import {fileListStore, postCallStore, postListStore, userInfoStore} from "@/store";
 import { MarkDownPost, PostData } from "@/api/GithubData";
 import { Base64 } from "js-base64";
 import { parse } from "jekyll-markdown-parser";
@@ -33,20 +33,24 @@ export const setAuthAPI = () => {
 }
 
 export const callPostList = (latest_index: number | null) => {
+    const contentsPerCall: number = 4
+    const callable: boolean = latest_index === null
+    const lastIndex: number = fileListStore.file_list.length === 0 ? 0 : fileListStore.file_list.length - 1
+    const start: number = callable ? 0 : latest_index!
+    const end = lastIndex < start + contentsPerCall ? lastIndex + 1 : start+ contentsPerCall
+    let expectedCount: number = end - start
 
-    const callable = latest_index === null
-    const start: number = callable ? 0 : latest_index
-    if(callable && postListStore.postDataList.length === 0) {
+    //== 최초 호출 이거나 스크롤 호출이거나 ==//
+    if((callable && postListStore.latest_index === 0) || !callable && !(start === end)) {
 
-        fileListStore.file_list.slice(start, start + 2).forEach((e, i,) => {
-            console.debug('조회한 포스트의 인덱스: ', i)
+        console.debug('%c-----------------------------------------', 'color: Green')
+
+        fileListStore.file_list.slice(start, end).forEach(e => {
             const endPoint: string = `/repos/${owner}/${repo}/contents${e.file_path}?ref=main`
             axios.get(endPoint, {
                 baseURL: baseURL
             }).then(res => {
-                console.debug('-----------------------------------------')
                 const result = res.data
-                console.debug(`GET ${res.status} ${res.statusText} ${endPoint}`)
 
                 const decodedContent: string = Base64.decode(result.content)
 
@@ -56,7 +60,7 @@ export const callPostList = (latest_index: number | null) => {
 
                 const executed: string[] | null = contentRegex.exec(md.markdown)
                 postListStore.postDataList.push(
-                    new PostData(i, result.sha, decodedContent,
+                    new PostData(e.file_index, result.sha, decodedContent,
                         new MarkDownPost(
                             //== author ==//
                             header.profile_image,
@@ -73,13 +77,19 @@ export const callPostList = (latest_index: number | null) => {
                             header.layout,
                             executed![1],
                             header.title, executed![4])))
+                expectedCount--
+
+                if(expectedCount === 0) {
+                    postCallStore.is_calling = false
+                }
+
 
             }).catch(error => {
                 console.error(error.message)
             })
         })
     } else {
-        console.debug('초기화용 호출이기에 더이상 호출하지 않음.')
+            console.debug('초기화용 호출이기에 더이상 호출하지 않음.')
     }
 
 

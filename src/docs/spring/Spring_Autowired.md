@@ -7,7 +7,7 @@ date: 2021-08-04 11:44:00 +0900
 profile_image: /assets/blogging/profile/profile1.JPG
 current_company: Herit Corporation
 current_position: Backend Server Developer
-thumbnail: "/assets/blogging/spring/spring_logo.png"
+thumbnail: "/assets/blogging/spring/spring_autowired.png"
 excerpt_separator: <!--more-->
 hide: false
 ---

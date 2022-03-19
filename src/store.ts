@@ -24,6 +24,6 @@ export const postListStore = reactive<PostListWrapper>({
     postDataList: []
 })
 
-export const scrollStore = reactive({
-    scroll: 0
+export const postCallStore = reactive({
+    is_calling: true
 })

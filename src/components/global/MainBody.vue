@@ -154,7 +154,8 @@ export default {
       return returnPath
     },
     calPostDate: (date) => {
-      const timeValue = date;
+      date = date.replace(/-/g, '/')
+      const timeValue = Date.parse(date)
       const milliSeconds = new Date() - timeValue
 
       const seconds = milliSeconds / 1000
@@ -183,6 +184,7 @@ export default {
       if(posts.length !== 0) {
         posts.sort((a, b) => b.markdownPost.date - a.markdownPost.date)
         postListStore.latest_index = posts[posts.length - 1].index
+        console.debug('posts: ',posts)
       }
       return posts
     }

@@ -3,7 +3,7 @@ layout: post
 title: -Spring- run (Execute Spring Boot App Method)
 categories: [Development,Spring]
 tags: [Spring,Spring Boot]
-date: 2021-07-12 23:47:00 +0900
+date: 2021-07-12 23:47:00
 profile_image: /assets/blogging/profile/profile1.JPG
 current_company: Herit Corporation
 current_position: Backend Server Developer

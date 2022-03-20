@@ -2,11 +2,11 @@
 
 # abort on errors
 
-set -env
+set -e
 
 #build
 
-yarn run build
+yarn build
 
 # navigate into the build output directory
 
@@ -15,11 +15,12 @@ cd dist
 git init
 
 git add -A
-$NOW=$(date+"%y-%m-%d %T")
+
+NOW=$(date +"%y-%m-%d %T")
+
 git commit -m "deployed on $NOW"
 
-git push -f git@github.com:Dev-Phantom/dev-phantom.github.io.git master:gh-pages
+git push -f git@github.com:Dev-Phantom/dev-phantom.github.io.git main:gh-pages
 
 cd -
 
-chmod +x deploy.sh

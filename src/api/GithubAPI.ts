@@ -1,9 +1,6 @@
 import axios from "axios"
 import {fileListStore, postCallStore, postListStore, userInfoStore} from "@/store";
-import { MarkDownPost, PostData } from "@/api/GithubData";
-import { Base64 } from "js-base64";
-import { parse } from "jekyll-markdown-parser";
-import { format } from "date-format-parse";
+import {excludeForPostData} from "@/components/header/settingUtils";
 
 
 const owner: string = 'Dev-Phantom'
@@ -29,7 +26,6 @@ export const setAuthAPI = () => {
         console.error('-----------------------------------------')
         console.error(err.message)
     })
-    // const endPoint: string = `/repos/${userInfoStore.name}/${repo}/contents/src/docs/directory-map.json?ref=main`
 }
 
 export const callPostList = (latest_index: number | null) => {
@@ -46,39 +42,13 @@ export const callPostList = (latest_index: number | null) => {
         console.debug('%c-----------------------------------------', 'color: Green')
 
         fileListStore.file_list.slice(start, end).forEach(e => {
-            const endPoint: string = `/repos/${owner}/${repo}/contents${e.file_path}?ref=main`
+            const endPoint: string = `/repos/${owner}/${repo}/contents/src/docs/${e.file_path}.md?ref=main`
             axios.get(endPoint, {
                 baseURL: baseURL
             }).then(res => {
                 const result = res.data
 
-                const decodedContent: string = Base64.decode(result.content)
-
-                const md = parse(decodedContent)
-                const header = md.parsedYaml
-                const contentRegex = /(?:((.|\n)*)(<!--[\s]{0,}more[\s]{0,}-->)((.|\n)*))/g
-                const executed: string[] | null = contentRegex.exec(md.markdown)
-
-
-
-                postListStore.postDataList.push(
-                    new PostData(e.file_index, result.sha, decodedContent,
-                        new MarkDownPost(
-                            //== author ==//
-                            header.profile_image,
-                            header.current_company,
-                            header.current_position,
-
-                            //== post ==//
-                            header.thumbnail,
-                            header.categories,
-                            header.tags,
-                            header.date,
-                            header.hide,
-                            header.excerpt_separator,
-                            header.layout,
-                            executed![1],
-                            header.title, executed![4])))
+                postListStore.postDataList.push(excludeForPostData(result, e.file_index))
                 expectedCount--
                 if(expectedCount == 0) {
                     postCallStore.is_calling = false
@@ -89,7 +59,13 @@ export const callPostList = (latest_index: number | null) => {
             })
         })
     }
+}
 
+export const callPostDetail = (filePath: string)  => {
+    const endPoint: string = `/repos/${owner}/${repo}/contents/src/docs/${filePath}.md?ref=main`
 
+    return axios.get(endPoint,{
+        baseURL: baseURL
+    })
 }
 

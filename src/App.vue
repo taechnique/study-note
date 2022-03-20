@@ -4,7 +4,7 @@
       <span class="progress-bar"></span>
     </div>
     <MainHeader />
-    <router-view/>
+    <router-view :key="$route.fullPath"/>
     <MainFooter />
   </div>
 </template>

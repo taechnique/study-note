@@ -1,7 +1,7 @@
 <template>
   <div class="main-body">
     <div class="main-container">
-      <div class="post-card-wrapper" v-for="(post, idx) in getSortedPostList(this.postListStore.postDataList)" v-bind:key="post.sha">
+      <div class="post-card-wrapper" v-for="post in getSortedPostList(this.postListStore.postDataList)" v-bind:key="post.sha">
         <div class="post-preview-header">
           <div class="profile-image">
             <img :src="getProfileOrDefault(post.markdownPost.profile_image)" />
@@ -16,7 +16,7 @@
           <div class="post-contents">
             <span class="content-text">{{ post.markdownPost.description }}</span>
           </div>
-          <a href="#" v-on:click="toMarkdown(idx)">
+          <router-link v-bind:to="`/docs/${fileListStore.file_list[post.index].file_path}`">
             <div class="post-default-image">
               <div class="default-image-wrapper" v-bind:style="{ backgroundImage: 'url('+changeDefaultIfNull(post.markdownPost.thumbnail) +')' }">
               </div>
@@ -25,7 +25,7 @@
                   <span class="post-path">dev-phantom.github.io</span>
               </div>
             </div>
-          </a>
+          </router-link>
         </div>
         <div class="post-preview-footer">
           <div class="post-tag-area">
@@ -75,8 +75,6 @@
 <script>
 import { callPostList } from "@/api/GithubAPI";
 import {postListStore, postCallStore, userInfoStore, fileListStore} from "@/store";
-import { parse } from "jekyll-markdown-parser";
-import { setPostContent } from "@/components/header/settingUtils";
 
 export default {
   data() {
@@ -128,11 +126,6 @@ export default {
 
   },
   methods: {
-    toMarkdown: (index) => {
-      const content = postListStore.postDataList[index].content
-      const md = parse(content)
-      setPostContent(md.markdown)
-    },
     changeDefaultIfNull: (path) => {
       const defaultImages = ['default1.JPG', 'default2.jpeg', 'default3.jpeg', 'default4.jpeg', 'default5.JPG']
       const r = Math.floor(Math.random() * defaultImages.length)
@@ -387,19 +380,6 @@ export default {
 
 }
 
-
-@mixin mobile {
-  @media (max-width: 767px) {
-    @content;
-  }
-}
-
-@mixin tablet {
-  @media (min-width: 768px) and (max-width: 1023px) {
-    @content;
-
-  }
-}
 
 @include mobile {
   .main-body {

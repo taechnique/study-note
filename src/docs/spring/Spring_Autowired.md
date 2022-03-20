@@ -25,7 +25,7 @@ Spring Framework 5.3.9 @Autowired
 @Target(value={CONSTRUCTOR,METHOD,PARAMETER,FIELD,ANNOTATION_TYPE})
 @Retention(value=RUNTIME)
 @Documented
-public @interface Autowired+
+public @interface Autowired {
 ```
 
 *Spring의 의존성 자동주입 기능에 의해  자동연결되도록 생성자, 필드, 세터 메소드 설정 메소드를 표시합니다. 이 Annotation은 JSR-330 [@Inject](https://docs.oracle.com/javaee/7/api/javax/inject/Inject.html?is-external=true) Annotation을 대안으로, 필요 대 선택의 의미를 더합니다.*

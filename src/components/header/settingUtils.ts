@@ -1,7 +1,10 @@
-import { DirectoryData, FileData, FileListData, WrapperData } from "@/api/GithubData";
+import {DirectoryData, FileData, FileListData, MarkDownPost, PostData, WrapperData} from "@/api/GithubData";
 import { directoryMap } from "@/docs/directory-map";
-import {dirMapStore, fileListStore, postListStore} from "@/store";
-import {parse} from "date-format-parse";
+import { dirMapStore, fileListStore } from "@/store";
+import * as Parser from 'jekyll-markdown-parser';
+import * as DateParser from 'date-format-parse'
+
+import { Base64 } from "js-base64";
 
 
 export const setDirectories = () => {
@@ -11,7 +14,7 @@ export const setDirectories = () => {
         const fileData: Array<FileData> = []
 
         dir.files.forEach(file => {
-            fileData.push(new FileData(file.file_path, file.file_title, parse(file.create_time, 'YYYY-MM-DD HH:mm:ss ZZ')))
+            fileData.push(new FileData(file.file_path, file.file_title, DateParser.parse(file.create_time, 'YYYY-MM-DD HH:mm:ss ZZ')))
         })
 
         directoryData.push(new DirectoryData(dir.directory_name, fileData!))
@@ -45,7 +48,29 @@ export const setFileList = () => {
     fileListStore.file_list = fileListData.file_list
 }
 
-export const setPostContent = (content: string) => {
+export const excludeForPostData = (result: any, index: number): PostData => {
+    const decodedContent = Base64.decode(result.content)
+    const md = Parser.parse(decodedContent)
+    const header = md.parsedYaml
+    const contentRegex = /(?:((.|\n)*)(<!--[\s]{0,}more[\s]{0,}-->)((.|\n)*))/g
+    const executed: string[] | null = contentRegex.exec(md.markdown)
 
+    return new PostData(index, result.sha, decodedContent,
+        new MarkDownPost(
+            //== author ==//
+            header.profile_image,
+            header.current_company,
+            header.current_position,
+
+            //== post ==//
+            header.thumbnail,
+            header.categories,
+            header.tags,
+            header.date,
+            header.hide,
+            header.excerpt_separator,
+            header.layout,
+            executed![1],
+            header.title, executed![4]))
 
 }

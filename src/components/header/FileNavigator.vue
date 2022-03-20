@@ -1,26 +1,27 @@
 <template>
-  <div class="header-file-navigator">
-    <div class="nav-wrapper">
-      <ul>
-        <li v-bind:key="idx" v-for="(dir, idx) in this.dirMapStore.directories">
-          <div class="directory" v-on:click="activeFolder(idx)">
-            <div class="folder-icon">
-              <font-awesome-icon :icon="dir.icon"/>
-            </div>
-            <span class="directory-title">{{ dir.directory_name }} ({{ dir.files.length }})</span>
-          </div>
-          <div class="files" :class="{ opened : dir.is_opened }" v-bind:id="idx">
-            <ul>
-              <li v-for="(file, index) in dir.files" v-bind:key="index" ><router-link to="/about">{{ file.file_title }}</router-link></li>
-            </ul>
-            <div class ="more-post">
-              <span>더보기</span>
-            </div>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
+  <div></div>
+<!--  <div class="header-file-navigator">-->
+<!--    <div class="nav-wrapper">-->
+<!--      <ul>-->
+<!--        <li v-bind:key="idx" v-for="(dir, idx) in this.dirMapStore.directories">-->
+<!--          <div class="directory" v-on:click="activeFolder(idx)">-->
+<!--            <div class="folder-icon">-->
+<!--              <font-awesome-icon :icon="dir.icon"/>-->
+<!--            </div>-->
+<!--            <span class="directory-title">{{ dir.directory_name }} ({{ dir.files.length }})</span>-->
+<!--          </div>-->
+<!--          <div class="files" :class="{ opened : dir.is_opened }" v-bind:id="idx">-->
+<!--            <ul>-->
+<!--              <li v-for="(file, index) in dir.files" v-bind:key="index" ><router-link v-bind:to="`/docs/${file.file_path}`">{{ file.file_title }}</router-link></li>-->
+<!--            </ul>-->
+<!--            <div class ="more-post">-->
+<!--              <span>더보기</span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--  </div>-->
 </template>
 
 <script lang="ts">
@@ -71,7 +72,6 @@ export default {
   height: 100%;
   width: 200px;
   top: 0;
-  padding: 0px 40px;
 
   & .nav-wrapper {
     position: fixed;
@@ -140,7 +140,6 @@ export default {
 
           &:hover {
             text-decoration: underline;
-            cursor: pointer;
             color: #2c3e50;
             border-radius: 10px;
             background-color: $point-light-color;

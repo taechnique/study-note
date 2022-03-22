@@ -5,11 +5,11 @@
       <span>{{ this.post_info.dirName }}</span>
       <span>{{ this.post_info.post }}</span>
     </div>
-    <div class="post-content" v-if="this.post_content == null">
-      <h2>포스트 내용이 없어용.</h2>
+    <div class="not-found" v-if="this.post_content == null">
+      <NotFound />
     </div>
-    <div class="post-area">
-      <div class="post-content-wrapper" v-if="this.post_content">
+    <div class="post-area" v-if="this.post_content">
+      <div class="post-content-wrapper">
         <div class="post-intro">
           <span class="title">{{ this.post_content.markdownPost.title }}</span>
           <span class="reported-date">{{ parseDate(this.post_content.markdownPost.date) }}</span>
@@ -28,11 +28,11 @@ import { callPostDetail } from "@/api/GithubAPI";
 import { excludeForPostData } from "@/components/header/settingUtils";
 import { fileListStore } from "@/store";
 import * as DateParser from 'date-format-parse'
-import java from 'highlight.js/lib/languages/java'
-import hljs from 'highlight.js'
+import NotFound from "@/components/global/NotFound";
 
 
 export default {
+  components: { NotFound },
   data() {
     const parseBody = (body) => {
       var md = require('markdown-it')();
@@ -71,20 +71,9 @@ export default {
             console.error(err.message)
 
             })
-      } else {
-        console.debug('존재하지 않는 페이지 입니다.')
       }
 
     }
-
-    hljs.registerLanguage('java', java)
-    hljs.initHighlightingOnLoad()
-
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('pre code').forEach((block) => {
-        hljs.highlightBlock(block)
-      })
-    })
 
     return {
       settingPost,
@@ -130,7 +119,7 @@ export default {
 
       &:nth-child(n+2):before {
         content: '>';
-        margin: 0px 7px;
+        margin: 0px 30px;
       }
     }
   }
@@ -151,6 +140,7 @@ export default {
 
         & p {
           margin: 7px 0px;
+          line-height: 30px;
         }
 
         & ul {
@@ -231,6 +221,14 @@ export default {
       padding: 20px 0;
       max-width: 90%;
       margin: 0px auto;
+      font-size: 1.1rem;
+
+      span:nth-child(n+2) {
+
+        &:before {
+          margin: 0px 10px;
+        }
+      }
     }
   }
 }

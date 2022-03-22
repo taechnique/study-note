@@ -3,7 +3,7 @@ import { fileListStore, postCallStore, postListStore, userInfoStore } from "@/st
 import { excludeForPostData } from "@/components/header/settingUtils";
 
 
-const owner: string = 'Dev-Phantom'
+const owner: string = 'taechnique'
 const repo: string = 'study-note'
 const baseURL = 'https://api.github.com'
 

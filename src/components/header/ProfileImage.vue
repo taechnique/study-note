@@ -1,6 +1,6 @@
 <template>
   <div class="profile-image">
-    <img :src="userInfoStore.profile_image" />
+    <router-link v-bind:to="'/'"><img :src="userInfoStore.profile_image" /></router-link>
   </div>
 </template>
 

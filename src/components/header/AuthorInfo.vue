@@ -8,7 +8,6 @@
 
 <script>
 import { userInfoStore } from "@/store";
-import {setAuthAPI} from "@/api/GithubAPI";
 
 export default {
   data () {
@@ -17,7 +16,6 @@ export default {
     }
   },
   mounted() {
-    setAuthAPI()
 
   },
   methods: {

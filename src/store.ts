@@ -2,11 +2,11 @@ import { reactive } from 'vue'
 import {FileListData, PostData, PostListWrapper, UserData, WrapperData} from "@/api/GithubData";
 
 export const userInfoStore = reactive<UserData>({
-    name: '',
-    blog: '',
-    company: '',
-    position: '',
-    profile_image: ''
+    name: 'taechnique',
+    blog: 'https://taech.io',
+    company: 'Herit Corporation',
+    position: 'Backend Server Developer',
+    profile_image: 'https://avatars.githubusercontent.com/u/65699391?v=4'
 })
 
 export const dirMapStore = reactive<WrapperData>({

@@ -22,7 +22,7 @@
               </div>
               <div class="post-title-box">
                   <span class="post-title">{{ post.markdownPost.title }}</span>
-                  <span class="post-path">dev-phantom.github.io</span>
+                  <span class="post-path">taech.io</span>
               </div>
             </div>
           </router-link>

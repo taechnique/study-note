@@ -1,6 +1,6 @@
 import axios from "axios"
-import {fileListStore, postCallStore, postListStore, userInfoStore} from "@/store";
-import {excludeForPostData} from "@/components/header/settingUtils";
+import { fileListStore, postCallStore, postListStore, userInfoStore } from "@/store";
+import { excludeForPostData } from "@/components/header/settingUtils";
 
 
 const owner: string = 'Dev-Phantom'

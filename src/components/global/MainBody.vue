@@ -18,7 +18,8 @@
           </div>
           <router-link v-bind:to="`/docs/${fileListStore.file_list[post.index].file_path}`">
             <div class="post-default-image">
-              <div class="default-image-wrapper" v-bind:style="{ backgroundImage: 'url('+changeDefaultIfNull(post.markdownPost.thumbnail) +')' }">
+              <div class="default-image-wrapper">
+                <img :src="changeDefaultIfNull(post.markdownPost.thumbnail)" />
               </div>
               <div class="post-title-box">
                   <span class="post-title">{{ post.markdownPost.title }}</span>
@@ -190,7 +191,7 @@ export default {
   display: flex;
   max-width: 786px;
   min-height: 800px;
-  margin: 20px auto;
+  margin: 60px auto 20px;
 
 
   & .main-container {
@@ -253,9 +254,12 @@ export default {
           & .default-image-wrapper {
             display: flex;
             width: 100%;
-            min-height: 300px;
-            background-size: cover;
-            background-position: center;
+            min-height: 200px;
+
+            img {
+              width: 100%;
+
+            }
           }
 
           & .post-title-box {
@@ -389,12 +393,23 @@ export default {
 
       & .post-card-wrapper {
         width: 100%;
+        min-height: 400px;
         border-radius: 0px;
 
         & .post-preview-body {
 
           & .post-contents {
             border-top: 1px $point-light-color solid;
+          }
+
+          & .post-default-image {
+
+            & .default-image-wrapper {
+
+              img {
+                width: 100%;
+              }
+            }
           }
         }
       }

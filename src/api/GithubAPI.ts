@@ -39,7 +39,6 @@ export const callPostList = (latest_index: number | null) => {
     //== 최초 호출 이거나 스크롤 호출이거나 ==//
     if((callable && postListStore.latest_index === 0) || !callable && !(start === end)) {
 
-        console.debug('%c-----------------------------------------', 'color: Green')
 
         fileListStore.file_list.slice(start, end).forEach(e => {
             const endPoint: string = `/repos/${owner}/${repo}/contents/src/docs/${e.file_path}.md?ref=main`
@@ -55,6 +54,7 @@ export const callPostList = (latest_index: number | null) => {
                 }
 
             }).catch(error => {
+                console.debug('%c-----------------------------------------', 'color: Green')
                 console.error(error.message)
             })
         })

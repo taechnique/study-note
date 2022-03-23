@@ -1,9 +1,9 @@
 <template >
   <div class="app-container">
+    <MainHeader />
     <div class="progress-area">
       <span class="progress-bar"></span>
     </div>
-    <MainHeader />
     <router-view :key="$route.fullPath"/>
     <MainFooter />
   </div>
@@ -45,11 +45,10 @@ export default {
 
 <style lang="scss">
 .app-container {
-  padding-top: 40px;
 
   .progress-area {
     position: fixed;
-    top: 0;
+    top: 44px;
     left: 0;
     width: 100%;
     height: 7px;

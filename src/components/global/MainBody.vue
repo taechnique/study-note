@@ -383,6 +383,7 @@ export default {
 
 @include mobile {
   .main-body {
+    margin-top: 40px;
 
     & .main-container {
 

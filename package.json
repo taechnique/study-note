@@ -1,6 +1,7 @@
 {
   "name": "study-note",
-  "version": "0.1.0",
+  "title": "Taechnique, technique Blog",
+  "version": "0.2.0",
   "private": false,
   "author": "Dev-Phantom",
   "scripts": {

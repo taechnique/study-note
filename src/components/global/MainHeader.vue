@@ -1,31 +1,25 @@
 <template>
   <div class="main-header">
-    <ul class="window-controller">
-      <li class="window window-close"></li>
-      <li class="window window-minimize"></li>
-      <li class="window window-maximize"></li>
-    </ul>
-    <div class="header-item-layer">
-      <div class="author-profile">
-        <ProfileImage />
-        <AuthorInfo />
-      </div>
-      <div class="menu-info">
-        <div class="menu-item">
-          <ul class="spread-items">
-            <li v-for="menu in this.headers.menus" v-bind:key="menu.key">
-              <router-link v-bind:to="menu.link_to">{{ menu.item_name }}</router-link>
-            </li>
-          </ul>
-        </div>
-        <div class="search-layer">
-          <div class="search-box" :class="{ focus : this.headers.search_box.is_focus }">
-            <input type="search" placeholder="검색어 입력" size="18" @focus="this.headers.search_box.is_focus = true" @blur="this.headers.search_box.is_focus = false"/>
-          </div>
-        </div>
+    <div class="menu-info">
+      <div class="menu-item">
+        <ul class="spread-items">
+          <li v-for="menu in this.headers.menus" v-bind:key="menu.key">
+            <router-link v-bind:to="menu.link_to">{{ menu.item_name }}</router-link>
+          </li>
+          <li>
+            <div class="search-layer">
+              <div class="search-box" :class="{ focus : this.headers.search_box.is_focus }">
+                <input type="search" placeholder="검색어 입력" size="18" @focus="this.headers.search_box.is_focus = true" @blur="this.headers.search_box.is_focus = false"/>
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
-    <FileNavigator />
+    <div class="search-list-area" :class="{ focus : this.headers.search_box.is_focus }">
+      <div class="search-list">
+      </div>
+    </div>
   </div>
   <div class="mobile-header">
     <div class="burger" >
@@ -54,9 +48,6 @@
 
 <script>
 import { userInfoStore } from "@/store";
-import AuthorInfo from "@/components/header/AuthorInfo";
-import ProfileImage from "@/components/header/ProfileImage";
-import FileNavigator from "@/components/header/FileNavigator";
 
 export default {
   data() {
@@ -88,9 +79,6 @@ export default {
   methods: {
   },
   components: {
-    AuthorInfo,
-    ProfileImage,
-    FileNavigator
   }
 }
 </script>
@@ -103,133 +91,87 @@ export default {
 }
 
 .main-header {
-  max-width: 1080px;
-  height: 200px;
+  width: 100%;
   margin: 0 auto;
-  background-color: $main-light-color;
-  border-radius: 15px;
-  box-shadow: 0px 1px 30px 0 rgb(32 33 36 / 34%);
+  background-color: #0a66c2;
+  display: grid;
+  //box-shadow: 0px 1px 30px 0 rgb(32 33 36 / 34%);
 
-  & .header-item-layer {
+  & .menu-info {
     display: flex;
+    flex-direction: column;
 
-    & .author-profile {
-      display: flex;
-      & .profile-image {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        border: #f9c6c6 4.45px solid;
-        overflow: hidden;
-        display: inline-block;
-        margin: 20px 20px;
+    & .menu-item {
+      width: 100%;
+      padding: 4px 0;
 
-        & img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
+      & .spread-items {
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        width: 60%;
+        margin: 0 auto;
 
-        &:hover {
-          border-color: #f35d5d;
+        & li {
+          display: inline-block;
+          color: #717171;
+          font-size: 1.14rem;
+          cursor: pointer;
+          text-align: center;
 
-          & img {
-            -webkit-transform:scale(1.1);
-            -moz-transform:scale(1.1);
-            -o-transform:scale(1.1);
-            transform:scale(1.1);
+
+          a {
+            color:white;
+            vertical-align: middle;
           }
-        }
 
-      }
+          & .search-layer {
+            flex: 1;
 
-      & .author-info {
-        display: inline-block;
-        padding: 20px 40px;
-        height: inherit;
-        vertical-align: middle;
+            & .search-box {
+              width: 120px;
+              height: 100%;
+              padding: 2px;
+              border-radius: 15px;
+              justify-content: center;
+              background-color: #fcfcfc;
+              overflow: hidden;
 
-        & .author {
-          font-size: 1.72rem;
-          font-weight: bold;
-        }
+              & input {
+                border: 0px;
+                width: 100%;
+                padding: 3px 5px;
+                margin: 3px 0;
+                background-color: #fcfcfc;
+                font-size: 0.92em;
 
-        & .author-says {
-          font-style: italic !important;
-        }
+                &:focus {
+                  outline: none;
+                  background-color: white;
+                }
+              }
 
-        & span {
-          display: block;
-          margin: 20px 0;
+              &.focus {
+                border-color: #2c3e50;
+                background-color: white;
+                width: 250px;
+              }
+            }
+          }
         }
       }
     }
-    & .menu-info {
-      display: flex;
-      flex-direction: column;
+  }
 
-      & .menu-item {
-        padding: 5px 20px;
-        width: 100%;
+  & .search-list-area {
+    width: 100%;
+    top: 44px;
+    position: fixed;
+    height: 100%;
 
-        & .spread-items {
-          list-style: none;
-          display: flex;
-          justify-content: space-between;
-
-          & li {
-            display: inline-block;
-            color: #717171;
-            font-size: 1.787rem;
-            cursor: pointer;
-            margin: 4px 10px;
-            padding: 7px 21px;
-            text-align: center;
-            border-radius: 30px;
-
-
-            &:hover {
-              box-shadow: 0px 1px 15px 0 rgb(32 33 36 / 34%);
-
-            }
-          }
-        }
-
-      }
-
-      & .search-layer {
-        display: inline-block;
-        flex: 1;
-
-        & .search-box {
-          margin: 4px 20px 4px auto;
-          width: 150px;
-          padding: 10px 10px;
-          border-radius: 15px;
-          border: 2px lightgray solid;
-          overflow: hidden;
-
-          & input {
-            border: 0px;
-            width: 100%;
-            height: 100%;
-            padding: 3px 5px;
-            margin: 3px 0;
-            background-color: #fcfcfc;
-            font-size: 0.92em;
-
-            &:focus {
-              outline: none;
-              background-color: white;
-            }
-          }
-
-          &.focus {
-            border-color: #2c3e50;
-            background-color: white;
-          }
-        }
-      }
+    &.focus {
+      background: rgb(0 0 0 / 40%);
+      backdrop-filter: blur(5px);
     }
   }
 }
@@ -250,6 +192,11 @@ export default {
 
 
 @include mobile {
+
+  .main-header {
+    display: none;
+  }
+
   .mobile-header {
     display: block;
     position: fixed;
@@ -289,7 +236,8 @@ export default {
 
       &.active {
         z-index: 1;
-        background-color: rgba(0, 0, 0, 0.71);
+        background: rgb(0 0 0 / 40%);
+        backdrop-filter: blur(5px);
         height: 100%;
       }
 

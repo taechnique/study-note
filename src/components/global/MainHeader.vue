@@ -88,8 +88,8 @@ export default {
         menus: [
           {key: '0', item_name: 'Home', link_to: '/'},
           {key: '1', item_name: 'Categories', link_to: '/categories'},
-          {key: '3', item_name: 'Tags', link_to: 'tags'},
-          {key: '4', item_name: 'About', link_to: 'about'},
+          {key: '3', item_name: 'Tags', link_to: '/tags'},
+          {key: '4', item_name: 'About', link_to: '/about'},
         ]
       }
     }
@@ -139,7 +139,6 @@ export default {
             font-size: 1.14rem;
             cursor: pointer;
             text-align: center;
-
 
             a {
               color:white;

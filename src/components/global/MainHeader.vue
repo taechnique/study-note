@@ -10,7 +10,14 @@
             <li>
               <div class="search-layer">
                 <div class="search-box" :class="{ focus : this.headers.search_box.is_focus }">
-                  <input type="search" placeholder="검색어 입력" size="18" @focus="this.headers.search_box.is_focus = true" @blur="this.headers.search_box.is_focus = false"/>
+                  <input type="search" placeholder="검색어 입력" size="18" v-model="this.search_input"
+                         @input="searchContents(this.search_input)"
+                         @focus="this.headers.search_box.is_focus = true"
+                         @blur="() => {
+                           this.headers.search_box.is_focus = false
+                           this.searchInputStore.result_list = []
+                           this.searchInputStore.input_text = ''
+                         }"/>
                 </div>
               </div>
             </li>
@@ -19,6 +26,7 @@
       </div>
       <div class="search-list-area" :class="{ focus : this.headers.search_box.is_focus }">
         <div class="search-list">
+          <SearchList />
         </div>
       </div>
     </div>
@@ -38,22 +46,34 @@
           </div>
           <div class="search-items">
             <div class="search-box" :class="{ focus : this.headers.search_box.is_focus }">
-              <input type="search" placeholder="검색어 입력" size="18" @focus="this.headers.search_box.is_focus = true" @blur="this.headers.search_box.is_focus = false"/>
+              <input type="search" placeholder="검색어 입력" size="18" v-model="this.search_input"
+                     @input="searchContents(this.search_input)"
+                     @focus="this.headers.search_box.is_focus = true"
+                     @blur="() => {
+                       this.headers.search_box.is_focus = false
+                     }"/>
             </div>
+          </div>
+          <div class="search-result">
+            <div class="result-text">
+              <span>{{ `${searchInputStore.result_list.length} 건의 검색결과` }}</span>
+            </div>
+            <SearchList />
           </div>
         </div>
       </div>
       <div class="background" :class="{ active : this.headers.mobile.is_navi_active }" v-on:click="this.headers.mobile.is_navi_active = false"></div>
     </div>
-    <div class="progress-area">
+    <div class="progress-area" :class="{ hide : this.headers.mobile.is_navi_active }">
       <span class="progress-bar"></span>
     </div>
   </div>
 </template>
 
 <script>
-import { userInfoStore } from "@/store";
-
+import { userInfoStore, searchInputStore, fileListStore } from "@/store";
+import SearchList from "@/components/header/SearchList";
+import { calPostDate } from "@/components/header/settingUtils";
 export default {
   data() {
 
@@ -72,11 +92,14 @@ export default {
 
     return {
       handleForScroll,
+      calPostDate,
       is_hide: false,
       me: {
         profile_image: 'https://github.com/Dev-Phantom/study-node/blob/main/src/assets/images/profile.png?raw=true'
       },
       userInfoStore,
+      searchInputStore,
+      search_input: '',
       headers: {
         search_box: {
           is_focus: false
@@ -88,15 +111,26 @@ export default {
         menus: [
           {key: '0', item_name: 'Home', link_to: '/'},
           {key: '1', item_name: 'Categories', link_to: '/categories'},
-          {key: '3', item_name: 'Tags', link_to: 'tags'},
-          {key: '4', item_name: 'About', link_to: 'about'},
+          {key: '3', item_name: 'Tags', link_to: '/tags'},
+          {key: '4', item_name: 'About', link_to: '/about'},
         ]
       }
     }
   },
   methods: {
+    searchContents: (word) => {
+      const result_list = new Array()
+      fileListStore.file_list.filter(e => {
+        const regex = new RegExp('(?:(.)?('+ word +')+(.)?)', 'gi')
+        return regex.test(e.file_title)
+      }).forEach(e => {
+        result_list.push(e)
+      })
+      searchInputStore.result_list = result_list
+    }
   },
   components: {
+    SearchList
   }
 }
 </script>
@@ -188,6 +222,9 @@ export default {
       width: 100%;
       top: 44px;
       position: fixed;
+
+      .search-list {
+      }
 
       &.focus {
         height: 100%;
@@ -303,7 +340,6 @@ export default {
             & .search-box {
               margin: 4px auto;
               height: 40px;
-              padding: 3px 5px;
               border-radius: 15px;
               border: 3.34px lightgray solid;
               overflow: hidden;
@@ -313,8 +349,7 @@ export default {
                 border: 0px;
                 width: 100%;
                 height: 100%;
-                padding: 3px 5px;
-                margin: 3px 0;
+                padding: 3px 5px;;
                 background-color: $main-light-color;
                 font-size: .92rem;
 
@@ -329,6 +364,19 @@ export default {
             }
 
           }
+
+          & .search-result {
+
+            .search-card {
+
+              .card-date {
+                font-size: .72rem;
+              }
+              .card-title {
+                font-size: 1.12rem;
+              }
+            }
+          }
         }
       }
     }
@@ -340,47 +388,12 @@ export default {
       margin-top: 80px;
 
 
-      & .header-item-layer {
-
-        & .author-profile {
-          flex-direction: column;
-          width: 100%;
-
-          & .profile-image {
-            width: 150px;
-            height: 150px;
-            margin: 20px auto;
-          }
-
-          & .author-info {
-            padding: 6px 20px;
-
-            & .author {
-              margin: 3px auto;
-            }
-
-            & .author-says {
-              margin: 6px 0;
-            }
-
-            &:before {
-              content: "";
-              display: block;
-              width: 100%;
-              border-top: 1px solid #bcbcbc;
-              margin: 20px 0px;
-            }
-          }
-        }
-
-
-        & .menu-info {
-          display: none;
-        }
-      }
     }
 
     .progress-area {
+
+      .progress-bar {
+      }
 
       &.hide {
         display: none;
@@ -392,14 +405,15 @@ export default {
 @include tablet {
 
   .header-wrapper {
+
+
     .main-header {
-      max-width: 80%;
-      height: 380px;
       margin: 0 auto;
-      background-color: $main-light-color;
-      border-radius: 15px;
       box-shadow: 0px 1px 30px 0 rgb(32 33 36 / 34%);
 
+      .menu-info {
+
+      }
 
       & .header-item-layer {
         display: grid;
@@ -429,36 +443,6 @@ export default {
               font-size: 0.92rem;
             }
           }
-        }
-
-        & .menu-info {
-          display: grid;
-
-          & .menu-item {
-            padding: 4px 10px;
-            margin: 20px auto;
-
-            & .spread-items {
-              display: grid;
-              grid-template-columns: 80%;
-              grid-template-rows: 25% 25% 25% 25%;
-              height: 200px;
-
-              & li {
-                height: 40px;
-                margin: 0px;
-                padding: 0px;
-              }
-            }
-          }
-
-          & .search-layer {
-
-            & .search-box {
-              margin: 10px auto;
-            }
-          }
-
         }
       }
     }

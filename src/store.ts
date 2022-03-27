@@ -27,3 +27,8 @@ export const postListStore = reactive<PostListWrapper>({
 export const postCallStore = reactive({
     is_calling: true
 })
+
+export const searchInputStore = reactive({
+    input_text: '',
+    result_list: []
+})

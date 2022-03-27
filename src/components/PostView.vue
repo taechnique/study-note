@@ -218,7 +218,7 @@ export default {
   .post-container {
 
     .post {
-      padding: 20px 0;
+      padding: 60px 0 20px;
       max-width: 90%;
       margin: 0px auto;
       font-size: 1.1rem;

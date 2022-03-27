@@ -174,7 +174,6 @@ export default {
             cursor: pointer;
             text-align: center;
 
-
             a {
               color:white;
               vertical-align: middle;

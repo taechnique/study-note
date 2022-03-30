@@ -69,3 +69,8 @@ export const callPostDetail = (filePath: string)  => {
     })
 }
 
+export const callCommentList = () => {
+    const endPoint: string = `/repose/${owner}/${repo}/issues`
+
+}
+

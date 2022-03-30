@@ -18,6 +18,7 @@
           <span class="tag" v-for="(tag, idx) in this.post_content.markdownPost.tags" v-bind:key="idx">{{ tag }}</span>
         </div>
         <div class="post-content" v-html="post_body" />
+        <vue-utterances repo="taechnique/study-note" crossorigin="anonymous" theme="github-light" issue-term="url" async/>
       </div>
     </div>
   </div>
@@ -29,10 +30,10 @@ import { excludeForPostData } from "@/components/header/settingUtils";
 import { fileListStore } from "@/store";
 import * as DateParser from 'date-format-parse'
 import NotFound from "@/components/global/NotFound";
-
+import VueUtterances from 'vue-utterances';
 
 export default {
-  components: { NotFound },
+  components: { NotFound, VueUtterances },
   data() {
     const parseBody = (body) => {
       var md = require('markdown-it')();

@@ -2,6 +2,7 @@
   "name": "study-note",
   "title": "Taechnique, technique Blog",
   "version": "0.2.0",
+  "license": "MIT",
   "private": false,
   "author": "Dev-Phantom",
   "scripts": {
@@ -21,6 +22,7 @@
     "core-js": "^3.8.3",
     "date-format-parse": "^0.2.7",
     "dotenv": "^16.0.0",
+    "epic-spinners": "^1.1.0",
     "jekyll-markdown-parser": "^4.0.0",
     "js-base64": "^3.7.2",
     "markdown-it": "^12.3.2",

@@ -3,6 +3,7 @@
     <MainHeader />
     <router-view :key="$route.fullPath"/>
     <MainFooter />
+    <LoadingBar />
   </div>
 </template>
 
@@ -13,6 +14,7 @@
 
 import MainFooter from "@/components/global/MainFooter";
 import MainHeader from "@/components/global/MainHeader";
+import LoadingBar from "@/components/global/LoadingBar";
 
 export default {
   data() {
@@ -22,6 +24,7 @@ export default {
     }
   },
   components: {
+    LoadingBar,
     MainFooter,
     MainHeader
   }
@@ -138,4 +141,6 @@ a {
   }
 
 }
+
+
 </style>

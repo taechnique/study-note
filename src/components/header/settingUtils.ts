@@ -1,6 +1,6 @@
 import {DirectoryData, FileData, FileListData, MarkDownPost, PostData, WrapperData} from "@/api/GithubData";
 import { directoryMap } from "@/docs/directory-map";
-import { dirMapStore, fileListStore } from "@/store";
+import {dirMapStore, fileListStore, spinnerStore} from "@/store";
 import * as Parser from 'jekyll-markdown-parser';
 import * as DateParser from 'date-format-parse'
 
@@ -100,4 +100,8 @@ export const calPostDate = (date: string): string => {
     const years = days / 365
     return `${Math.floor(years)}년 전`
 
+}
+
+export const spinner = (status: boolean) => {
+    spinnerStore.isOn = status
 }

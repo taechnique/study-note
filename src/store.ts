@@ -32,3 +32,7 @@ export const searchInputStore = reactive({
     input_text: '',
     result_list: []
 })
+
+export const spinnerStore = reactive({
+    isOn: false
+})

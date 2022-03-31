@@ -5,7 +5,7 @@
       <span>{{ this.post_info.dirName }}</span>
       <span>{{ this.post_info.post }}</span>
     </div>
-    <div class="not-found" v-if="this.post_content == null">
+    <div class="not-found" v-if="this.post_content === null">
       <NotFound />
     </div>
     <div class="post-area" v-if="this.post_content">
@@ -18,7 +18,7 @@
           <span class="tag" v-for="(tag, idx) in this.post_content.markdownPost.tags" v-bind:key="idx">{{ tag }}</span>
         </div>
         <div class="post-content" v-html="post_body" />
-        <vue-utterances repo="taechnique/study-note" crossorigin="anonymous" theme="github-light" issue-term="url" async/>
+        <vue-utterances repo="taechnique/study-note" crossorigin="anonymous" theme="github-light" issue-term="pathname" async/>
       </div>
     </div>
   </div>
@@ -26,7 +26,7 @@
 
 <script>
 import { callPostDetail } from "@/api/GithubAPI";
-import { excludeForPostData } from "@/components/header/settingUtils";
+import {excludeForPostData, spinner} from "@/components/header/settingUtils";
 import { fileListStore } from "@/store";
 import * as DateParser from 'date-format-parse'
 import NotFound from "@/components/global/NotFound";
@@ -35,6 +35,8 @@ import VueUtterances from 'vue-utterances';
 export default {
   components: { NotFound, VueUtterances },
   data() {
+    spinner(true)
+
     const parseBody = (body) => {
       var md = require('markdown-it')();
       return md.render(body)
@@ -65,8 +67,9 @@ export default {
 
               const postData = excludeForPostData(result, 0)
 
-              this.post_content =  postData
+              this.post_content = postData
               this.post_body = parseBody(postData.markdownPost.body)
+              spinner(false)
 
             }).catch(err => {
             console.error(err.message)
@@ -75,14 +78,20 @@ export default {
       }
 
     }
+    setTimeout(()=> {
+      spinner(false)
+      if(this.post_content === {}) {
 
+        this.post_content = null
+      }
+    },5000)
     return {
       settingPost,
       post_info: {
         dirName: this.$route.params.dir,
         post: this.$route.params.post.replace('_', ' ')
       },
-      post_content: null,
+      post_content: undefined,
       page: {
 
       },

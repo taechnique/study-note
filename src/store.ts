@@ -36,3 +36,7 @@ export const searchInputStore = reactive({
 export const spinnerStore = reactive({
     isOn: false
 })
+
+export const mobileNaviStore = reactive({
+    isActive: false
+})

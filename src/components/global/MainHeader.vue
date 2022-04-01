@@ -32,15 +32,15 @@
     </div>
     <div class="mobile-header">
       <div class="burger" >
-        <font-awesome-icon icon="bars" v-on:click="this.headers.mobile.is_navi_active = true" />
+        <font-awesome-icon icon="bars" v-on:click="mobileNaviStore.isActive = true" />
         <img :src="this.headers.mobile.vue_image" />
       </div>
-      <div class="mobile-navigator-wrapper" :class="{ active : this.headers.mobile.is_navi_active }">
+      <div class="mobile-navigator-wrapper" :class="{ active : mobileNaviStore.isActive }">
         <div class="nav-panel-box">
           <div class="nav-items">
             <ul>
               <li v-for="menu in this.headers.menus" v-bind:key="menu.key">
-                <router-link v-bind:to="menu.link_to" v-on:click="this.headers.mobile.is_navi_active = false">{{ menu.item_name }}</router-link>
+                <router-link v-bind:to="menu.link_to" v-on:click="mobileNaviStore.isActive = false">{{ menu.item_name }}</router-link>
               </li>
             </ul>
           </div>
@@ -62,16 +62,16 @@
           </div>
         </div>
       </div>
-      <div class="background" :class="{ active : this.headers.mobile.is_navi_active }" v-on:click="this.headers.mobile.is_navi_active = false"></div>
+      <div class="background" :class="{ active : mobileNaviStore.isActive }" v-on:click="mobileNaviStore.isActive = false"></div>
     </div>
-    <div class="progress-area" :class="{ hide : this.headers.mobile.is_navi_active }">
+    <div class="progress-area" :class="{ hide : mobileNaviStore.isActive }">
       <span class="progress-bar"></span>
     </div>
   </div>
 </template>
 
 <script>
-import { userInfoStore, searchInputStore, fileListStore } from "@/store";
+import { userInfoStore, searchInputStore, fileListStore, mobileNaviStore } from "@/store";
 import SearchList from "@/components/header/SearchList";
 import { calPostDate } from "@/components/header/settingUtils";
 export default {
@@ -99,6 +99,7 @@ export default {
       },
       userInfoStore,
       searchInputStore,
+      mobileNaviStore,
       search_input: '',
       headers: {
         search_box: {
@@ -106,7 +107,7 @@ export default {
         },
         mobile: {
           vue_image: 'https://github.com/Dev-Phantom/study-node/blob/main/src/assets/logo.png?raw=true',
-          is_navi_active: false
+          is_navi_active: mobileNaviStore.isActive
         },
         menus: [
           {key: '0', item_name: 'Home', link_to: '/'},

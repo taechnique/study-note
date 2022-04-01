@@ -3,7 +3,7 @@ import { fileListStore, postCallStore, postListStore, userInfoStore } from "@/st
 import { excludeForPostData } from "@/components/header/settingUtils";
 
 
-const owner: string = 'taechnique'
+export const owner: string = 'taechnique'
 const repo: string = 'study-note'
 const baseURL = 'https://api.github.com'
 
@@ -69,8 +69,35 @@ export const callPostDetail = (filePath: string)  => {
     })
 }
 
-export const callCommentList = () => {
-    const endPoint: string = `/repose/${owner}/${repo}/issues`
+export const callIssueList = () => {
+    const endPoint: string = `/repos/${owner}/${repo}/issues`
+
+    axios.get(endPoint, {
+        baseURL: baseURL
+    }).then(res => {
+        const issues = res.data
+        console.debug('issues: ', issues)
+        //== 이슈 번호 할당 ==//
+        fileListStore.file_list.forEach(file => {
+            const path = `docs/${file.file_path}`
+            issues.forEach((issue: any) => {
+                if(path == issue.title) {
+                    file.issueNum = issue.number
+                    return false
+                }
+            })
+        })
+    }).catch(err => {
+        console.debug('%c-----------------------------------------', 'color: Green')
+        console.error(err.message)
+    })
 
 }
 
+export const callCommentList = (index: number) => {
+    const endPoint = `/repos/${owner}/${repo}/issues/${index}/comments`
+
+    return axios.get(endPoint, {
+        baseURL: baseURL
+    })
+}

@@ -17,7 +17,9 @@
         <div class="post-tag">
           <span class="tag" v-for="(tag, idx) in this.post_content.markdownPost.tags" v-bind:key="idx">{{ tag }}</span>
         </div>
+        <vue-markdown># Hi There ~ **Taechnique**</vue-markdown>
         <div class="post-content" v-html="post_body" />
+
         <vue-utterances repo="taechnique/study-note" crossorigin="anonymous" theme="github-light" issue-term="pathname" async/>
       </div>
     </div>
@@ -31,9 +33,14 @@ import { fileListStore } from "@/store";
 import * as DateParser from 'date-format-parse'
 import NotFound from "@/components/global/NotFound";
 import VueUtterances from 'vue-utterances';
+import VueMarkdown from 'vue-markdown';
 
 export default {
-  components: { NotFound, VueUtterances },
+  components: {
+    NotFound,
+    VueUtterances,
+    VueMarkdown
+  },
   data() {
     spinner(true)
 
@@ -80,7 +87,7 @@ export default {
     }
     setTimeout(()=> {
       spinner(false)
-      if(this.post_content === {}) {
+      if(this.post_content === undefined) {
 
         this.post_content = null
       }
@@ -117,6 +124,7 @@ export default {
 
 .post-container {
   padding: 20px 0px;
+  min-height: 700px;
 
   .post-explorer {
     padding: 5px 3px;

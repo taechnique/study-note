@@ -1,10 +1,11 @@
 import {DirectoryData, FileData, FileListData, MarkDownPost, PostData, WrapperData} from "@/api/GithubData";
 import { directoryMap } from "@/docs/directory-map";
-import {dirMapStore, fileListStore, spinnerStore} from "@/store";
+import { dirMapStore, fileListStore, spinnerStore } from "@/store";
 import * as Parser from 'jekyll-markdown-parser';
 import * as DateParser from 'date-format-parse'
 
 import { Base64 } from "js-base64";
+import {callCommentList, callIssueList} from "@/api/GithubAPI";
 
 
 export const setDirectories = () => {
@@ -33,7 +34,6 @@ export const setFileList = () => {
     dirMapStore.directories.forEach((dir: DirectoryData) => {
 
         dir.files.forEach((file: FileData) => {
-
             fileListData.file_list.push(file)
         })
     })
@@ -46,6 +46,7 @@ export const setFileList = () => {
 
 
     fileListStore.file_list = fileListData.file_list
+    callIssueList()
 }
 
 export const excludeForPostData = (result: any, index: number): PostData => {

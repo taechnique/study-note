@@ -15,7 +15,6 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 import router from './router'
 import { setDirectories, setFileList } from "@/components/header/settingUtils";
 
-
 /* import specific icons */
 library.add(faUserSecret, faBars, faHeart, faMessage, faFolder, faFolderOpen, faGlobe)
 const app = createApp(App).use(router)
@@ -27,7 +26,6 @@ setDirectories()
 
 //== 파일 셋팅 ==//
 setFileList()
-
 
 app.component("font-awesome-icon", FontAwesomeIcon)
 app.mount('#app')

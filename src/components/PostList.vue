@@ -1,7 +1,7 @@
 <template>
   <div class="main-body">
     <div class="main-container">
-      <div class="post-card-wrapper" v-for="post in getSortedPostList(this.postListStore.postDataList)" v-bind:key="post.sha">
+      <div class="post-card-wrapper" v-for="(post, index) in getSortedPostList(this.postListStore.postDataList)" v-bind:key="post.sha">
         <div class="post-preview-header">
           <div class="profile-image">
             <img :src="getProfileOrDefault(post.markdownPost.profile_image)" />
@@ -32,11 +32,16 @@
           <div class="post-tag-area">
             <span v-for="tag in post.markdownPost.tags" v-bind:key="tag" >{{ tag }}</span>
           </div>
-          <div class="footer-button button-recommend">
+          <div v-bind:class="[`post-comment-list${index}`,{ 'hide' : mobileNaviStore.isActive }]" class="message-box" ></div>
+          <div class="footer-button button-recommend" v-on:click="recommendPost(index)">
             <font-awesome-icon icon="heart" />
             <span>추천</span>
+            <div class="tooltip-bubble">
+              <div class="tooltip-content"><span>준비중 입니다.</span></div>
+              <div class="arrow"></div>
+            </div>
           </div>
-          <div class="footer-button button-comment">
+          <div class="footer-button button-comment" @click="getCommentList(index)">
               <font-awesome-icon icon="message" />
               <span>댓글</span>
           </div>
@@ -74,8 +79,9 @@
 </template>
 
 <script>
-import { callPostList } from "@/api/GithubAPI";
-import {postListStore, postCallStore, userInfoStore, fileListStore} from "@/store";
+import { callPostList, callCommentList, owner } from "@/api/GithubAPI";
+import { postListStore, postCallStore, userInfoStore, fileListStore, mobileNaviStore } from "@/store";
+import { spinner, calPostDate } from "@/components/header/settingUtils";
 
 export default {
   data() {
@@ -86,6 +92,8 @@ export default {
       userInfoStore,
       fileListStore,
       postCallStore,
+      mobileNaviStore,
+      calPostDate,
       scroll: {
         current: 0
       },
@@ -144,38 +152,51 @@ export default {
 
       return returnPath
     },
-    calPostDate: (date) => {
-      const timeValue = Date.parse(date)
-      const milliSeconds = new Date() - timeValue
-
-      const seconds = milliSeconds / 1000
-      if (seconds < 60) return `방금 전`
-
-      const minutes = seconds / 60
-      if (minutes < 60) return `${Math.floor(minutes)}분 전`
-
-      const hours = minutes / 60
-      if (hours < 24) return `${Math.floor(hours)}시간 전`
-
-      const days = hours / 24
-      if (days < 7) return `${Math.floor(days)}일 전`
-
-      const weeks = days / 7
-      if (weeks < 5) return `${Math.floor(weeks)}주 전`
-
-      const months = days / 30
-      if (months < 12) return `${Math.floor(months)}개월 전`
-
-      const years = days / 365
-      return `${Math.floor(years)}년 전`
-
-    },
     getSortedPostList: (posts) => {
       if(posts.length !== 0) {
         posts.sort((a, b) => b.markdownPost.date - a.markdownPost.date)
         postListStore.latest_index = posts[posts.length - 1].index
       }
       return posts
+    },
+    getCommentList: (index) => {
+      spinner(true)
+      const issueNum = fileListStore.file_list[index]._issue_number
+      const commentArea = document.querySelector(`.post-comment-list${index}`)
+      if(commentArea.style.display === 'flex') {
+        commentArea.style.display = 'none'
+        spinner(false)
+        return false
+      }
+
+      if(issueNum !== 0) {
+        callCommentList(issueNum).then(res => {
+          const result = res.data
+          commentArea.innerHTML = ''
+          if(result.length !== 0) {
+            result.forEach((e) => {
+              const author = e.user.login
+              const text = e.body
+              const message = `<p class="${author === owner ? 'from-me' : 'from-them'}">${text}</p>`
+              commentArea.innerHTML += message
+            })
+          }
+
+          commentArea.style.display = 'flex'
+          spinner(false)
+        }).catch(err => {
+          console.debug('%c-----------------------------------------', 'color: Green')
+          console.error(err.message)
+        })
+      } else {
+        commentArea.innerHTML = '<div class="no-comment"><span>작성된 댓글이 없어요. 🧐</span></div>'
+        commentArea.style.display = 'flex'
+        spinner(false)
+
+      }
+    },
+    recommendPost: (index) => {
+      console.debug('clicked index: ', index)
     }
   },
   components: {
@@ -258,7 +279,6 @@ export default {
 
             img {
               width: 100%;
-
             }
           }
 
@@ -334,7 +354,7 @@ export default {
               content: '#';
             }
 
-            &:hover {
+            &:hover,:active {
               background-color: #2855ab;
               transition: 0.1s;
             }
@@ -345,6 +365,114 @@ export default {
           };
         }
 
+        & div[class^="post-comment-list"] {
+          border-bottom: 1px $point-light-color solid;
+          grid-column: 1 / -1;
+          overflow: hidden;
+          display: none;
+          width: 100%;
+
+
+          &.message-box {
+            flex-direction: column;
+            font-size: .92rem;
+            margin: 0 auto 1rem;
+            max-width: 600px;
+
+            &.hide {
+              display: none !important;
+            }
+
+            & p {
+              border-radius: 1.15rem;
+              line-height: 1.25;
+              max-width: 75%;
+              padding: 0.5rem .875rem;
+              position: relative;
+              word-wrap: break-word;
+
+              &::before,::after {
+                bottom: -0.1rem;
+                content: "";
+                height: 1rem;
+                position: absolute;
+              }
+
+              &.from-me {
+                align-self: flex-end;
+                right: 7px;
+                background-color: #248bf5;
+                color: #fff;
+
+                &::before {
+                  border-bottom-left-radius: 0.8rem 0.7rem;
+                  border-right: 1rem solid #248bf5;
+                  right: -0.35rem;
+                  transform: translate(0, -0.1rem);
+                }
+
+                &::after {
+                  content: "";
+                  position: absolute;
+                  z-index: 1;
+                  bottom: -2px;
+                  right: -42px;
+                  width: 12px;
+                  height: 20px;
+                  background: $main-light-color;
+                  border-bottom-left-radius: 10px;
+                  -webkit-transform: translate(-30px, -2px);
+                  transform: translate(-30px, -2px);
+                }
+              }
+
+              &[class^="from-"] {
+                margin: 0.5rem 0;
+                width: fit-content;
+              }
+
+              &.from-them {
+                align-items: flex-start;
+                background-color: #e5e5ea;
+                color: #000;
+                text-align: left;
+                left: 7px;
+
+                &:before {
+                  border-bottom-right-radius: 0.8rem 0.7rem;
+                  border-left: 1rem solid #e5e5ea;
+                  left: -0.35rem;
+                  transform: translate(0, -0.1rem);
+                }
+
+                &::after {
+                  content: "";
+                  position: absolute;
+                  z-index: 3;
+                  bottom: -2px;
+                  left: 4px;
+                  width: 26px;
+                  height: 20px;
+                  background: white;
+                  border-bottom-right-radius: 10px;
+                  -webkit-transform: translate(-30px, -2px);
+                  transform: translate(-30px, -2px);
+                }
+              }
+
+
+            }
+            & .no-comment {
+              width: 80%;
+              padding: 10px 5px;
+              margin: 10px auto;
+              background-color: $point-light-color;
+              border-radius: 15px;
+            }
+          }
+        }
+
+
 
         & .footer-button {
           display: inline-block;
@@ -354,21 +482,72 @@ export default {
           transition: none;
           cursor: pointer;
 
+          //== 둘다 해줘야 transition 적용 ==//
           & svg {
             transition: none;
 
             & path {
               transition: none;
-
             }
           }
+
           & span {
             margin: 0px 7px;
             transition: none;
           }
 
-          &:hover {
+          &:hover,:active {
             color: #6b6b6b;
+          }
+
+          &.button-recommend {
+
+            & .tooltip-bubble {
+              opacity: 0;
+              transition: .6s;
+              position: relative;
+              height: 0px;
+              top: -55px;
+              margin: 0 auto;
+              font-size: .82rem;
+              width: 150px;
+
+              & .tooltip-content {
+                width: 60%;
+                margin: 0 auto;
+                background-color: black;
+                color: white;
+                padding: 4px 3px;
+                border-radius: 15px;
+
+              }
+
+              & .arrow {
+                height: 0px;
+
+                &:before {
+                  content: "";
+                  border-style: solid;
+                  border-color: transparent;
+                  position: relative;
+                  top: 5px;
+                  border-width: 0.4rem 0.4rem 0;
+                  border-top-color:black;
+                }
+              }
+            }
+
+            &:active, &:hover {
+
+              & path {
+                color: #f85f5b;
+              }
+
+              & .tooltip-bubble {
+                opacity: 1;
+
+              }
+            }
           }
         }
       }

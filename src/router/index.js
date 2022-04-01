@@ -1,23 +1,23 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import MainBody from "@/components/global/MainBody";
 import PostView from "@/components/PostView";
+import PostList from "@/components/PostList";
 
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: MainBody
+    component: PostList
   },
   {
     path: '/categories',
     name: 'categories',
-    component: MainBody
+    component: PostList
   },
   {
     path: '/tags',
     name: 'tags',
-    component: MainBody
+    component: PostList
   },
   {
     path:'/docs/:dir/:post',

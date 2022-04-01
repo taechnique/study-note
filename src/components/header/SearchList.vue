@@ -1,7 +1,7 @@
 <template>
   <div class="search-result-wrapper">
     <div class="search-card-layer" v-bind:key="index" v-for="(post, index) in searchInputStore.result_list">
-      <router-link v-bind:to="`/docs/${post.file_path}`">
+      <router-link v-bind:to="`/docs/${post.file_path}`" v-on:click="mobileNaviStore.isActive = false">
         <div class="search-card-date">
           <span>{{ calPostDate(post.create_time) }}</span>
         </div>
@@ -14,13 +14,14 @@
 </template>
 
 <script>
-import { searchInputStore } from "@/store";
+import { searchInputStore, mobileNaviStore } from "@/store";
 import { calPostDate } from "@/components/header/settingUtils";
 
 export default {
   data() {
     return {
       searchInputStore,
+      mobileNaviStore,
       calPostDate
 
     }

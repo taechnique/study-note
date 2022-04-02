@@ -189,7 +189,9 @@ export default {
           padding: 10px 0px;
           border-bottom: 1.22px solid $point-light-color;
         }
-
+        & img {
+          width: 100%;
+        }
         & pre {
           overflow-x: scroll;
           border: 1px #e0dfdc solid;

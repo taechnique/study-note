@@ -5,6 +5,8 @@ categories: [Development,Spring]
 tags: [Spring,Spring Boot]
 date: 2021-11-01 18:58:00 +0900
 thumbnail: "/assets/blogging/spring/Transaction_Manager.png"
+current_company: Herit Corporation
+current_position: Backend Server Developer
 excerpt_separator: <!--more-->
 hide: false
 ---

@@ -76,7 +76,6 @@ export const callIssueList = () => {
         baseURL: baseURL
     }).then(res => {
         const issues = res.data
-        console.debug('issues: ', issues)
         //== 이슈 번호 할당 ==//
         fileListStore.file_list.forEach(file => {
             const path = `docs/${file.file_path}`

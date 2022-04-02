@@ -5,6 +5,8 @@ categories: [Development,Java]
 tags: [Spring,Java]
 date: 2021-10-26 19:25:00 +0900
 thumbnail: "/assets/blogging/java/java2.png"
+current_company: Herit Corporation
+current_position: Backend Server Developer
 excerpt_separator: <!--more-->
 hide: false
 ---

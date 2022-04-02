@@ -183,13 +183,15 @@ export default {
         }
 
         & pre {
-
-
+          overflow-x: scroll;
           background-color: white;
-
           border: 1px #e0dfdc solid;
           border-radius: 5px;
           padding: 7px 5px;
+
+          &::-webkit-scrollbar-track {
+            background-color: inherit;
+          }
           //== Java ==//
           code {
             border: none;

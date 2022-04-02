@@ -164,55 +164,55 @@ AbstactPlatformTransactionManager는 트랜잭션 동기화를 등록하고 관�
 
 ```java
 @Override
-	public final TransactionStatus getTransaction(@Nullable TransactionDefinition definition)
-			throws TransactionException {
+public final TransactionStatus getTransaction(@Nullable TransactionDefinition definition)
+        throws TransactionException {
 
-		// Use defaults if no transaction definition given.
-		TransactionDefinition def = (definition != null ? definition : TransactionDefinition.withDefaults());
+    // Use defaults if no transaction definition given.
+    TransactionDefinition def = (definition != null ? definition : TransactionDefinition.withDefaults());
 
-		Object transaction = doGetTransaction();
-		boolean debugEnabled = logger.isDebugEnabled();
+    Object transaction = doGetTransaction();
+    boolean debugEnabled = logger.isDebugEnabled();
 
-		if (isExistingTransaction(transaction)) {
-			// Existing transaction found -> check propagation behavior to find out how to behave.
-			return handleExistingTransaction(def, transaction, debugEnabled);
-		}
+    if (isExistingTransaction(transaction)) {
+        // Existing transaction found -> check propagation behavior to find out how to behave.
+        return handleExistingTransaction(def, transaction, debugEnabled);
+    }
 
-		// Check definition settings for new transaction.
-		if (def.getTimeout() < TransactionDefinition.TIMEOUT_DEFAULT) {
-			throw new InvalidTimeoutException("Invalid transaction timeout", def.getTimeout());
-		}
+    // Check definition settings for new transaction.
+    if (def.getTimeout() < TransactionDefinition.TIMEOUT_DEFAULT) {
+        throw new InvalidTimeoutException("Invalid transaction timeout", def.getTimeout());
+    }
 
-		// No existing transaction found -> check propagation behavior to find out how to proceed.
-		if (def.getPropagationBehavior() == TransactionDefinition.PROPAGATION_MANDATORY) {
-			throw new IllegalTransactionStateException(
-					"No existing transaction found for transaction marked with propagation 'mandatory'");
-		}
-		else if (def.getPropagationBehavior() == TransactionDefinition.PROPAGATION_REQUIRED ||
-				def.getPropagationBehavior() == TransactionDefinition.PROPAGATION_REQUIRES_NEW ||
-				def.getPropagationBehavior() == TransactionDefinition.PROPAGATION_NESTED) {
-			SuspendedResourcesHolder suspendedResources = suspend(null);
-			if (debugEnabled) {
-				logger.debug("Creating new transaction with name [" + def.getName() + "]: " + def);
-			}
-			try {
-				return startTransaction(def, transaction, debugEnabled, suspendedResources);
-			}
-			catch (RuntimeException | Error ex) {
-				resume(null, suspendedResources);
-				throw ex;
-			}
-		}
-		else {
-			// Create "empty" transaction: no actual transaction, but potentially synchronization.
-			if (def.getIsolationLevel() != TransactionDefinition.ISOLATION_DEFAULT && logger.isWarnEnabled()) {
-				logger.warn("Custom isolation level specified but no actual transaction initiated; " +
-						"isolation level will effectively be ignored: " + def);
-			}
-			boolean newSynchronization = (getTransactionSynchronization() == SYNCHRONIZATION_ALWAYS);
-			return prepareTransactionStatus(def, null, true, newSynchronization, debugEnabled, null);
-		}
-	}
+    // No existing transaction found -> check propagation behavior to find out how to proceed.
+    if (def.getPropagationBehavior() == TransactionDefinition.PROPAGATION_MANDATORY) {
+        throw new IllegalTransactionStateException(
+                "No existing transaction found for transaction marked with propagation 'mandatory'");
+    }
+    else if (def.getPropagationBehavior() == TransactionDefinition.PROPAGATION_REQUIRED ||
+            def.getPropagationBehavior() == TransactionDefinition.PROPAGATION_REQUIRES_NEW ||
+            def.getPropagationBehavior() == TransactionDefinition.PROPAGATION_NESTED) {
+        SuspendedResourcesHolder suspendedResources = suspend(null);
+        if (debugEnabled) {
+            logger.debug("Creating new transaction with name [" + def.getName() + "]: " + def);
+        }
+        try {
+            return startTransaction(def, transaction, debugEnabled, suspendedResources);
+        }
+        catch (RuntimeException | Error ex) {
+            resume(null, suspendedResources);
+            throw ex;
+        }
+    }
+    else {
+        // Create "empty" transaction: no actual transaction, but potentially synchronization.
+        if (def.getIsolationLevel() != TransactionDefinition.ISOLATION_DEFAULT && logger.isWarnEnabled()) {
+            logger.warn("Custom isolation level specified but no actual transaction initiated; " +
+                    "isolation level will effectively be ignored: " + def);
+        }
+        boolean newSynchronization = (getTransactionSynchronization() == SYNCHRONIZATION_ALWAYS);
+        return prepareTransactionStatus(def, null, true, newSynchronization, debugEnabled, null);
+    }
+}
 ```
 
 이 구현체는 전파동작을 처리합니다. doGetTransaction, isExistingTransaction 및 doBegin 메서드를 위임합니다.

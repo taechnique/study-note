@@ -82,9 +82,11 @@ export default {
               const result = req.data
 
               const postData = excludeForPostData(result, 0)
+              const body = postData.markdownPost.body
+
 
               this.post_content = postData
-              this.post_body = parseBody(postData.markdownPost.body)
+              this.post_body = parseBody(body)
 
               hljs.highlightAll()
               spinner(false)
@@ -174,6 +176,12 @@ export default {
 
         & ul {
           padding: 0 20px;
+          margin-bottom: 20px;
+
+
+          li {
+            line-height: 25px;
+          }
         }
 
         & h1, h2, h3, h4 {
@@ -184,10 +192,10 @@ export default {
 
         & pre {
           overflow-x: scroll;
-          background-color: white;
           border: 1px #e0dfdc solid;
-          border-radius: 5px;
+          border-radius: 15px;
           padding: 7px 5px;
+          background-color: white;
 
           &::-webkit-scrollbar-track {
             background-color: inherit;
@@ -197,10 +205,42 @@ export default {
             border: none;
             color: $main-font-color;
             font-family: "AppleSDGothicNeoL";
+
+            //.hljs-meta {
+            //  color: #d7c043;
+            //}
+
+            .hljs-comment {
+              color: #969696;
+            }
+            //.class_ {
+            //  color: crimson;
+            //}
+            //.hljs-built_in {
+            //  color: #9560dc;
+            //}
+            //.hljs-type {
+            //  color: blue;
+            //}
+
+            .function_ {
+              color: #8250df;
+            }
+
+            .hljs-keyword {
+              color: #cf222e;
+            }
+
+            .hljs-string {
+              color: #0b5b29;
+            }
+          }
+          code[class^=language-] {
+            padding:0;
           }
         }
         code {
-          background-color: $main-light-color;
+          background-color: white;
           border: 1px #e0dfdc solid;
           border-radius: 5px;
           padding: 0 5px;

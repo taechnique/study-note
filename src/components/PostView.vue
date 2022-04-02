@@ -17,7 +17,6 @@
         <div class="post-tag">
           <span class="tag" v-for="(tag, idx) in this.post_content.markdownPost.tags" v-bind:key="idx">{{ tag }}</span>
         </div>
-        <vue-markdown># Hi There ~ **Taechnique**</vue-markdown>
         <div class="post-content" v-html="post_body" />
 
         <vue-utterances repo="taechnique/study-note" crossorigin="anonymous" theme="github-light" issue-term="pathname" async/>
@@ -33,20 +32,30 @@ import { fileListStore } from "@/store";
 import * as DateParser from 'date-format-parse'
 import NotFound from "@/components/global/NotFound";
 import VueUtterances from 'vue-utterances';
-import VueMarkdown from 'vue-markdown';
+import hljs from 'highlight.js'
+
 
 export default {
   components: {
     NotFound,
-    VueUtterances,
-    VueMarkdown
+    VueUtterances
   },
   data() {
     spinner(true)
 
     const parseBody = (body) => {
-      var md = require('markdown-it')();
-      return md.render(body)
+      const md = require('markdown-it')({
+        highlight: (str, lang) => {
+          if(lang && hljs.getLanguage(lang)) {
+            return hljs.highlight(str, { language: lang }).value
+          }
+
+          return '';
+        }
+      })
+      const parsed =  md.render(body)
+
+      return parsed
     }
 
     const settingPost = () => {
@@ -76,6 +85,8 @@ export default {
 
               this.post_content = postData
               this.post_body = parseBody(postData.markdownPost.body)
+
+              hljs.highlightAll()
               spinner(false)
 
             }).catch(err => {
@@ -94,6 +105,7 @@ export default {
     },5000)
     return {
       settingPost,
+      parseBody,
       post_info: {
         dirName: this.$route.params.dir,
         post: this.$route.params.post.replace('_', ' ')
@@ -110,7 +122,6 @@ export default {
   },
   methods: {
     parseDate: (date) => {
-      console.debug('parsed: ', date)
       return DateParser.format(date, 'YY년 MM월 DD일 HH:mm')
     }
   }
@@ -174,9 +185,27 @@ export default {
         & pre {
 
 
+          background-color: white;
 
+          border: 1px #e0dfdc solid;
+          border-radius: 5px;
+          padding: 7px 5px;
           //== Java ==//
+          code {
+            border: none;
+            color: $main-font-color;
+            font-family: "AppleSDGothicNeoL";
+          }
         }
+        code {
+          background-color: $main-light-color;
+          border: 1px #e0dfdc solid;
+          border-radius: 5px;
+          padding: 0 5px;
+          color: #FF605C;
+          font-size: 1.01rem;
+        }
+
       }
 
       .post-tag {

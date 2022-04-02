@@ -15,6 +15,11 @@ export const directoryMap = {
                     file_title: '-Spring- @Autowired javaDoc 번역 (@Autowired)',
                     create_time: '2021-08-04 23:44:00 +0900',
                 },
+                {
+                    file_path: 'spring/AbstractPlatformTransactionManager',
+                    file_title: '-Spring- TransactionManager (트랜잭션 관리자)',
+                    create_time: '2021-11-01 18:58:00 +0900',
+                },
             ]
         },
         {
@@ -31,6 +36,11 @@ export const directoryMap = {
                     file_path: 'java/Java_JVM02',
                     file_title: '-Java- JVM 02 (Heap area)',
                     create_time: '2021-03-04 14:58:00 +0900'
+                },
+                {
+                    file_path: 'java/Initialization_Order_In_Java',
+                    file_title: '-Java- Initialization Order (자바의 블럭)',
+                    create_time: '2021-10-26 19:25:00 +0900'
                 },
             ]
         },

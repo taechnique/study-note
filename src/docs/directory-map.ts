@@ -39,7 +39,7 @@ export const directoryMap = {
                 },
                 {
                     file_path: 'java/Initialization_Order_In_Java',
-                    file_title: '-Java- Initialization Order (자바의 블럭)',
+                    file_title: '-Java- Initialization Order (자바의 초기화 블럭)',
                     create_time: '2021-10-26 19:25:00 +0900'
                 },
             ]

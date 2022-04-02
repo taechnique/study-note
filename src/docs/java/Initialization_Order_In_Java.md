@@ -1,15 +1,17 @@
 ---
 layout: post
-title: -Java- Initialization Order (자바의 블럭)
+title: -Java- Initialization Order (자바의 초기화 블럭)
 categories: [Development,Java]
 tags: [Spring,Java]
-date: 2021-10-26 19::25 +0900
-thumbnail: "/assets/blogging/java/java_logo.png"
+date: 2021-10-26 19:25:00 +0900
+thumbnail: "/assets/blogging/java/java2.png"
 excerpt_separator: <!--more-->
 hide: false
 ---
-Study for Java's Initialization Order.
+프로그래밍을 하다보면 특정 객체의 라이프사이클을 이해하고 사용해야 할 때가 있지요.
+block단위의 Java의 실행순서를 알아보도록 해볼게요.
 
+잠깐의 스프링 내용도 나와요. ㅎㅎ
 <!--more-->
 
 ## Initialization Order in Java

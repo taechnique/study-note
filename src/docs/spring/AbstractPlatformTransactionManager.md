@@ -4,7 +4,7 @@ title: -Spring- TransactionManager (트랜잭션 관리자)
 categories: [Development,Spring]
 tags: [Spring,Spring Boot]
 date: 2021-11-01 18:58:00 +0900
-thumbnail: "/assets/img/bloging/spring/spring_logo.png"
+thumbnail: "/assets/blogging/spring/spring_logo.png"
 excerpt_separator: <!--more-->
 hide: false
 ---

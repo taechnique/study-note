@@ -4,7 +4,7 @@ title: -Java- Initialization Order (자바의 블럭)
 categories: [Development,Java]
 tags: [Spring,Java]
 date: 2021-10-26 19::25 +0900
-thumbnail: "/assets/img/bloging/java/java_logo.png"
+thumbnail: "/assets/blogging/java/java_logo.png"
 excerpt_separator: <!--more-->
 hide: false
 ---

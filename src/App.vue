@@ -72,13 +72,17 @@ export default {
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'SFMonoLight';
+  src: url('~@/assets/fonts/sf-mono-cufonfonts/SFMonoLight.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
 
   background-color: #f3f2ef;
 
-  & ::-webkit-scrollbar {
-    width: 10px;
-  }
 
   & ::-webkit-scrollbar-thumb {
     background-color: #e1e1e1;

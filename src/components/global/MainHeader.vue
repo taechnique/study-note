@@ -33,7 +33,7 @@
     <div class="mobile-header">
       <div class="burger" >
         <font-awesome-icon icon="bars" v-on:click="mobileNaviStore.isActive = true" />
-        <img :src="this.headers.mobile.vue_image" />
+        <router-link to="/"><img :src="this.headers.mobile.vue_image" /></router-link>
       </div>
       <div class="mobile-navigator-wrapper" :class="{ active : mobileNaviStore.isActive }">
         <div class="nav-panel-box">
@@ -258,7 +258,8 @@ export default {
       position: fixed;
       top: 0;
       left: 0;
-      background-color: $main-light-color;
+      backdrop-filter: saturate(180%) blur(20px);
+      background-color: rgba(255,255,255,0.72);
       border-bottom: $point-light-color 1px solid;
       width: 100%;
       height: 50px;
@@ -267,7 +268,6 @@ export default {
       & .burger {
         padding: 2px 20px;
         margin: 2px auto;
-        background-color: $main-light-color;
 
         & img {
           width: 40px;
@@ -315,7 +315,6 @@ export default {
 
         & .nav-panel-box {
           display: flex;
-          background-color: $main-light-color;
           width: 100%;
           height: 100%;
           padding: 20px 10px;

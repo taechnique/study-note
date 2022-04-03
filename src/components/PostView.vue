@@ -145,6 +145,7 @@ export default {
     font-size: 1.4rem;
     margin: 40px auto;
     max-width: 786px;
+    word-break: break-word;
 
     & span {
 
@@ -160,6 +161,7 @@ export default {
     border: 1.29px solid #e0dfdc;
     margin: 0 auto;
     border-radius: 15px;
+    color: black;
 
     .post-content-wrapper {
       margin: 40px auto;
@@ -168,13 +170,33 @@ export default {
       .post-content {
         min-height: 400px;
         padding: 30px 15px;
+        word-break: break-word;
+        font-size: 16px;
+
+        & table {
+          border-collapse: collapse;
+          width: 100%;
+          tr {
+            border-top: 1px solid #d0d7de;
+          }
+
+          th {
+
+          }
+
+          th, td {
+            border: 1px solid #d0d7de;
+            box-sizing: border-box;
+            padding: 3px 5px;
+          }
+        }
 
         & p {
           margin: 7px 0px;
           line-height: 30px;
         }
 
-        & ul {
+        & ul,ol {
           padding: 0 20px;
           margin-bottom: 20px;
 
@@ -185,32 +207,40 @@ export default {
         }
 
         & h1, h2, h3, h4 {
-          margin: 120px 0px 20px;
+          margin: 60px 0px 20px;
           padding: 10px 0px;
           border-bottom: 1.22px solid $point-light-color;
+        }
+
+        h4 {
+          font-size: 1em;
         }
         & img {
           width: 100%;
         }
         & pre {
-          overflow-x: scroll;
+          overflow: auto;
           border: 1px #e0dfdc solid;
           border-radius: 15px;
           padding: 7px 5px;
           background-color: white;
+          margin: 20px 0;
 
+          &::-webkit-scrollbar {
+            height: 9px;
+          }
           &::-webkit-scrollbar-track {
-            background-color: inherit;
+            background-color: transparent;
           }
           //== Java ==//
           code {
             border: none;
-            color: $main-font-color;
-            font-family: "AppleSDGothicNeoL";
+            font-family: SFMonoLight,Menlo,Consolas,Liberation Mono,monospace;
+            background-color: white;
 
-            //.hljs-meta {
-            //  color: #d7c043;
-            //}
+            .hljs-meta {
+              color: #0550ae;
+            }
 
             .hljs-comment {
               color: #969696;
@@ -242,31 +272,34 @@ export default {
           }
         }
         code {
-          background-color: white;
-          border: 1px #e0dfdc solid;
-          border-radius: 5px;
-          padding: 0 5px;
-          color: #FF605C;
-          font-size: 1.01rem;
+          background-color: rgba(175,184,193,0.2);
+          border-radius: 6px;
+          padding: 0.2em 0.4em;
+          font-size: 85%;
+          word-break: break-word;
         }
 
       }
 
       .post-tag {
         margin: 30px 0px;
+        display: flex;
+        flex-wrap: wrap;
 
         & .tag {
+          display: block;
           background-color: #b7b4b4;
           border-radius: 15px;
           padding: 3px 12px;
           color: white;
-          margin:0px 6px;
+          margin:4px 6px;
+          box-sizing: border-box;
 
           &:before {
             content: '#';
           }
 
-          &:hover {
+          &:hover, :active {
             background-color: #2855ab;
             transition: 0.1s;
           }
@@ -298,9 +331,8 @@ export default {
   .post-container {
 
     .post {
-      padding: 20px 0;
       max-width: 80%;
-      margin: 0 auto;
+      margin: 40px auto;
     }
   }
 }
@@ -318,6 +350,19 @@ export default {
 
         &:before {
           margin: 0px 10px;
+        }
+      }
+    }
+
+    .post-area {
+
+      .post-content-wrapper {
+
+        .post-content {
+          font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+          code {
+            padding: 5px 3px;
+          }
         }
       }
     }

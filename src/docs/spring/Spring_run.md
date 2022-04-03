@@ -54,10 +54,10 @@ public static ConfigurableApplicationContext run(Class<?> primarySource, String.
 ### .run() Method
 
 | 순서 | 메소드명 | static ? | 리턴타입 | 매개변수 |
-|----|------|----|----|------|
-|1| run  | none   |  ConfigurableApplicationContext | String… args |
-|2| ^^   | static | ConfigurableApplicationContext | Class<?> primarySource, String… args |
-|3| ^^   | static | ConfigurableApplicationContext | Class<?>[] primarySources, String[] args |
+|----|----|----|----|------|
+|1| run | none   |  ConfigurableApplicationContext | String… args |
+|2| ^^ | static | ConfigurableApplicationContext | Class<?> primarySource, String… args |
+|3| ^^ | static | ConfigurableApplicationContext | Class<?>[] primarySources, String[] args |
 
 
 **2**,**3** 의 경우 static이기 때문에 외부에서 기본설정으로 실행하는 방법으로 쓰일수도 있습니다. 하지만 내부적으로 보면, 순서가 **2** -> **3** -> **1** 의 순서를 가지고 있기때문에 **2** 에서 시작하든 **3** 에서 시작하던 넘겨주는 시점에 `Parameter`만 다른것이지 결국 **1** 로 이어 집니다.

@@ -171,7 +171,13 @@ export default {
         min-height: 400px;
         padding: 30px 15px;
         word-break: break-word;
-        font-size: 16px;
+        font-size: 0.9375em;
+        line-height: 1.6;
+        font-family: Noto Sans KR, "Apple SD Gothic Neo";
+        font-weight: 400;
+        -webkit-text-size-adjust: 100%;
+        -webkit-font-smoothing: antialiased;
+        color: #666;
 
         & table {
           border-collapse: collapse;
@@ -237,6 +243,8 @@ export default {
             border: none;
             font-family: SFMonoLight,Menlo,Consolas,Liberation Mono,monospace;
             background-color: white;
+            line-height: 1.8;
+            font-size: .84rem;
 
             .hljs-meta {
               color: #0550ae;
@@ -275,8 +283,33 @@ export default {
           background-color: rgba(175,184,193,0.2);
           border-radius: 6px;
           padding: 0.2em 0.4em;
-          font-size: 85%;
+          font-size: .97rem;
           word-break: break-word;
+        }
+
+        .array {
+
+          span {
+            width: 28px;
+            height: 28px;
+            color: #666;
+            display: inline-block;
+            text-align: center;
+            border: 1px solid #e6e6e6;
+
+            &.over {
+              background-color: lightgray;
+            }
+
+            &.current {
+              background-color: pink;
+            }
+
+            &.target {
+              background-color: green;
+              color: white;
+            }
+          }
         }
 
       }

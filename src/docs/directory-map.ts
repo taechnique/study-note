@@ -1,25 +1,15 @@
 export const directoryMap = {
     docs: [
         {
-            directory_name: 'Spring',
+            directory_name: 'Algorithm',
             icon: 'folder',
             is_opened: false,
             files: [
                 {
-                    file_path: 'spring/Spring_run',
-                    file_title: '-Spring- run (Execute Spring Boot App Method)',
-                    create_time: '2021-07-12 23:47:00 +0900'
-                },
-                {
-                    file_path: 'spring/Spring_Autowired',
-                    file_title: '-Spring- @Autowired javaDoc 번역 (@Autowired)',
-                    create_time: '2021-08-04 23:44:00 +0900',
-                },
-                {
-                    file_path: 'spring/AbstractPlatformTransactionManager',
-                    file_title: '-Spring- TransactionManager (트랜잭션 관리자)',
-                    create_time: '2021-11-01 18:58:00 +0900',
-                },
+                    file_path: 'algorithem/Selection_Sort',
+                    file_title: '-Algorithm- Selection Sort (선택정렬 알고리즘) feat. java',
+                    create_time: '2022-04-04 23:34:00 +0900'
+                }
             ]
         },
         {
@@ -41,6 +31,28 @@ export const directoryMap = {
                     file_path: 'java/Initialization_Order_In_Java',
                     file_title: '-Java- Initialization Order (자바의 초기화 블럭)',
                     create_time: '2021-10-26 19:25:00 +0900'
+                },
+            ]
+        },
+        {
+            directory_name: 'Spring',
+            icon: 'folder',
+            is_opened: false,
+            files: [
+                {
+                    file_path: 'spring/Spring_run',
+                    file_title: '-Spring- run (Execute Spring Boot App Method)',
+                    create_time: '2021-07-12 23:47:00 +0900'
+                },
+                {
+                    file_path: 'spring/Spring_Autowired',
+                    file_title: '-Spring- @Autowired javaDoc 번역 (@Autowired)',
+                    create_time: '2021-08-04 23:44:00 +0900',
+                },
+                {
+                    file_path: 'spring/AbstractPlatformTransactionManager',
+                    file_title: '-Spring- TransactionManager (트랜잭션 관리자)',
+                    create_time: '2021-11-01 18:58:00 +0900',
                 },
             ]
         },

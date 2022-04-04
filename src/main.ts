@@ -9,14 +9,14 @@ import {
     faHeart,
     faMessage,
     faFolder,
-    faFolderOpen, faGlobe
+    faFolderOpen, faGlobe, faHelmetSafety
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 import router from './router'
 import { setDirectories, setFileList } from "@/components/header/settingUtils";
 
 /* import specific icons */
-library.add(faUserSecret, faBars, faHeart, faMessage, faFolder, faFolderOpen, faGlobe)
+library.add(faUserSecret, faBars, faHeart, faMessage, faFolder, faFolderOpen, faGlobe, faHelmetSafety)
 const app = createApp(App).use(router)
 
 //== Initialize for Directories ==//

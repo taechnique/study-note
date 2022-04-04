@@ -30,12 +30,12 @@
         </div>
       </div>
     </div>
-    <div class="mobile-header">
+    <div class="mobile-header" :class="{ active : mobileNaviStore.isActive }">
       <div class="burger" >
         <font-awesome-icon icon="bars" v-on:click="mobileNaviStore.isActive = true" />
         <router-link to="/"><img :src="this.headers.mobile.vue_image" /></router-link>
       </div>
-      <div class="mobile-navigator-wrapper" :class="{ active : mobileNaviStore.isActive }">
+      <div class="mobile-navigator-wrapper" >
         <div class="nav-panel-box">
           <div class="nav-items">
             <ul>
@@ -62,7 +62,7 @@
           </div>
         </div>
       </div>
-      <div class="background" :class="{ active : mobileNaviStore.isActive }" v-on:click="mobileNaviStore.isActive = false"></div>
+      <div class="background" v-on:click="mobileNaviStore.isActive = false"></div>
     </div>
     <div class="progress-area" :class="{ hide : mobileNaviStore.isActive }">
       <span class="progress-bar"></span>
@@ -258,8 +258,7 @@ export default {
       position: fixed;
       top: 0;
       left: 0;
-      backdrop-filter: saturate(180%) blur(20px);
-      background-color: rgba(255,255,255,0.72);
+      background-color: rgba(255,255,255,0.89);
       border-bottom: $point-light-color 1px solid;
       width: 100%;
       height: 50px;
@@ -290,13 +289,6 @@ export default {
         width: 100%;
         transition: height 0s, background-color .6s;
 
-        &.active {
-          z-index: 1;
-          background: rgb(0 0 0 / 40%);
-          backdrop-filter: blur(5px);
-          height: 100%;
-        }
-
       }
 
       & .mobile-navigator-wrapper {
@@ -307,11 +299,6 @@ export default {
         width: 77%;
         transition: 2s;
 
-        &.active {
-          left: 0;
-          z-index: 2;
-          transition: .6s;
-        }
 
         & .nav-panel-box {
           display: flex;
@@ -319,6 +306,7 @@ export default {
           height: 100%;
           padding: 20px 10px;
           flex-direction: column;
+          background-color: $main-light-color;
 
           & .nav-items {
             padding: 20px 40px;
@@ -378,6 +366,22 @@ export default {
           }
         }
       }
+
+      &.active {
+
+        .background {
+          z-index: 1;
+          background: rgb(0 0 0 / 40%);
+          height: 100%;
+
+        }
+
+        .mobile-navigator-wrapper {
+          left: 0;
+          z-index: 2;
+          transition: .6s;
+        }
+      }
     }
 
     .main-header {
@@ -390,9 +394,6 @@ export default {
     }
 
     .progress-area {
-
-      .progress-bar {
-      }
 
       &.hide {
         display: none;

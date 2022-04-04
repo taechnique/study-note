@@ -312,7 +312,7 @@ export default {
 
               display: block;
               font-family: inherit;
-              white-space: normal;
+              white-space: break-spaces;
               word-break: break-all;
               //overflow: hidden;
               //text-overflow: ellipsis;

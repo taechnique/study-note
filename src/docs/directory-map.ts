@@ -6,7 +6,7 @@ export const directoryMap = {
             is_opened: false,
             files: [
                 {
-                    file_path: 'algorithem/Selection_Sort',
+                    file_path: 'algorithm/Selection_Sort',
                     file_title: '-Algorithm- Selection Sort (선택정렬 알고리즘) feat. java',
                     create_time: '2022-04-04 23:34:00 +0900'
                 }

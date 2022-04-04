@@ -27,7 +27,7 @@
 
 <script>
 import { callPostDetail } from "@/api/GithubAPI";
-import {excludeForPostData, spinner} from "@/components/header/settingUtils";
+import { excludeForPostData, spinner } from "@/components/header/settingUtils";
 import { fileListStore } from "@/store";
 import * as DateParser from 'date-format-parse'
 import NotFound from "@/components/global/NotFound";
@@ -45,6 +45,8 @@ export default {
 
     const parseBody = (body) => {
       const md = require('markdown-it')({
+        html: true,
+        xhtmlOut: true,
         highlight: (str, lang) => {
           if(lang && hljs.getLanguage(lang)) {
             return hljs.highlight(str, { language: lang }).value

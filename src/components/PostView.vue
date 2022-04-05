@@ -316,6 +316,13 @@ export default {
             }
           }
         }
+        blockquote {
+          padding-left: 20px;
+          color: #004085;
+          background-color: #cce5ff;
+          border: 1px #b8daff solid;
+          border-radius: 6px;
+        }
 
       }
 

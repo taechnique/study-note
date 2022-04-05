@@ -288,12 +288,15 @@ export default {
           font-size: .97rem;
           word-break: break-word;
         }
-
+        hr {
+          margin: 30px 0;
+        }
         .array {
+          margin: 20px 0;
 
           span {
-            width: 28px;
-            height: 28px;
+            width: 25px;
+            height: 25px;
             color: #666;
             display: inline-block;
             text-align: center;

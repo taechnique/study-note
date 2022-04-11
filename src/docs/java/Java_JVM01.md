@@ -1,8 +1,8 @@
 ---
 layout: post
 title: -Java- JVM 01 (Runtime Data Area)
-categories: [Development,Java]
-tags: [Java]
+categories: [Development, Java]
+tags: [Java, JVM, Runtime Data Area, Method Area]
 date: 2021-03-02 14:58:00 +0900
 profile_image: /assets/blogging/profile/profile2.JPG 
 current_company: Cubic Inc

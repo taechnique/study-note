@@ -2,7 +2,7 @@
 layout: post
 title: -Spring- @Autowired javaDoc 번역 (@Autowired)
 categories: [Development,Spring]
-tags: [Spring,Spring Boot]
+tags: [Spring, Spring Boot, Autowired, Dependency Injection, 의존성 주입]
 date: 2021-08-04 23:44:00 +0900
 profile_image: /assets/blogging/profile/profile1.JPG
 current_company: Herit Corporation

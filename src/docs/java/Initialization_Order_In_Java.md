@@ -1,8 +1,8 @@
 ---
 layout: post
 title: -Java- Initialization Order (자바의 초기화 블럭)
-categories: [Development,Java]
-tags: [Spring,Java]
+categories: [Development, Java]
+tags: [Spring, Java, Block Order]
 date: 2021-10-26 19:25:00 +0900
 thumbnail: "/assets/blogging/java/java2.png"
 current_company: Herit Corporation
@@ -138,5 +138,5 @@ There is a simple example with `constructor` and `setter`. **actually**, this ex
 
 
 
-1. Kimchi is traditional korean's food. (very inportant)
+1. Kimchi is traditional korean's food. (very important)
 2. Java's Initialization Order.

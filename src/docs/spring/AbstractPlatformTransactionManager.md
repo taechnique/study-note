@@ -1,7 +1,7 @@
 ---
 layout: post
 title: -Spring- TransactionManager (트랜잭션 관리자)
-categories: [Development,Spring]
+categories: [Development, Spring]
 tags: [Spring, Spring Boot, Transaction, Transaction Manager]
 date: 2021-11-01 18:58:00 +0900
 thumbnail: "/assets/blogging/spring/Transaction_Manager.png"

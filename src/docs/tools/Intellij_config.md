@@ -1,8 +1,8 @@
 ---
 layout: post
 title: -Intellij- General Configuration (인텔리제이 설정)
-categories: [Development,Intellij]
-tags: [Intellij]
+categories: [Development, Tools]
+tags: [Intellij, Shortcut, 인텔리제이, 단축키, 기본설정]
 date: 2021-02-23 21:58:00 +0900
 profile_image: /assets/blogging/profile/profile3.jpeg
 current_company: Cubic Inc

@@ -317,7 +317,7 @@ export default {
           }
         }
         blockquote {
-          padding-left: 20px;
+          padding: 0px 10px;
           color: #004085;
           background-color: #cce5ff;
           border: 1px #b8daff solid;
@@ -379,6 +379,14 @@ export default {
       max-width: 80%;
       margin: 40px auto;
     }
+
+    .post-area {
+      .post-content-wrapper {
+        .post-content {
+
+        }
+      }
+    }
   }
 }
 
@@ -405,8 +413,18 @@ export default {
 
         .post-content {
           font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+
           code {
             padding: 5px 3px;
+          }
+          p {
+            font-size: 0.7rem;
+            line-height: 1.5;
+          }
+          pre {
+            code {
+              font-size: 0.5rem;
+            }
           }
         }
       }

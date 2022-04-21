@@ -17,8 +17,8 @@
         <div class="post-tag">
           <span class="tag" v-for="(tag, idx) in this.post_content.markdownPost.tags" v-bind:key="idx">{{ tag }}</span>
         </div>
-        <div class="post-content" v-html="post_body" />
-
+        <div class="post-content" v-bind:class="{hide : this.post_content.markdownPost.is_hide}" v-html="post_body" />
+        <div class="hide-box" v-if="post_content.markdownPost.is_hide"></div>
         <vue-utterances repo="taechnique/study-note" crossorigin="anonymous" theme="github-light" issue-term="pathname" async/>
       </div>
     </div>
@@ -180,6 +180,11 @@ export default {
         -webkit-text-size-adjust: 100%;
         -webkit-font-smoothing: antialiased;
         color: #666;
+
+        &.hide {
+          height: 400px;
+          overflow: hidden;
+        }
 
         & table {
           border-collapse: collapse;
@@ -351,6 +356,14 @@ export default {
           }
         }
 
+      }
+
+      .hide-box {
+        height: 150px;
+        background: linear-gradient(to top, #fcfcfc, rgba(252, 252, 252, .9), rgba(252, 252, 252, 0));
+        box-sizing: content-box;
+        position: relative;
+        top: -100px;
       }
 
       .post-tag {

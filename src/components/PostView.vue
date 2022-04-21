@@ -293,6 +293,7 @@ export default {
         }
         .array {
           margin: 20px 0;
+          text-align: center;
 
           span {
             width: 25px;
@@ -318,10 +319,36 @@ export default {
         }
         blockquote {
           padding: 0px 10px;
+          margin: 20px 0px 50px;
           color: #004085;
           background-color: #cce5ff;
           border: 1px #b8daff solid;
           border-radius: 6px;
+
+        }
+
+        table.case-table {
+
+          th, td {
+            border: none;
+            padding-bottom: 20px;
+          }
+          th {
+            width: 100px;
+            vertical-align: top;
+
+            .case-head {
+              border: 2px solid #d0d7de;
+              border-radius: 10px;
+              padding: 2px 5px;
+            }
+          }
+          td {
+            padding-top: 0px;
+          }
+          tr {
+            border: none;
+          }
         }
 
       }
@@ -416,6 +443,7 @@ export default {
 
           code {
             padding: 5px 3px;
+            font-size: 0.5rem;
           }
           p {
             font-size: 0.7rem;

@@ -307,6 +307,7 @@ export default {
           overflow: hidden;
           font-size: .92rem;
           padding: 15px;
+          line-height: 1.6;
 
           & .content-text {
 

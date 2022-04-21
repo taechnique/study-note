@@ -4,11 +4,10 @@ title: -Algorithm- Insertion Sort (삽입정렬 알고리즘) feat.java
 categories: [Development, Algorithm]
 tags: [Java, Algorithm, Sort, Insertion Sort]
 date: 2022-04-21 23:25:00 +0900
-thumbnail: "/assets/blogging/algorithm/selection_sort_intro.png"
 current_company: Herit Corporation
 current_position: Backend Server Developer
 excerpt_separator: <!--more-->
-hide: false
+hide: true
 ---
 이번 포스팅 순서는, 
 기본 정렬 알고리즘중 하나인 삽입 정렬(Insertion Sort)입니다.

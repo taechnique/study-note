@@ -19,6 +19,13 @@ export const directoryMap = {
                     categories: ['Development', 'Algorithm'],
                     tags: ['Java', 'Algorithm', 'Mathematical Induction']
                 },
+                {
+                    file_path: 'algorithm/Insertion_Sort',
+                    file_title: '-Algorithm- Insertion Sort (삽입정렬 알고리즘) feat.java',
+                    create_time: '2022-04-21 23:25:00 +0900',
+                    categories: ['Development', 'Algorithm'],
+                    tags: ['Java', 'Algorithm', 'Sort', 'Insertion Sort']
+                },
             ]
         },
         {

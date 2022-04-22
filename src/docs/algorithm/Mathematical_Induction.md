@@ -8,7 +8,7 @@ thumbnail: "/assets/blogging/algorithm/Mathematical_Induction.png"
 current_company: Herit Corporation
 current_position: Backend Server Developer
 excerpt_separator: <!--more-->
-hide: true
+hide: false
 ---
 
 이진탐색 주제의 전형적인 예로,

@@ -18,7 +18,9 @@
           <span class="tag" v-for="(tag, idx) in this.post_content.markdownPost.tags" v-bind:key="idx">{{ tag }}</span>
         </div>
         <div class="post-content" v-bind:class="{hide : this.post_content.markdownPost.is_hide}" v-html="post_body" />
-        <div class="hide-box" v-if="post_content.markdownPost.is_hide"></div>
+        <div class="hide-box" v-if="post_content.markdownPost.is_hide">
+          <img style="position: relative; width: 100%; top: 100px;" :src="require('@/assets/blogging/hide_post.png')" />
+        </div>
         <vue-utterances repo="taechnique/study-note" crossorigin="anonymous" theme="github-light" issue-term="pathname" async/>
       </div>
     </div>
@@ -27,7 +29,7 @@
 
 <script>
 import { callPostDetail } from "@/api/GithubAPI";
-import { excludeForPostData, spinner } from "@/components/header/settingUtils";
+import {excludeForPostData, setPageTitle, spinner} from "@/components/header/settingUtils";
 import { fileListStore } from "@/store";
 import * as DateParser from 'date-format-parse'
 import NotFound from "@/components/global/NotFound";
@@ -89,6 +91,8 @@ export default {
 
               this.post_content = postData
               this.post_body = parseBody(body)
+
+              setPageTitle(this.post_content.markdownPost.title)
 
               hljs.highlightAll()
               spinner(false)
@@ -170,7 +174,7 @@ export default {
       max-width: 786px;
 
       .post-content {
-        min-height: 400px;
+        min-height: 300px;
         padding: 30px 15px;
         word-break: break-word;
         font-size: 0.9375em;
@@ -180,11 +184,11 @@ export default {
         -webkit-text-size-adjust: 100%;
         -webkit-font-smoothing: antialiased;
         color: #666;
-
-        &.hide {
-          height: 400px;
-          overflow: hidden;
-        }
+        //
+        //&.hide {
+        //  height: 400px;
+        //  overflow: hidden;
+        //}
 
         & table {
           border-collapse: collapse;
@@ -359,11 +363,11 @@ export default {
       }
 
       .hide-box {
-        height: 150px;
+        height: 300px;
         background: linear-gradient(to top, #fcfcfc, rgba(252, 252, 252, .9), rgba(252, 252, 252, 0));
         box-sizing: content-box;
         position: relative;
-        top: -100px;
+        top: -300px;
       }
 
       .post-tag {

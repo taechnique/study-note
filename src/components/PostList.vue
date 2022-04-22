@@ -505,10 +505,9 @@ export default {
 
             & .tooltip-bubble {
               opacity: 0;
-              transition: .6s;
+              transition: .0s;
               position: relative;
               height: 0px;
-              top: -55px;
               margin: 0 auto;
               font-size: .82rem;
               width: 150px;
@@ -546,7 +545,7 @@ export default {
 
               & .tooltip-bubble {
                 opacity: 1;
-
+                top: -55px;
               }
             }
           }

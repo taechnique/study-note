@@ -106,3 +106,8 @@ export const calPostDate = (date: string): string => {
 export const spinner = (status: boolean) => {
     spinnerStore.isOn = status
 }
+
+export const setPageTitle = (title: string) => {
+    const blogName = 'taechnique 기술 블로그'
+    document.title = title ? `${title} | ${blogName}` : blogName;
+}

@@ -26,6 +26,13 @@ export const directoryMap = {
                     categories: ['Development', 'Algorithm'],
                     tags: ['Java', 'Algorithm', 'Sort', 'Insertion Sort']
                 },
+                {
+                    file_path: 'algorithm/Heap_Sort',
+                    file_title: '-Algorithm- Heap sort (힙 정렬) feat.java',
+                    create_time: '2022-04-25 23:27:00 +0900',
+                    categories: ['Development', 'Algorithm'],
+                    tags: ['Java', 'Algorithm', 'Sort', 'Heap Sort', 'Heap']
+                },
             ]
         },
         {

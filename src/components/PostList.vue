@@ -20,6 +20,10 @@
             <div class="post-default-image">
               <div class="default-image-wrapper">
                 <img :src="changeDefaultIfNull(post.markdownPost.thumbnail)" />
+                <svg style="position: absolute;" v-if="post.markdownPost.is_hide">
+                  <polygon points="20,0 70,0 0,70 0,20" fill="#00CA4E" />
+                  <text x="20" y="30" transform="rotate(-45 35, 45)" style="font-weight: bold; font-size: 1.1em;">작성중</text>
+                </svg>
               </div>
               <div class="post-title-box">
                   <span class="post-title">{{ post.markdownPost.title }}</span>

@@ -8,7 +8,7 @@ thumbnail: "/assets/blogging/algorithm/insertion_sort_intro.png"
 current_company: Herit Corporation
 current_position: Backend Server Developer
 excerpt_separator: <!--more-->
-hide: true
+hide: false
 ---
 이번 포스팅 순서는, 
 기본 정렬 알고리즘중 하나인 삽입 정렬(Insertion Sort)입니다.
@@ -31,6 +31,7 @@ hide: true
 
 ---
 
+### 설명
 
 순회 인덱스 i: 3 (0, 1, 2는 요소가 1, 4, 7이므로 정렬이되어 있으므로, 넘어갑니다.)
 
@@ -200,3 +201,28 @@ hide: true
 
 > 모든 정렬을 수행했으므로 정렬이 완료되었습니다.
 
+
+### 예제코드
+
+* 예제코드는 생각 보다 단순합니다. 아래와 같이 배열을 순회하는 i가 있고, `array[1..i]`에서 정렬을 하는 방식입니다.
+
+
+```java
+public class InsertionSort {
+    
+    public static void sort(int [] array) {
+
+        for (int i = 1; i < array.length; i++) {
+            int current = array[i];
+            int j = i - 1;
+
+            while(array[j + 1] < array[j]) {
+                array[j + 1] = array[j];
+                array[j--] = current;
+            }
+        }
+    }
+}
+```
+
+> 잘못된 설명이 있거나, 조언은 아래 댓글로 부탁드립니다. 😄

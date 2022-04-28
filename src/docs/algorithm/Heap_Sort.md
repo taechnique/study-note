@@ -41,7 +41,7 @@ hide: true
 * 같은 계층의 노드들과는 정렬하지 않습니다.
 * 루트(뿌리)노드로 부터 내려오는 위치의 노드들 오름차순(**또는 내림차순**)입니다
 
-![잘못된 트리 A](/src/assets/blogging/algorithm/tree_images.png)
+![잘못된 트리 A](${require('@/assets/blogging/algorithm/tree_images.png')})
 
 트리 A: 잎을 제외한 노드는 모두 정렬되었지만, 왼쪽부터 채워지지않아 Heap이 아닙니다.
 트리 B: 왼쪽부터 채워졌지만, 2번노드의 값은 그 자식에값보다 작습니다. 따라서 Heap이 아닙니다.

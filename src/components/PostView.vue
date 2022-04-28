@@ -21,6 +21,11 @@
         <div class="hide-box" v-if="post_content.markdownPost.is_hide">
           <img style="position: relative; width: 100%; top: 100px;" :src="require('@/assets/blogging/hide_post.png')" />
         </div>
+        <div class="zoom-in-image-wrapper" v-if="zoom_in.isActive">
+          <div class="image-resizer">
+            <img :src="this.zoom_in.imageLink">
+          </div>
+        </div>
         <vue-utterances repo="taechnique/study-note" crossorigin="anonymous" theme="github-light" issue-term="pathname" async/>
       </div>
     </div>
@@ -94,6 +99,7 @@ export default {
 
               setPageTitle(this.post_content.markdownPost.title)
 
+
               hljs.highlightAll()
               spinner(false)
 
@@ -111,6 +117,9 @@ export default {
         this.post_content = null
       }
     },5000)
+
+
+
     return {
       settingPost,
       parseBody,
@@ -122,7 +131,11 @@ export default {
       page: {
 
       },
-      post_body: ''
+      post_body: '',
+      zoom_in: {
+        isActive: false,
+        imageLink: ''
+      }
     }
   },
   mounted() {
@@ -211,6 +224,7 @@ export default {
         & p {
           margin: 7px 0px;
           line-height: 30px;
+          width: 100%;
         }
 
         & ul,ol {
@@ -231,9 +245,6 @@ export default {
 
         h4 {
           font-size: 1em;
-        }
-        & img {
-          width: 100%;
         }
         & pre {
           overflow: auto;
@@ -326,6 +337,13 @@ export default {
             }
           }
         }
+        img {
+          max-width: 100%;
+          display: block;
+          margin: 0 auto;
+          cursor: zoom-in;
+        }
+
         blockquote {
           padding: 0px 10px;
           margin: 20px 0px 50px;
@@ -368,6 +386,29 @@ export default {
         box-sizing: content-box;
         position: relative;
         top: -300px;
+      }
+
+      .zoom-in-image-wrapper{
+        top: 0;
+        left: 0;
+        position: fixed;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        background: rgb(0 0 0 / 80%);
+        cursor: zoom-out;
+        justify-content: center;
+        align-items: center;
+
+        .image-resizer {
+          height: 80%;
+          width: 100%;
+          background-color: black;
+
+          img {
+            height: 100%;
+          }
+        }
       }
 
       .post-tag {
@@ -428,6 +469,10 @@ export default {
       .post-content-wrapper {
         .post-content {
 
+          img {
+            max-width: 70%;
+          }
+
         }
       }
     }
@@ -470,6 +515,10 @@ export default {
             code {
               font-size: 0.5rem;
             }
+          }
+
+          img {
+            max-width: 100%;
           }
         }
       }

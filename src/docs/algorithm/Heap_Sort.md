@@ -51,7 +51,7 @@ hide: true
 * 같은 계층의 노드들과는 정렬하지 않습니다.
 * 루트(뿌리)노드로 부터 내려오는 위치의 노드들 오름차순(**또는 내림차순**)입니다
 
-![어떤것이 힙일까요?](https://raw.githubusercontent.com/taechnique/study-note/2a24cb178849bcfbfde99975910dbb72ce48f6bd/src/assets/blogging/algorithm/tree_images.svg)
+![어떤것이 힙일까요?](https://raw.githubusercontent.com/taechnique/study-note/main/src/assets/blogging/algorithm/tree_images.svg)
 
 트리 A: 잎을 제외한 노드는 모두 정렬되었지만, 왼쪽부터 채워지지않아 Heap이 아닙니다.
 트리 B: 왼쪽부터 채워졌지만, 2번노드의 값은 그 자식에값보다 작습니다. 따라서 Heap이 아닙니다.
@@ -83,7 +83,7 @@ hide: true
 위 의 내용을 정리하면 아래와 같습니다.
 
 
-![힙 만들기 1단계](https://raw.githubusercontent.com/taechnique/study-note/2a24cb178849bcfbfde99975910dbb72ce48f6bd/src/assets/blogging/algorithm/first_iteration.svg)
+![힙 만들기 1단계](https://raw.githubusercontent.com/taechnique/study-note/main/src/assets/blogging/algorithm/first_iteration.svg)
 
 > 위의 트리는 *완전 이진트리* 입니다. 힙은 완전이진트리에서 만들수 있으므로, 일반 이진트리는 Compact하게 완전이진트리로 바꿔야
 > 힙을 만들수 있습니다.
@@ -92,7 +92,7 @@ hide: true
 > 순회는 내부 노드의 마지막 힙의 위치에서 부터 1까지 이어집니다. 따라서 다음 인덱스인 3번 노드(9)로 넘어갑니다.
 > 3번노드는 자신의 자식들 중 6번째, 7번째 (7, 12)와 비교하여 더 큰값을 가지는 12와 바꿉니다.
 
-![힙 만들기 중간 단계](https://raw.githubusercontent.com/taechnique/study-note/2a24cb178849bcfbfde99975910dbb72ce48f6bd/src/assets/blogging/algorithm/other_iteration.svg)
+![힙 만들기 중간 단계](https://raw.githubusercontent.com/taechnique/study-note/main/src/assets/blogging/algorithm/other_iteration.svg)
 
 > 이후 과정은 위와 같이 반복됩니다. 내부노드를 순회하며 자신의 자식노드가 있는지 확인하고 있다면, 자신과 비교하여 더큰 값으로
 > 바꿉니다. 이는 바꾼이후에도 `3.`이 반복되게 됩니다.
@@ -101,10 +101,10 @@ hide: true
 > 마지막까지 바꾼 최종트리는 아래와 같습니다. 
 
 
-![힙 만들기 마지막 단계](https://raw.githubusercontent.com/taechnique/study-note/2a24cb178849bcfbfde99975910dbb72ce48f6bd/src/assets/blogging/algorithm/last_iteration.svg)
+![힙 만들기 마지막 단계](https://raw.githubusercontent.com/taechnique/study-note/main/src/assets/blogging/algorithm/last_iteration.svg)
 
-* 최상위 노드(루트)가 가장 큰값이 되며위는 최대힙을 만드는 단계였습니다.
-* 부모노드와 자식노드끼리는 순서의 값을 가지며, 항상 최대의 값을 가집니다.
+* 최상위 노드(루트)가 가장 큰값이 되며, 위는 최대힙을 만드는 단계였습니다.
+* 부모노드와 자식노드끼리는 순서의 값을 가지며, 항상 최대의 값을 가집니다.  
 
 ### Heap이 우선 값을 유지하는 방법
 

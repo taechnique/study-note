@@ -4,7 +4,7 @@ title: -Algorithm- Heap sort (힙 정렬) feat.java
 categories: [Development, Algorithm]
 tags: [Java, Algorithm, Sort, Heap Sort, Heap]
 date: 2022-04-28 22:27:00 +0900
-thumbnail: "/assets/blogging/algorithm/heap_sort_intro.png"
+thumbnail: "/assets/blogging/algorithm/heap/heap_sort_intro.png"
 current_company: Herit Corporation
 current_position: Backend Server Developer
 excerpt_separator: <!--more-->

@@ -146,3 +146,10 @@ hide: true
 위의 순서를 반복하며, 만든 힙 정렬은 아래와 같습니다.
 
 ![힙 정렬 1](https://raw.githubusercontent.com/taechnique/study-note/main/src/assets/blogging/algorithm/heap/heap_sort_1_1.svg)
+![힙 정렬 2](https://raw.githubusercontent.com/taechnique/study-note/main/src/assets/blogging/algorithm/heap/heap_sort_1_2.svg)
+![힙 정렬 3](https://raw.githubusercontent.com/taechnique/study-note/main/src/assets/blogging/algorithm/heap/heap_sort_1_3.svg)
+![힙 정렬 4](https://raw.githubusercontent.com/taechnique/study-note/main/src/assets/blogging/algorithm/heap/heap_sort_1_4.svg)
+![힙 정렬 5](https://raw.githubusercontent.com/taechnique/study-note/main/src/assets/blogging/algorithm/heap/heap_sort_1_5.svg)
+![힙 정렬 6](https://raw.githubusercontent.com/taechnique/study-note/main/src/assets/blogging/algorithm/heap/heap_sort_1_6.svg)
+![힙 정렬 7](https://raw.githubusercontent.com/taechnique/study-note/main/src/assets/blogging/algorithm/heap/heap_sort_1_7.svg)
+![힙 정렬 8](https://raw.githubusercontent.com/taechnique/study-note/main/src/assets/blogging/algorithm/heap/heap_sort_1_8.svg)

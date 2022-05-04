@@ -279,7 +279,7 @@ export default {
           & .default-image-wrapper {
             display: flex;
             width: 100%;
-            min-height: 200px;
+            min-height: 60px;
 
             img {
               width: 100%;
@@ -578,6 +578,10 @@ export default {
         width: 100%;
         min-height: 400px;
         border-radius: 0px;
+
+        .post-preview-header {
+          padding: 5px 15px;
+        }
 
         & .post-preview-body {
 

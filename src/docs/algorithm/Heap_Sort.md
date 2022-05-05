@@ -153,3 +153,66 @@ hide: true
 ![힙 정렬 6](https://raw.githubusercontent.com/taechnique/study-note/main/src/assets/blogging/algorithm/heap/heap_sort_1_6.svg)
 ![힙 정렬 7](https://raw.githubusercontent.com/taechnique/study-note/main/src/assets/blogging/algorithm/heap/heap_sort_1_7.svg)
 ![힙 정렬 8](https://raw.githubusercontent.com/taechnique/study-note/main/src/assets/blogging/algorithm/heap/heap_sort_1_8.svg)
+
+## 구현 코드 (Java)
+
+### 힙(Heap) 을 만드는 메소드
+
+```java
+public static void makeHeap(int arr []) {
+    // last heap
+    int lh = (arr.length / 2) - 1;
+    int eh = lh;
+    while(lh-- > 0) {
+        pushDown(arr, lh, eh);
+    }
+}
+```
+
+> 간단하게 보면 트리에서 마지막 힙의 위치를 구하고 루트 노드까지 역순으로 힙을 만들어갑니다. 
+
+### 값을 아래로 내리는 메소드
+
+* 최대 힙(또는 최소 힙)의 조건에 따라 더큰(또는 더 작은)값을 기준으로 해당 노드를 위로올리고 변경된 대상은 아래로 내려가며 계속 바꿉니다.
+
+```java
+public static void pushDown(int arr [], int node, int eh) {
+    do {
+        int temp = arr[node];
+        int large = findLargest(arr, node);
+
+        if(large == node)
+            break;
+
+        arr[node] = arr[large];
+        arr[large] = temp;
+
+        node = large;
+        System.out.println(drawBinaryTree(arr));
+    } while(node <= eh);
+}
+```
+
+
+### 노드와 그 자식중에서 더큰(또는 작은) 위치를 찾는 메소드
+
+```java
+public static int findLargest(int arr [],int node){
+        // first child
+        int fc=(2 * (node + 1)) - 1;
+        int n = arr.length-1;
+
+        if(fc + 1<=n){
+            if(arr[fc] <= arr[fc + 1]){
+                return arr[fc + 1] <= arr[node] ? node : fc + 1;
+            }else{
+                return arr[fc] <= arr[node] ? node : fc;
+            }
+        }
+        if(arr[node] < arr[fc]){
+            return fc;
+        }else{
+            return node;
+        }
+}
+```

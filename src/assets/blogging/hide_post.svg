@@ -1,0 +1,4 @@
+<svg>
+    <polygon points="20,0 70,0 0,70 0,20" fill="#00CA4E"/>
+    <text x="20" y="30" transform="rotate(-45 35, 45)" style="font-weight: bold; font-size: 1.1em;">작성중</text>
+</svg>
